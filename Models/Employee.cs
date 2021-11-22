@@ -10,13 +10,44 @@ namespace EmployeeManagement.Models
     public class Employee 
     {
         [Key]
-        public int Id { get; set; }
-        public string FullName { get; set; }
+        public int Employee_Id { get; set; }
+        public string FirstName { get; set; }
+        public string MiddleName { get; set; }
+        public string LastName { get; set; }
+        public string UserName { get; set; }
         public string Address { get; set; }
-        public char Gender { get; set; }
-        [DataType(DataType.Date)]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
+      
+          [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/ dd/yyyy}")]
         public DateTime Dob { get; set; }
+        public double Phone{ get; set; }
+        
+        public double Salary { get; set; }
+
+        public int? Gender_Id { get; set; }
+
+        [ForeignKey(nameof(Gender_Id))]
+        public virtual Gender gender { get; set; }
+      //  public char GenderName { get; set; }
+     
+
+        public int? Attendence_Id { get; set; }
+
+        [ForeignKey(nameof(Attendence_Id))]
+        public DateTime Time_In { get; set; }
+        public DateTime Time_out { get; set; }
+        public DateTime Date { get; set; }
+        public virtual Attendence attendence { get; set; }
+        public int? Designation_Id { get; set; }
+
+        [ForeignKey(nameof(Designation_Id))]
+        public virtual Designation designation { get; set; }
+        public string DesignationName { get; set; }
+
+        [Required]
+        [Display(Name = "Email Address")]
+        [DataType(DataType.EmailAddress)]
+        public string Email{ get; set; }
 
 
     }

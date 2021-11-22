@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EmployeeManagement.Areas.Identity.Data;
 using EmployeeManagement.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -26,7 +27,11 @@ namespace EmployeeManagement.Data
             // Add your customizations after calling base.OnModelCreating(builder);
         }
         public DbSet<Employee> Employees { get; set; }
-       
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+       public DbSet<Gender> Genders { get; set; }
+        public DbSet<Designation> Designations { get; set; }
+        public DbSet<Attendence>Attendences { get; set; }
+
 
 
 

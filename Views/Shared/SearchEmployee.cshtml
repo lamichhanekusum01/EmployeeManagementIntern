@@ -1,0 +1,29 @@
+﻿@model EmployeeManagement.Models.EmployeeViewModel;
+@{
+    Layout = null;
+}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Full Name</th>
+            <th scope="col">Address</th>
+            <th scope="col">Gender</th>
+            <th scope="col">Dob</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.EmployeeList)
+        {
+        <tr>
+            <td>@item.Employee_Id</td>
+            <td>@item.FirstName</td>
+            <td>@item.MiddleName</td>
+            <td>@item.LastName</td>
+            <td>@item.Address</td>
+           
+            <td>@item.Dob</td>
+        </tr>
+        }
+    </tbody>
+</table>

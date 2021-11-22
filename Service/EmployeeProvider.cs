@@ -12,10 +12,10 @@ namespace EmployeeManagement.Service
     public interface IEmployeeProvider
     {
         int SaveEmployee(EmployeeViewModel model);
-        void DeleteEmployee(int id);
-        EmployeeViewModel EditEmployee(EmployeeViewModel model);
+        void DeleteEmployee(int Employee_Id);
+       // EmployeeViewModel EditEmployee(EmployeeViewModel model);
         EmployeeViewModel GetList();
-        EmployeeViewModel GetById(int id);
+        EmployeeViewModel GetById(int Employee_Id);
     }
     public class EmployeeProvider : IEmployeeProvider
     {
@@ -36,7 +36,7 @@ namespace EmployeeManagement.Service
             //employee.Address = model.Address;
             //employee.Gender = model.Gender;
             //employee.Dob = model.Dob;
-            if (employee.Id > 0)
+            if (employee.Employee_Id > 0)
             {
                 //employee.UpdatedBy = 1;
                 //  employee.UpdatedDate = DateTime.UtcNow;
@@ -51,27 +51,27 @@ namespace EmployeeManagement.Service
                 return 200;
             }
         }
-        public void DeleteEmployee(int id)
+        public void DeleteEmployee(int Employee_Id)
         {
-            var item = _iEmployeeRepository.GetSingle(x => x.Id == id);
+            var item = _iEmployeeRepository.GetSingle(x => x.Employee_Id == Employee_Id);
             _iEmployeeRepository.Delete(item);
         }
-        public EmployeeViewModel EditEmployee(EmployeeViewModel model)
-        {
-            Employee data = new Employee();
-            _mapper.Map<EmployeeViewModel>(data);
+        //public EmployeeViewModel EditEmployee(EmployeeViewModel model)
+        //{
+        //    Employee data = new Employee();
+        //    _mapper.Map<EmployeeViewModel>(data);
 
-            //data.Id = model.Id;
-            //data.FullName = model.FullName;
-            //data.Address = model.Address;
-            //data.Gender = model.Gender;
-            //data.Dob = model.Dob;
-            _iEmployeeRepository.Update(data);
-            return model;
-        }
-        public EmployeeViewModel GetById(int id)
+        //    //data.Id = model.Id;
+        //    //data.FullName = model.FullName;
+        //    //data.Address = model.Address;
+        //    //data.Gender = model.Gender;
+        //    //data.Dob = model.Dob;
+        //    _iEmployeeRepository.Update(data);
+        //    return model;
+        //}
+        public EmployeeViewModel GetById(int Employee_Id)
         {
-            var item = _iEmployeeRepository.GetSingle(x => x.Id == id);
+            var item = _iEmployeeRepository.GetSingle(x => x.Employee_Id == Employee_Id);
             EmployeeViewModel data = _mapper.Map<EmployeeViewModel>(item);
             return data;
         }

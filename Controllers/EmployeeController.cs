@@ -86,70 +86,185 @@ namespace EmployeeManagemnt.Controllers
 
         }
         */
-            private readonly IEmployeeProvider _iEmployeeProvider;
+        private readonly IEmployeeProvider _iEmployeeProvider;
+        private EmployeeManagementDbContext _context;
 
-            public EmployeeController(IEmployeeProvider iEmployeeProvider)
-            {
-                _iEmployeeProvider = iEmployeeProvider;
 
-            }
+        public EmployeeController(IEmployeeProvider iEmployeeProvider, EmployeeManagementDbContext Context)
+        {
+            _iEmployeeProvider = iEmployeeProvider;
+            _context = Context;
+        }
         [Authorize]
-            public IActionResult Index()
-            {
-                var data = _iEmployeeProvider.GetList();
-                return View(data);
+        public IActionResult Index()
+        {
 
-            }
-            public IActionResult Create()
-            {
-                List<SelectListItem> gender = new List<SelectListItem>
-                {
-                    new SelectListItem {Value="M", Text="Male"},
-                    new SelectListItem {Value="F", Text="Female"},
-                    new SelectListItem {Value="O", Text="Others"},
-                };
-                ViewBag.Gender = gender;
-            
-                return View();
-            }
-            [HttpPost]
-            public IActionResult Create(EmployeeViewModel model)
-            {
-                try
-                {
-                     _iEmployeeProvider.SaveEmployee(model);
-                    return RedirectToAction("Index");
-                }
-                catch
-                {
-                    return View();
-                }
-            }
-            [HttpGet]
-            public ActionResult Update(int id)
-            {
-                EmployeeViewModel emp= _iEmployeeProvider.GetById(id);
-                List<SelectListItem> gender = new List<SelectListItem>
-                {
-                    new SelectListItem {Value="M", Text="Male"},
-                    new SelectListItem {Value="F", Text="Female"},
-                    new SelectListItem {Value="O", Text="Others"},
-                };
-                ViewBag.Gender = gender;
-            
+            var data = _iEmployeeProvider.GetList();
 
-                 return View(emp);
-            }
-            [HttpPost]
-            public IActionResult Update(EmployeeViewModel model)
+            //var designation = _iEmployeeProvider.GetList();
+            var designation = _context.Designations.ToList(); //yo kina viewbag ma halya ? eta controller ma pani use garnu xa vane viewbag banaune haine ni ta
+            
+            List<SelectListItem> Designation = new List<SelectListItem>();
+            //yo garna khojya chai k ?
+            foreach (var item in designation)
             {
-                    _iEmployeeProvider.SaveEmployee(model);
-                    return RedirectToAction("Index");
+                string position = item.DesignationName; //yo item vaneko list ko euta value, 
+                
+                SelectListItem items = new SelectListItem { Value = Convert.ToString(item.Designation_Id), Text = position };
+
+
+                Designation.Add(items);
+                
             }
-            public IActionResult Delete(int id)
+            ViewBag.designation = Designation;
+
+
+
+            ViewBag.Gender = _context.Genders.ToList();
+            List<SelectListItem> Gender = new List<SelectListItem>();
+
+            foreach (var item in ViewBag.Gender)
+
             {
-                    _iEmployeeProvider.DeleteEmployee(id);
-                    return RedirectToAction("Index");
+
+                string gender;
+
+
+                if (item.GenderName == 'M')
+                {
+                    gender = "Male";
+
+                }
+                else if (item.GenderName == 'F')
+                {
+                    gender = "Female";
+
+                }
+                else
+                {
+                    gender = "others";
+
+
+                }
+
+                SelectListItem items = new SelectListItem { Value = Convert.ToString(item.Gender_Id), Text = gender };
+                Gender.Add(items);
+            }
+            ViewBag.gender = Gender;
+            return View(data);
+        }
+
+        //public IActionResult Create()
+        //{
+
+        //    List<Gender> data = _context.Genders.ToList();
+        //    //foreach (var item in data)
+        //    //{
+        //    //   item.GenderName = Gender
+
+        //    //}
+        //    //if (data != null)
+        //    //{
+        //    //    List<SelectListItem> gender = new List<SelectListItem>
+        //    //    {
+        //    //        new SelectListItem {Value="M", Text="Male"},
+        //    //        new SelectListItem {Value="F", Text="Female"},
+        //    //        new SelectListItem {Value="O", Text="Others"},
+        //    //    };
+        //    ViewBag.Gender = new SelectList(_context.Genders.ToList(), "Gender_Id", "GenderName");
+        //    return PartialView("Create");
+        //}
+
+
+        [HttpPost]
+        public IActionResult Create(EmployeeViewModel model)
+        {
+            try
+            {
+                _iEmployeeProvider.SaveEmployee(model);
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                //saveEmployee vitra jaa ani breakpoint haal ta
+                //mapping ma error airako xa
+                //Console.WriteLine(ex);
+                throw ex;
+                //List<SelectListItem> gender = new List<SelectListItem>
+                //{
+                //    new SelectListItem {Value="M", Text="Male"},
+                //    new SelectListItem {Value="F", Text="Female"},
+                //    new SelectListItem {Value="O", Text="Others"},
+                //};
+                //ViewBag.Gender = gender;
+                //return View();
             }
         }
+        [HttpGet]
+        public ActionResult Update(int id)
+        {
+            EmployeeViewModel emp = _iEmployeeProvider.GetById(id);
+            List<SelectListItem> gender = new List<SelectListItem>
+                {
+                    new SelectListItem {Value="M", Text="Male"},
+                    new SelectListItem {Value="F", Text="Female"},
+                    new SelectListItem {Value="O", Text="Others"},
+                };
+            ViewBag.Gender = gender;
+            return View(emp);
+        }
+        [HttpPost]
+        public IActionResult Update(EmployeeViewModel model)
+        {
+            _iEmployeeProvider.SaveEmployee(model);
+            return RedirectToAction("Index");
+        }
+        public IActionResult Delete(int id)
+        {
+            _iEmployeeProvider.DeleteEmployee(id);
+            return RedirectToAction("Index");
+        }
+        public ActionResult SearchEmployee(string val)
+        {
+            EmployeeViewModel model = new EmployeeViewModel();
+
+            model.EmployeeList = (from s in _context.Employees
+                                  where s.FirstName.Contains(val) || s.LastName.Contains(val) || s.MiddleName.Contains(val) || s.Address.Contains(val) || s.Email.Contains(val)
+                                  select new EmployeeViewModel
+                                  {
+                                      Employee_Id = s.Employee_Id,
+                                      FirstName = s.FirstName,
+                                      MiddleName = s.MiddleName,
+                                      LastName = s.LastName,
+                                      Address = s.Address,
+                                      // Gender = s.Gender_Id,
+                                      Dob = s.Dob,
+                                      Email = s.Email,
+
+                                  }).ToList();
+            return View(model);
+        }
+        public JsonResult BindDataInDropDownList()
+        {
+            var list = new List<EmployeeViewModel>();
+            var data = _context.Employees.ToList();
+            if (data.Count > 0)
+            {
+                foreach (var item in data)
+                {
+                    EmployeeViewModel objModel = new EmployeeViewModel();
+                    objModel.Employee_Id = item.Employee_Id;
+                    objModel.FirstName = item.FirstName;
+                    objModel.MiddleName = item.MiddleName;
+                    objModel.LastName = item.LastName;
+                    objModel.Address = item.Address;
+                    //objModel.Gender = item.Gender;
+                    objModel.Dob = item.Dob;
+                    list.Add(objModel);
+                }
+            }
+            return Json(data);
+        }
     }
+
+}

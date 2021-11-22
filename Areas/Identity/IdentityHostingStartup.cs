@@ -1,4 +1,5 @@
 ﻿using System;
+using EmployeeManagement.Areas.Identity.Data;
 using EmployeeManagement.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -19,8 +20,8 @@ namespace EmployeeManagement.Areas.Identity
                     options.UseSqlServer(
                         context.Configuration.GetConnectionString("EmployeeManagementDbContextConnection")));
 
-                services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedEmail = false)
-                    .AddEntityFrameworkStores<EmployeeManagementDbContext>();
+               services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedEmail = false)
+                   .AddEntityFrameworkStores<EmployeeManagementDbContext>();
             });
         }
     }

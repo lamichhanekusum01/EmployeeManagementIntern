@@ -6,6 +6,7 @@ using EmployeeManagement.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -30,22 +31,27 @@ namespace EmployeeManagement
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            //services.AddIdentity<ApplicationUser, IdentityRole>()
+            //    .AddEntityFrameworkStores<EmployeeManagementDbContext>()
+            //    .AddDefaultTokenProviders();
             services.AddAutoMapper(typeof(MappingProfile));
             services.AddSingleton(_config);
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddDbContext<EmployeeManagementDbContext>();
+           
             //services.AddScoped(typeof(IEmployeeRepository), typeof(EmployeeRepository));
-           // services.AddScoped(typeof(IEmployeeProvider), typeof(EmployeeProvider));
+            // services.AddScoped(typeof(IEmployeeProvider), typeof(EmployeeProvider));
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
-            services.AddScoped<IEmployeeProvider, EmployeeProvider>();
+            services.AddScoped<IEmployeeProvider, EmployeeProvider>();  
             // services.RegisterServiceDependencies();
             {
-   services.AddMvc().AddRazorPagesOptions(options =>
-   {
-       //Registering 'Page','route-name'
-       options.Conventions.AddPageRoute("/Account/Login", "");
-   });
+   //services.AddMvc().AddRazorPagesOptions(options =>
+   //{
+   //    //Registering 'Page','route-name'
+   //    options.Conventions.AddPageRoute("/Account/Login", "");
+   //});
 }
 
         }

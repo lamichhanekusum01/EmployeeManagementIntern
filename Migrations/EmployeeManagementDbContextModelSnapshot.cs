@@ -19,9 +19,52 @@ namespace EmployeeManagement.Migrations
                 .HasAnnotation("ProductVersion", "5.0.11")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("EmployeeManagement.Models.Attendence", b =>
+                {
+                    b.Property<int>("Attendence_Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("Employee_Id")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Time_In")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("Time_out")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Attendence_Id");
+
+                    b.HasIndex("Employee_Id")
+                        .IsUnique()
+                        .HasFilter("[Employee_Id] IS NOT NULL");
+
+                    b.ToTable("Attendences");
+                });
+
+            modelBuilder.Entity("EmployeeManagement.Models.Designation", b =>
+                {
+                    b.Property<int>("Designation_Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("DesignationName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Designation_Id");
+
+                    b.ToTable("Designations");
+                });
+
             modelBuilder.Entity("EmployeeManagement.Models.Employee", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("Employee_Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -29,19 +72,75 @@ namespace EmployeeManagement.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("Attendence_Id")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DesignationName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Designation_Id")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("Dob")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("FullName")
+                    b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Gender")
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Gender_Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MiddleName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Phone")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Salary")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("Time_In")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("Time_out")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Employee_Id");
+
+                    b.HasIndex("Designation_Id");
+
+                    b.HasIndex("Gender_Id");
+
+                    b.ToTable("Employees");
+                });
+
+            modelBuilder.Entity("EmployeeManagement.Models.Gender", b =>
+                {
+                    b.Property<int>("Gender_Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("GenderName")
                         .IsRequired()
                         .HasColumnType("nvarchar(1)");
 
-                    b.HasKey("Id");
+                    b.HasKey("Gender_Id");
 
-                    b.ToTable("Employees");
+                    b.ToTable("Genders");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -107,6 +206,10 @@ namespace EmployeeManagement.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -158,6 +261,8 @@ namespace EmployeeManagement.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -244,6 +349,42 @@ namespace EmployeeManagement.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("EmployeeManagement.Areas.Identity.Data.ApplicationUser", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.Property<int?>("Employee_Id")
+                        .HasColumnType("int");
+
+                    b.HasIndex("Employee_Id");
+
+                    b.HasDiscriminator().HasValue("ApplicationUser");
+                });
+
+            modelBuilder.Entity("EmployeeManagement.Models.Attendence", b =>
+                {
+                    b.HasOne("EmployeeManagement.Models.Employee", "employee")
+                        .WithOne("attendence")
+                        .HasForeignKey("EmployeeManagement.Models.Attendence", "Employee_Id");
+
+                    b.Navigation("employee");
+                });
+
+            modelBuilder.Entity("EmployeeManagement.Models.Employee", b =>
+                {
+                    b.HasOne("EmployeeManagement.Models.Designation", "designation")
+                        .WithMany()
+                        .HasForeignKey("Designation_Id");
+
+                    b.HasOne("EmployeeManagement.Models.Gender", "gender")
+                        .WithMany()
+                        .HasForeignKey("Gender_Id");
+
+                    b.Navigation("designation");
+
+                    b.Navigation("gender");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -293,6 +434,20 @@ namespace EmployeeManagement.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("EmployeeManagement.Areas.Identity.Data.ApplicationUser", b =>
+                {
+                    b.HasOne("EmployeeManagement.Models.Employee", "employee")
+                        .WithMany()
+                        .HasForeignKey("Employee_Id");
+
+                    b.Navigation("employee");
+                });
+
+            modelBuilder.Entity("EmployeeManagement.Models.Employee", b =>
+                {
+                    b.Navigation("attendence");
                 });
 #pragma warning restore 612, 618
         }

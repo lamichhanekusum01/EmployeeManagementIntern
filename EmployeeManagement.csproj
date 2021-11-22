@@ -20,4 +20,8 @@
     <PackageReference Include="NEST" Version="7.15.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\User\" />
+  </ItemGroup>
+
 </Project>
