@@ -1,212 +1,115 @@
-﻿@model EmployeeManagement.Models.EmployeeViewModel
+﻿
+@model EmployeeManagement.Models.EmployeeViewModel
 @{
-    ViewData["Title"] = "Create";
-    Layout = null;
+    ViewData["Title"] = "Index";
+    //Layout = null;
     var data = ViewBag.Gender;
 }
 
-
-
-<form asp-controller="Employee" asp-action="Create" method="post" name="user-form" class="form-content">
-    <div class=" form-name-details">
-        <div class=" name">
-            <label for="fname">First Name</label>
-            <input type="text" asp-for="FirstName" id="fname" name="FirstName" required />
-        </div>
-        <div class=" name">
-            <label for="mname">Middle Name</label>
-            <input type="text"  asp-for="MiddleName" id="mname" name="MiddleName" required />
-        </div>
-        <div class="name">
-            <label for="lname">Last Name</label>
-            <input type="text" asp-for="LastName" id="lname" name="LastName" required />
-        </div>
+<div class="modal-content">
+    <div class="modal-header">
+        <span class="close">&times;</span>
+        <h2>New Employee</h2>
+        <p>Enter Information About Employee</p>
     </div>
-    <div class=" form-salary-designation-details">
-
-        <div class="name">
-            <label for="designation">Designation</label>
-            <select id="designation" name="designation " asp-for="DesignationName" asp-items="ViewBag.Designation">
-               
-
-            </select>
-        </div>
-        <div class="name">
-            <label for="salary">Salary</label>
-            <input type="number" asp-for=" Salary" name="salary" id="salary" >
-        </div>
-    </div>
-
-    <div class=" form-mail-details">
-        <div class="name">
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email"  asp-for="Email" required />
-        </div>
-
-        <div class="name">
-            <label for="username">User Name</label>
-            <input type="text"  name="username" asp-for="UserName" id="username ">
-        </div>
-    </div>
-    <div class="user form-add-phn-details">
-
-        <div class="name">
-            <label for="address">Address:</label>
-            <input type="text" asp-for="Address" id="address" name="address">
-        </div>
-
-        <div class="name">
-            <label for="phone">Phone:</label>
-            <input type="tel" id="phone" asp-for="Phone" name="phone">
-        </div>
-    </div>
-    <div class="user form-dob-gender-details">
-        <div class="name">
-            <label for="dob">Date Of Birth:</label>
-            <input type="date"  asp-for="Dob" id="dob" name="dob">
-        </div>
-
-        <div class="name gender">
-            <span>Gender:</span>
-            <div class="gender-content">
-                <div>
-                @foreach (var item in ViewBag.Gender)
-                {
-
-
-                    <input type="radio" value="@item.Value"  asp-for="Gender_Id" name="GenderName"  >
-                    <label  for="GenderName">@item.Text</label>
-                }
-                </div>
-                @*<div>
-                    <input type="radio" name="male" id="male" >
-                    <label for="male">Female</label>
-                </div>
-                <div>
-                    <input type="radio" name="male" id="male" >
-                    <label for="male">Others</label>
-                </div>*@
-            </div>
-
-
-        </div>
-    </div>
-
-
-    <div class="">
-        <div class="submit-btn modal-footer">
-
-
-
-            <button id="submit" type="submit">Submit</button>
-
-
-        </div>
-    </div>
-
-</form>
-
-<!--
-<html>
-
-    <div id="myModal" class="modal">-->
-<!-- Modal content -->
-<!--<div class="modal-content">
-        <div class="modal-header">
-            <span class="close">&times;</span>
-            <h2>New Users</h2>
-            <p>Enter Information About User</p>
-        </div>
+    <div class="modal-body">
         <form name="user-form" class="form-content" asp-controller="Employee" asp-action="Create" method="post">
-            <div class="modal-body">
-                <div class=" form-name-details">
-                    <div class=" name">
-                        <label for="FirstName">First Name</label>
-                        <input type="text" asp-for="FirstName" id="fname" name="fname" required />
-                    </div>
-                    <div class=" name">
-                        <label for="MiddleName">Middle Name</label>
-                        <input type="text" asp-for="MiddleName" id="mname" name="mname" required />
-                    </div>
-                    <div class="name">
-                        <label for="LastName">Last Name</label>
-                        <input type="text" asp-for="LastName" id="lname" name="lname" required />
-                    </div>
+            <input type="hidden" asp-for="Employee_Id" />
+            <div class=" form-name-details">
+                <div class=" name">
+                    <label for="fname">First Name</label>
+                    <input type="text" asp-for="FirstName" id="fname" name="FirstName" required />
                 </div>
-                <div class=" form-salary-designation-details">
-
-                    <div class="name">
-                        <label for="designation">Designation</label>
-                        <select id="designation" asp-for="DesignationName" name="designation">
-                            <option style="display: none;" value=""></option>
-                            <option value="frontend-developer">Front-end Developer</option>
-                            <option value="backend-developer">Backend-Developer</option>
-                            <option value=".net-developer">.Net Developer</option>
-                            <option value="flutter-developer">Flutter-Developer</option>
-
-                        </select>
-                    </div>
-                    <div class="name">
-                        <label for="salary">Salary</label>
-                        <input type="number" name="salary" id="salary">
-                    </div>
+                <div class=" name">
+                    <label for="mname">Middle Name</label>
+                    <input type="text" asp-for="MiddleName" id="mname" name="MiddleName" required />
                 </div>
-
-                <div class=" form-mail-details">
-                    <div class="name">
-                        <label for="email">Email:</label>
-                        <input type="email" id="email" name="email" required />
-                    </div>
-
-                    <div class="name">
-                        <label for="username">User Name</label>
-                        <input type="text" name="username" id="username">
-                    </div>
-                </div>
-                <div class="user form-add-phn-details">
-
-                    <div class="name">
-                        <label for="address">Address:</label>
-                        <input type="text" id="address" name="address">
-                    </div>
-
-                    <div class="name">
-                        <label for="phone">Phone:</label>
-                        <input type="tel" id="phone" name="phone">
-                    </div>
-                </div>
-                <div class="user form-dob-gender-details">
-                    <div class="name">
-                        <label for="dob">Date Of Birth:</label>
-                        <input type="date" id="dob" name="dob">
-                    </div>
-                    <div class="name gender">
-                        <span>Gender:</span>
-                        <div class="gender-content">
-                            <div>
-                                <input type="radio" name="male" id="male">
-                                <label for="male">Male</label>
-                            </div>
-                            <div>
-                                <input type="radio" name="male" id="male">
-                                <label for="male">Female</label>
-                            </div>
-                            <div>
-                                <input type="radio" name="male" id="male">
-                                <label for="male">Others</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="">
-                    <div class="submit-btn modal-footer">
-                        <button id="submit" type="submit">Submit</button>
-                    </div>
+                <div class="name">
+                    <label for="lname">Last Name</label>
+                    <input type="text" asp-for="LastName" id="lname" name="LastName" required />
                 </div>
             </div>
+            <div class=" form-salary-designation-details">
+
+                <div class="name">
+                    <label for="designation">Designation</label>
+                    <select id="Designation_Id" name="Designation_Id" asp-for="DesignationName" asp-items="ViewBag.designation">
+                    </select>
+                </div>
+                <div class="name">
+                    <label for="salary">Salary</label>
+                    <input type="number" asp-for=" Salary" name="salary" id="salary">
+                </div>
+            </div>
+
+            <div class=" form-mail-details">
+                <div class="name">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" asp-for="Email" required />
+                </div>
+
+                <div class="name">
+                    <label for="username">User Name</label>
+                    <input type="text" name="username" asp-for="UserName" id="username ">
+                </div>
+            </div>
+            <div class="user form-add-phn-details">
+
+                <div class="name">
+                    <label for="address">Address:</label>
+                    <input type="text" asp-for="Address" id="address" name="address">
+                </div>
+
+                <div class="name">
+                    <label for="phone">Phone:</label>
+                    <input type="tel" id="phone" asp-for="Phone" name="phone">
+                </div>
+            </div>
+            <div class="user form-dob-gender-details">
+                <div class="name">
+                    <label for="dob">Date Of Birth:</label>
+                    <input type="date" asp-for="Dob" id="dob" name="dob">
+                </div>
+
+                <div class="name gender">
+                    <span>Gender:</span>
+                    <div class="gender-content">
+                        <div>
+                            @foreach (var item in data)
+                            {
+                                <input type="radio" value="@item.Value" asp-for="Gender_Id" name="Gender_Id">
+                                <label for="GenderName">@item.Text</label>
+                            }
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+
+            <div class="">
+                <div class="submit-btn modal-footer">
+
+
+
+                    <button id="formSubmit" type="submit">Submit</button>
+
+
+                </div>
+            </div>
+
         </form>
     </div>
 </div>
-<script src="~/js/employee.js"></script>-->
-   
+<script src="~/js/employee.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(function(){
+        $(document).ready(function () {
+            $(".close").click(function () {
+                $("#myModal").hide();
+            });
+        });
+    });
+</script>

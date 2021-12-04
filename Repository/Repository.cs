@@ -41,7 +41,7 @@ namespace EmployeeManagement.Repository
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                throw ex;
             }
         }
         public virtual async Task AddAsync(T entity)

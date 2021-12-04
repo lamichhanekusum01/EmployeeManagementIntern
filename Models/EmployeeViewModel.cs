@@ -16,11 +16,13 @@ namespace EmployeeManagement.Models
         public string LastName { get; set; }
         public  string UserName { get; set; }
         public string Address { get; set; }
-       // public char GenderName { get; set; }
+       //public char GenderName { get; set; }
         public int  Gender_Id { get; set; }
+        public char GenderName { get; set; }
         public string Email { get; set; }
         public double Phone { get; set; }
         public double Salary { get; set; }
+        public int Designation_Id { get; set; }
         public string DesignationName { get; set; }
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         [DataType(DataType.Date)]
@@ -30,7 +32,9 @@ namespace EmployeeManagement.Models
         {
             EmployeeList = new List<EmployeeViewModel>();
         }
-
+        
+       
+       
 
     }
 }

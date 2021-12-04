@@ -1,0 +1,73 @@
+﻿@model EmployeeManagement.Models.ApplicationUserViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = null;
+    var data = ViewBag.Gender;
+}
+<link rel="stylesheet" href="~/css/style.css">
+<div class="modal-content">
+    <div class="modal-header">
+        <span class="close">&times;</span>
+        <h2>New User</h2>
+        <p>Enter Information About User</p>
+    </div>
+
+    <div class="user-modal-body">
+        <form name="user-add-form" class="form-content" asp-controller="ApplicationUser" asp-action="Create" method="post" >
+            <input asp-for="Id" hidden />
+            <div class=" userForm-name-details">
+                <div class="add-name">
+                    <label for="employeelist">EmployeeList</label>
+                    <select asp-items="ViewBag.Emp" name="Employee_Id" asp-for="Employee_Id" id="lang" class="userlist-text-from"></select>
+
+                </div>
+                <div class="add-name">
+                    <label for="username">UserName</label>
+                    <input type="text" name="username" asp-for="UserName" id="username ">
+                </div>
+                <div class="add-name">
+                    <label for="password">Password</label>
+                    <input type="Password" id="myInput" name="PasswordHash" asp-for="PasswordHash" required />
+                    <input type="checkbox" onclick="myPass()" /><span>Show Password</span>
+                </div>
+                @*<div class="add-name">
+                    <label for="password"> Confirm Password</label>
+                    <input type="password" asp-for="ConfirmPassword" />
+                    <input type="checkbox" id="myInputs" onclick="myWord()"><span>Show Password</span>
+                </div>*@
+
+
+            </div>
+
+
+
+
+            <div>
+                <div class="submit-btn modal-footer">
+
+
+
+                    <button id="formSubmit" type="submit">Submit</button>
+
+
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+
+
+</div>
+<script src="~/js/employee.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(function () {
+        $(document).ready(function () {
+            $(".close").click(function () {
+                $("#myModal").hide();
+            });
+        });
+    });
+</script>

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EmployeeManagement.Migrations
 {
     [DbContext(typeof(EmployeeManagementDbContext))]
-    [Migration("20211119055055_ModelChanges")]
-    partial class ModelChanges
+    [Migration("20211202110810_AddedEmp")]
+    partial class AddedEmp
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -56,8 +56,8 @@ namespace EmployeeManagement.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("DesignationName")
-                        .HasColumnType("int");
+                    b.Property<string>("DesignationName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Designation_Id");
 
@@ -96,12 +96,15 @@ namespace EmployeeManagement.Migrations
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Gender")
+                    b.Property<string>("GenderName")
                         .IsRequired()
                         .HasColumnType("nvarchar(1)");
 
                     b.Property<int?>("Gender_Id")
                         .HasColumnType("int");
+
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
@@ -121,6 +124,9 @@ namespace EmployeeManagement.Migrations
                     b.Property<DateTime>("Time_out")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Employee_Id");
 
                     b.HasIndex("Designation_Id");
@@ -137,8 +143,9 @@ namespace EmployeeManagement.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("GenderName")
-                        .HasColumnType("int");
+                    b.Property<string>("GenderName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(1)");
 
                     b.HasKey("Gender_Id");
 
@@ -355,8 +362,29 @@ namespace EmployeeManagement.Migrations
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Dob")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("EId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("Employee_Id")
                         .HasColumnType("int");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MiddleName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Phone")
+                        .HasColumnType("float");
 
                     b.HasIndex("Employee_Id");
 
@@ -366,7 +394,7 @@ namespace EmployeeManagement.Migrations
             modelBuilder.Entity("EmployeeManagement.Models.Attendence", b =>
                 {
                     b.HasOne("EmployeeManagement.Models.Employee", "employee")
-                        .WithOne("attendence")
+                        .WithOne("Attendence")
                         .HasForeignKey("EmployeeManagement.Models.Attendence", "Employee_Id");
 
                     b.Navigation("employee");
@@ -374,17 +402,17 @@ namespace EmployeeManagement.Migrations
 
             modelBuilder.Entity("EmployeeManagement.Models.Employee", b =>
                 {
-                    b.HasOne("EmployeeManagement.Models.Designation", "designation")
+                    b.HasOne("EmployeeManagement.Models.Designation", "Designation")
                         .WithMany()
                         .HasForeignKey("Designation_Id");
 
-                    b.HasOne("EmployeeManagement.Models.Gender", "gender")
+                    b.HasOne("EmployeeManagement.Models.Gender", "Gender")
                         .WithMany()
                         .HasForeignKey("Gender_Id");
 
-                    b.Navigation("designation");
+                    b.Navigation("Designation");
 
-                    b.Navigation("gender");
+                    b.Navigation("Gender");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -440,16 +468,18 @@ namespace EmployeeManagement.Migrations
 
             modelBuilder.Entity("EmployeeManagement.Areas.Identity.Data.ApplicationUser", b =>
                 {
-                    b.HasOne("EmployeeManagement.Models.Employee", "employee")
-                        .WithMany()
+                    b.HasOne("EmployeeManagement.Models.Employee", "Employee")
+                        .WithMany("ApplicationUser")
                         .HasForeignKey("Employee_Id");
 
-                    b.Navigation("employee");
+                    b.Navigation("Employee");
                 });
 
             modelBuilder.Entity("EmployeeManagement.Models.Employee", b =>
                 {
-                    b.Navigation("attendence");
+                    b.Navigation("ApplicationUser");
+
+                    b.Navigation("Attendence");
                 });
 #pragma warning restore 612, 618
         }

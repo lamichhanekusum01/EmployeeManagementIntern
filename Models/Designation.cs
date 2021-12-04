@@ -10,6 +10,6 @@ namespace EmployeeManagement.Models
     {
         [Key]
         public int Designation_Id { get; set; }
-        public String DesignationName { get; set; }
+        public string DesignationName { get; set; }
     }
 }

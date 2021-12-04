@@ -14,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static EmployeeManagement.Repository.ApplicationUserRepository;
 
 namespace EmployeeManagement
 {
@@ -28,31 +29,21 @@ namespace EmployeeManagement
         }
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+      
         public void ConfigureServices(IServiceCollection services)
         {
-
-            //services.AddIdentity<ApplicationUser, IdentityRole>()
-            //    .AddEntityFrameworkStores<EmployeeManagementDbContext>()
-            //    .AddDefaultTokenProviders();
+            
             services.AddAutoMapper(typeof(MappingProfile));
             services.AddSingleton(_config);
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddDbContext<EmployeeManagementDbContext>();
-           
-            //services.AddScoped(typeof(IEmployeeRepository), typeof(EmployeeRepository));
-            // services.AddScoped(typeof(IEmployeeProvider), typeof(EmployeeProvider));
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
-            services.AddScoped<IEmployeeProvider, EmployeeProvider>();  
-            // services.RegisterServiceDependencies();
-            {
-   //services.AddMvc().AddRazorPagesOptions(options =>
-   //{
-   //    //Registering 'Page','route-name'
-   //    options.Conventions.AddPageRoute("/Account/Login", "");
-   //});
-}
+            services.AddScoped<IEmployeeProvider, EmployeeProvider>();
+            services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>();
+            services.AddScoped<IApplicationUserProvider,ApplicationUserProvider>();
+     
+  
 
         }
 

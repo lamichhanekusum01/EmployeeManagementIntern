@@ -14,7 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace EmployeeManagemnt.Controllers
+namespace EmployeeManagement.Controllers
 {
     public class EmployeeController : Controller
     {
@@ -102,19 +102,19 @@ namespace EmployeeManagemnt.Controllers
             var data = _iEmployeeProvider.GetList();
 
             //var designation = _iEmployeeProvider.GetList();
-            var designation = _context.Designations.ToList(); //yo kina viewbag ma halya ? eta controller ma pani use garnu xa vane viewbag banaune haine ni ta
-            
+            var designation = _context.Designations.ToList();
+
             List<SelectListItem> Designation = new List<SelectListItem>();
-            //yo garna khojya chai k ?
+
             foreach (var item in designation)
             {
-                string position = item.DesignationName; //yo item vaneko list ko euta value, 
-                
-                SelectListItem items = new SelectListItem { Value = Convert.ToString(item.Designation_Id), Text = position };
+                string position = item.DesignationName;
+
+                SelectListItem items = new SelectListItem { Value = position /*Convert.ToString(item.Designation_Id)*/, Text = position };
 
 
                 Designation.Add(items);
-                
+
             }
             ViewBag.designation = Designation;
 
@@ -153,27 +153,67 @@ namespace EmployeeManagemnt.Controllers
             ViewBag.gender = Gender;
             return View(data);
         }
+        [HttpGet]
+        public IActionResult Create(int? id)
+        {
+          
+            var designation = _context.Designations.ToList();
 
-        //public IActionResult Create()
-        //{
+            List<SelectListItem> Designation = new List<SelectListItem>();
 
-        //    List<Gender> data = _context.Genders.ToList();
-        //    //foreach (var item in data)
-        //    //{
-        //    //   item.GenderName = Gender
+            foreach (var item in designation)
+            {
+                string position = item.DesignationName;
 
-        //    //}
-        //    //if (data != null)
-        //    //{
-        //    //    List<SelectListItem> gender = new List<SelectListItem>
-        //    //    {
-        //    //        new SelectListItem {Value="M", Text="Male"},
-        //    //        new SelectListItem {Value="F", Text="Female"},
-        //    //        new SelectListItem {Value="O", Text="Others"},
-        //    //    };
-        //    ViewBag.Gender = new SelectList(_context.Genders.ToList(), "Gender_Id", "GenderName");
-        //    return PartialView("Create");
-        //}
+                SelectListItem items = new SelectListItem { Value = Convert.ToString(item.Designation_Id), Text = position };
+
+
+                Designation.Add(items);
+
+            }
+            ViewBag.designation = Designation;
+
+
+            ViewBag.Gender = _context.Genders.ToList();
+            List<SelectListItem> Gender = new List<SelectListItem>();
+
+            foreach (var item in ViewBag.Gender)
+
+            {
+
+                string gender;
+
+
+                if (item.GenderName == 'M')
+                {
+                    gender = "Male";
+
+                }
+                else if (item.GenderName == 'F')
+                {
+                    gender = "Female";
+
+                }
+                else
+                {
+                    gender = "others";
+
+
+                }
+
+                SelectListItem items = new SelectListItem { Value = Convert.ToString(item.Gender_Id), Text = gender };
+                Gender.Add(items);
+            }
+            ViewBag.gender = Gender;
+            EmployeeViewModel emp = new EmployeeViewModel();
+            if (id.HasValue)
+            {
+                emp = _iEmployeeProvider.GetById(id.Value);
+
+            }
+
+            return PartialView(emp);
+        }
 
 
         [HttpPost]
@@ -181,13 +221,13 @@ namespace EmployeeManagemnt.Controllers
         {
             try
             {
+           
                 _iEmployeeProvider.SaveEmployee(model);
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
-                //saveEmployee vitra jaa ani breakpoint haal ta
-                //mapping ma error airako xa
+                // huh ??
                 //Console.WriteLine(ex);
                 throw ex;
                 //List<SelectListItem> gender = new List<SelectListItem>
@@ -204,22 +244,18 @@ namespace EmployeeManagemnt.Controllers
         public ActionResult Update(int id)
         {
             EmployeeViewModel emp = _iEmployeeProvider.GetById(id);
-            List<SelectListItem> gender = new List<SelectListItem>
-                {
-                    new SelectListItem {Value="M", Text="Male"},
-                    new SelectListItem {Value="F", Text="Female"},
-                    new SelectListItem {Value="O", Text="Others"},
-                };
-            ViewBag.Gender = gender;
-            return View(emp);
-        }
-        [HttpPost]
-        public IActionResult Update(EmployeeViewModel model)
-        {
-            _iEmployeeProvider.SaveEmployee(model);
-            return RedirectToAction("Index");
-        }
-        public IActionResult Delete(int id)
+             return View(emp);
+           }
+         
+           //public JsonResult Update(int id)
+           //{
+           // EmployeeViewModel emp = _iEmployeeProvider.GetById(id);
+           // return Json(emp);
+           // _iEmployeeProvider.SaveEmployee(model);
+           //  // return RedirectToAction("Create");
+           // }
+        
+           public IActionResult Delete(int id)
         {
             _iEmployeeProvider.DeleteEmployee(id);
             return RedirectToAction("Index");

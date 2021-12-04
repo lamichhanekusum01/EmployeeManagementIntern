@@ -1,0 +1,187 @@
+﻿
+@model EmployeeManagement.Models.ApplicationUserViewModel
+@{
+    ViewData["Title"] = "Index";
+    var data = ViewBag.Gender;
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Podkova&family=Roboto:wght@400;700&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="~/fontawesome-free-5.15.4-web/css/all.css">
+    <link rel="icon" type="image/x-icon" href="~/image/c2.jpg">
+    <link rel="stylesheet" href="/css/style.css">
+
+    <title>User-List</title>
+
+
+</head>
+
+<body>
+    <main class="main-container" id="mySidenav">
+        <article>
+
+
+            <div class="side-body">
+
+
+
+
+
+                
+
+
+                <article>
+                    <div class="user-employee-header">
+                        <h2>
+                            User-List
+                        </h2>
+                    </div>
+                    <div class="text-icon">
+                        <div class="text">
+                            <button id="myBtn">Add User <i class="fas fa-user-plus"></i></button>
+
+                        </div>
+                        <div id="myModal" class="modal">
+
+
+                        </div>
+                        <div id="snackbar"><i class="far fa-check-circle"></i> Submitted Sucessfully </div>
+                        <div class="search-container">
+                            <input class="search" type="Search" placeholder="Search User">
+                            <div class="iconSearch">
+                                <button type="submit"><i class="fas fa-search"></i></button>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </article>
+                <article>
+                    <table id="customers">
+                        <tr>
+                            <th style="border-bottom: 2px solid black;" width: 10%;">S no.</th>
+                            <th style="border-bottom: 2px solid black;">Name</th>
+                            <th style="border-bottom: 2px solid black;" class="mail">Email</th>
+                            <th style="border-bottom: 2px solid black;" class="address">
+                                Address
+                            </th>
+                            <th style="border-bottom: 2px solid black;" class="phone">Phone</th>
+                            <th style="border-bottom: 2px solid black;">Action</th>
+                        </tr>
+                        @{int i = 1;}
+                        @foreach (var applicationUser in Model.UserList)
+                        {
+                            if (applicationUser.UserName!= "Admin" )
+                            {
+                            <tr>
+
+                                <td>@(i++)</td>
+                                <td>@applicationUser.UserName </td>
+                                <td>@applicationUser.Email</td>
+                                <td> @applicationUser.Address</td>
+                                <td class="phone">@applicationUser.Phone</td>
+                                <td>
+                                    @*<i class="fas fa-user-edit btnUpdate " id=@applicationUser.Id></i>*@
+                                    <i class="fas fa-trash-alt btnDelete " id=@applicationUser.Id></i>
+                                    @*<button class="btn btn-primary btnDelete" id=@employee.Employee_Id>Delete </button>*@
+                                </td>
+
+                            </tr>
+                            }
+                        }
+
+                    </table>
+
+
+                    <div class=" nextPage ">
+                        <a asp-controller="ApplicationUser" asp-action="Index">1</a>
+                        <a asp-controller="ApplicationUser" asp-action="Index">2</a>
+                        <a asp-controller="ApplicationUser" asp-action="Index">3</a>
+
+                    </div>
+                </article>
+
+
+
+
+
+            </div>
+
+
+        </article>
+
+
+    </main>
+
+
+</body>
+<script src="~/js/employee.js"></script>
+</html>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+
+<script type="text/javascript">
+    $(function () {
+        $("#myBtn").click(function () {
+       
+            $.ajax({
+                type: "get",
+                url: "/ApplicationUser/Create",
+                success: function (response) {
+                    $('#myModal').html(response);
+                    $('#myModal').css({ display: "block" });
+                }
+            });
+        });
+        $(".btnDelete").click(function () {
+            var r = confirm("Are you sure you want to delete!");
+            if (r == true) {
+                $.ajax({
+                    type: "get",
+                    url: "/ApplicationUser/delete",
+                    data: { id: this.id },
+                    success: function (response) {
+                        window.location.reload(true)
+                    }
+                });
+            } else {
+                console.log("cancel")
+            }
+        });
+
+        $(".btnUpdate").click(function () {
+            debugger
+            $.ajax({
+                type: "GET",
+                url: "/ApplicationUser/Create",
+                data: { id: this.id },
+                success: function (response) {
+                    $('#myModal').html(response);
+                    $('#myModal').css({ display: "block" });
+                },
+                failure: function (response) {
+
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        });
+    });
+
+</script>
+
+
+

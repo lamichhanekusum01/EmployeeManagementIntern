@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using EmployeeManagement.Areas.Identity.Data;
+using EmployeeManagement.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -62,15 +63,22 @@ namespace EmployeeManagement.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
-           
+
             public string UserName { get; set; }
 
-        } 
+            public int Employee_Id { get; set; }
+
+            public List<EmployeeViewModel> EmployeeList { get; set; }
+
+
+        }
 
         public async Task OnGetAsync(string returnUrl = null)
         {
+
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
@@ -78,8 +86,8 @@ namespace EmployeeManagement.Areas.Identity.Pages.Account
             returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
-            {
-                var user = new ApplicationUser { UserName = Input.UserName, Email = Input.Email };
+            { 
+                var user = new ApplicationUser { Email=Input.Email, UserName = Input.UserName, };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
