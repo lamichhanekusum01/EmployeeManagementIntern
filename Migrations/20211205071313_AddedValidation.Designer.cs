@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EmployeeManagement.Migrations
 {
     [DbContext(typeof(EmployeeManagementDbContext))]
-    [Migration("20211202110810_AddedEmp")]
-    partial class AddedEmp
+    [Migration("20211205071313_AddedValidation")]
+    partial class AddedValidation
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -112,11 +112,11 @@ namespace EmployeeManagement.Migrations
                     b.Property<string>("MiddleName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("Phone")
-                        .HasColumnType("float");
+                    b.Property<int>("Phone")
+                        .HasColumnType("int");
 
-                    b.Property<double>("Salary")
-                        .HasColumnType("float");
+                    b.Property<int>("Salary")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("Time_In")
                         .HasColumnType("datetime2");

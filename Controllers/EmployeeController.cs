@@ -156,7 +156,7 @@ namespace EmployeeManagement.Controllers
         [HttpGet]
         public IActionResult Create(int? id)
         {
-          
+
             var designation = _context.Designations.ToList();
 
             List<SelectListItem> Designation = new List<SelectListItem>();
@@ -209,7 +209,6 @@ namespace EmployeeManagement.Controllers
             if (id.HasValue)
             {
                 emp = _iEmployeeProvider.GetById(id.Value);
-
             }
 
             return PartialView(emp);
@@ -219,46 +218,52 @@ namespace EmployeeManagement.Controllers
         [HttpPost]
         public IActionResult Create(EmployeeViewModel model)
         {
+
             try
             {
-           
+
                 _iEmployeeProvider.SaveEmployee(model);
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
-                // huh ??
-                //Console.WriteLine(ex);
+
                 throw ex;
-                //List<SelectListItem> gender = new List<SelectListItem>
-                //{
-                //    new SelectListItem {Value="M", Text="Male"},
-                //    new SelectListItem {Value="F", Text="Female"},
-                //    new SelectListItem {Value="O", Text="Others"},
-                //};
-                //ViewBag.Gender = gender;
-                //return View();
+                
             }
         }
-        [HttpGet]
-        public ActionResult Update(int id)
-        {
-            EmployeeViewModel emp = _iEmployeeProvider.GetById(id);
-             return View(emp);
-           }
-         
-           //public JsonResult Update(int id)
-           //{
-           // EmployeeViewModel emp = _iEmployeeProvider.GetById(id);
-           // return Json(emp);
-           // _iEmployeeProvider.SaveEmployee(model);
-           //  // return RedirectToAction("Create");
-           // }
-        
-           public IActionResult Delete(int id)
+        //[HttpGet]
+        //public ActionResult Update(int id)
+        //{
+        //    EmployeeViewModel emp = _iEmployeeProvider.GetById(id);
+        //    return View(emp);
+        //}
+
+        //public JsonResult Update(int id)
+        //{
+        // EmployeeViewModel emp = _iEmployeeProvider.GetById(id);
+        // return Json(emp);
+        // _iEmployeeProvider.SaveEmployee(model);
+        //  // return RedirectToAction("Create");
+        // }
+
+        public IActionResult Delete(int id)
         {
             _iEmployeeProvider.DeleteEmployee(id);
             return RedirectToAction("Index");
+        }
+        [HttpPost]
+        public JsonResult AutoComplete(string prefix)
+{
+            var users = (from employee in this._context.Employees
+                         where employee.FirstName.StartsWith(prefix)
+                         select new
+                         {
+                             label = employee.FirstName,
+                             val = employee.Employee_Id
+                         }).ToList();
+
+            return Json(users);
         }
         public ActionResult SearchEmployee(string val)
         {
@@ -273,7 +278,6 @@ namespace EmployeeManagement.Controllers
                                       MiddleName = s.MiddleName,
                                       LastName = s.LastName,
                                       Address = s.Address,
-                                      // Gender = s.Gender_Id,
                                       Dob = s.Dob,
                                       Email = s.Email,
 

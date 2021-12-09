@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EmployeeManagement.Migrations
 {
-    public partial class AddedEmp : Migration
+    public partial class AddedValidation : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -80,8 +80,8 @@ namespace EmployeeManagement.Migrations
                     UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Dob = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Phone = table.Column<double>(type: "float", nullable: false),
-                    Salary = table.Column<double>(type: "float", nullable: false),
+                    Phone = table.Column<int>(type: "int", nullable: false),
+                    Salary = table.Column<int>(type: "int", nullable: false),
                     Gender_Id = table.Column<int>(type: "int", nullable: true),
                     GenderName = table.Column<string>(type: "nvarchar(1)", nullable: false),
                     Attendence_Id = table.Column<int>(type: "int", nullable: true),

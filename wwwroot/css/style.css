@@ -1062,7 +1062,7 @@ table {
 
 .user-modal-content {
     position: fixed;
-    top: 60px;
+    
     background-color: #fefefe;
     width: 100%;
     height: 47%;
@@ -1316,12 +1316,12 @@ select,
 
 /*toastr open*/
 
-#snackbar {
+/*#snackbar {
     visibility: hidden;
     min-width: 150px;
-    margin-left: -125px;
+    margin-left: -125px;*/
     /* background-color: green; */
-    color: #fff;
+    /*color: #fff;
     text-align: center;
     border-radius: 2px;
     padding: 16px;
@@ -1330,13 +1330,13 @@ select,
     right: 2px;
     top: 30px;
     font-size: 17px;
-}
+}*/
 
-    #snackbar.show {
+  /*  #snackbar.show {
         visibility: visible;
         -webkit-animation: fadein 0.5s;
         animation: fadein 0.5s;
-    }
+    }*/
 
 @-webkit-keyframes fadein {
     from {
@@ -1471,11 +1471,12 @@ select,
 
     .modal-content {
         width: 40%;
-        overflow: hidden;
+        overflow: auto;
         position: fixed;
         left: 34%;
-        top: 60px;
-        height: unset;
+        height:92.5vh;
+       
+       
     }
 
     .user-modal-content {
@@ -1563,6 +1564,7 @@ select,
 
 @media screen and (min-width: 1024px) {
     .modal-content {
+      
         width: 40%;
     }
 
@@ -1616,6 +1618,10 @@ select,
         width: 33px;
         height: 33px;
         font-size: 20px;
+    }
+
+    .text-danger{
+        color: red;
     }
     /* .text p {
     font-size: 17px;

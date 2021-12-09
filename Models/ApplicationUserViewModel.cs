@@ -13,6 +13,8 @@ namespace EmployeeManagement.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string MiddleName { get; set; }
+        [Required]
+        [StringLength(100, ErrorMessage = "enterusername.", MinimumLength = 6)]
         public string UserName { get; set; }
         public string DegisnationName { get; set; }
         public string Address { get; set; }

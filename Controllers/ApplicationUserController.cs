@@ -62,24 +62,29 @@ namespace EmployeeManagement.Controllers
             [HttpPost]
         public async Task<IActionResult> Create(ApplicationUserViewModel model)
         {
+           
+                try
+                {
+                    var user = _context.Employees.Where(x => x.Employee_Id == Convert.ToInt32(model.Employee_Id)).FirstOrDefault();
+                    model.Email = user.Email;
+                    model.Address = user.Address;
+                    model.Phone = user.Phone;
+                   
 
-    
-            try
-            {
-                var user = _context.Employees.Where(x => x.Employee_Id == Convert.ToInt32(model.Employee_Id)).FirstOrDefault();
-                model.Email = user.Email;
-                model.Address = user.Address;
-                model.Phone = user.Phone;
-               var res = await _iApplicationUserProvider.SaveUser(model);
-                return RedirectToAction("Index");
-            }
-            catch (Exception ex)
-            {
+                    var res = await _iApplicationUserProvider.SaveUser(model);
+                    return RedirectToAction("Index");
+                }
+                catch (Exception ex)
+                {
 
+
+                    throw ex;
+                }
                 
-                throw ex;
-               
-            }
+            
+
+            //ModelState.AddModelError(nameof(model.ConfirmPassword),"hi");
+            return View("Index");
         }
         [HttpGet]
         public async Task<ActionResult> Update(string Id)
@@ -91,12 +96,23 @@ namespace EmployeeManagement.Controllers
       
 
         public async Task<IActionResult> Delete(string Id)
-        {
-            await _iApplicationUserProvider.DeleteUser(Id);
+        {    await _iApplicationUserProvider.DeleteUser(Id);
             return RedirectToAction("Index");
         }
-       
-       
+
+        [HttpPost]
+        public JsonResult AutoComplete(string prefix)
+        {
+            var users = (from user in this._context.ApplicationUsers
+                         where user.UserName.StartsWith(prefix)
+                         select new
+                         {
+                             label = user.UserName,
+                             val = user.EId
+                         }).ToList();
+
+            return Json(users);
+        }
     }
 
 }

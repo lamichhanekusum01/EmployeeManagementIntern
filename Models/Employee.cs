@@ -12,6 +12,7 @@ namespace EmployeeManagement.Models
     {
         [Key]
         public int Employee_Id { get; set; }
+       [Required]
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
         public string LastName { get; set; }
@@ -21,9 +22,9 @@ namespace EmployeeManagement.Models
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/ dd/yyyy}")]
         public DateTime Dob { get; set; }
-        public double Phone{ get; set; }
+        public long Phone{ get; set; }
         
-        public double Salary { get; set; }
+        public int Salary { get; set; }
         public int? Gender_Id { get; set; }
         [ForeignKey(nameof(Gender_Id))]
         public virtual Gender Gender { get; set; }

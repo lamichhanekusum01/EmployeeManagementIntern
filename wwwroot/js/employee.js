@@ -1,4 +1,20 @@
 function Toast(timeInterval, toastType) {
+    debugger
+    var toastDiv = document.createElement("div");
+    toastDiv.id = "toastr";
+    toastDiv.className = "toastr";
+    var body = document.getElementsByTagName("body")[0].appendChild(toastDiv);
+
+    var fontDiv = document.createElement("i");
+    fontDiv.className = "far fa-check-circle";
+    toastDiv.appendChild(fontDiv);
+
+    var paragraphText = document.createElement("p");
+    paragraphText.className = "toastPara";
+    paragraphText.textContent = "Submitted";
+    toastDiv.appendChild(paragraphText);
+
+
     if (timeInterval == undefined) {
         //if timeinterval is not provided, add defualt timeinterval 3s.
         timeInterval = 3000;
@@ -27,19 +43,7 @@ function Toast(timeInterval, toastType) {
         a.className = a.className.replace("show", "");
     }, 3000);
 }
-var toastDiv = document.createElement("div");
-toastDiv.id = "toastr";
-toastDiv.className = "toastr";
-var body = document.getElementsByTagName("body")[0].appendChild(toastDiv);
 
-var fontDiv = document.createElement("i");
-fontDiv.className = "far fa-check-circle";
-toastDiv.appendChild(fontDiv);
-
-var paragraphText = document.createElement("p");
-paragraphText.className = "toastPara";
-paragraphText.textContent = "Submitted";
-toastDiv.appendChild(paragraphText);
 
 // var paragraph = document.createElement("p");
 // paragraph.className = "toast";
@@ -103,53 +107,57 @@ var edit = document.querySelectorAll(".fa-user-edit");
 
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
-//
-var sub = document.getElementById("formSubmit");
-sub.onclick = function () {
-    // modal.style.display = "none";
-    // e.preventDefault();
-    let formPr = this.closest("form").getAttribute("name");
-    let formBox = this.closest("form").getAttribute("id");
-    let xForms = document.forms[formPr].querySelectorAll("input[required]");
-    let validCheck;
-    xForms.forEach(function (xForm) {
-        let formName = xForm.getAttribute("name");
-        let formX = document.forms[formPr][formName].value;
 
-        if (formX == "") {
-            validCheck = false;
-            // console.log(validCheck,1)
-        } else {
-            if (validCheck == false) {
-                validCheck = false;
-            } else {
-                validCheck = true;
-            }
-        }
-    });
-    // console.log(validCheck)
-    if (validCheck == false) {
-        Toast(2000, "warning");
-    } else {
-        Toast();
-        // modal.style.display = "none";
-        // return true;
-        let formName = document.getElementById(formBox);
-        setTimeout(() => {
-            formName.submit();
-        }, 3000);
-    }
-    //   var a = document.getElementById("snackbar");
-    //   a.className = "show";
 
-    //   setTimeout(function () {
-    //   a.className = a.className.replace("show", "");
-    // }, 3000);
-};
+//var sub = document.getElementById("formSubmit");
+
+//sub.onclick = function () {
+//    debugger
+//    // modal.style.display = "none";
+//    // e.preventDefault();
+//    let formPr = this.closest("form").getAttribute("name");
+//    let formBox = this.closest("form").getAttribute("id");
+//    let xForms = document.forms[formPr].querySelectorAll("input[required]");
+//    let validCheck = true;
+//    xForms.forEach(function (xForm) {
+//        let formName = xForm.getAttribute("name");
+//        let formX = document.forms[formPr][formName].value;
+
+//        if (formX == "") {
+//            validCheck = false;
+//            // console.log(validCheck,1)
+//        } else {
+//            if (validCheck == false) {
+//                validCheck = false;
+//            } else {
+//                validCheck = true;
+//            }
+//        }
+//    });
+//    // console.log(validCheck)
+//    if  (validCheck == false ) {
+//        Toast(2000, "warning");
+//    } else {
+//        debugger
+//        Toast();
+//        // modal.style.display = "none";
+//        // return true;
+//        let formName = document.getElementById(formBox);
+//        setTimeout(() => {
+//            formName.submit();
+//        }, 3000);
+//    }
+//     //  var a = document.getElementById("snackbar");
+//     //  a.className = "show";
+
+//     //  setTimeout(function () {
+//     //  a.className = a.className.replace("show", "");
+//     //}, 3000);
+//};
 
 // When the user clicks the button, open the modal
 btn.onclick = function () {
-    modal.style.display = "block";
+    modal.style.display = "block"
 };
 edit.forEach((each) => {
     each.addEventListener("click", () => {
@@ -189,26 +197,26 @@ function myFunctions() {
     }
 }
 
- document.addEventListener("DOMContentLoaded", function () {
-   const selector = ".nav__link";
-   const elems = Array.from(document.querySelectorAll(selector));
+document.addEventListener("DOMContentLoaded", function () {
+    const selector = ".nav__link";
+    const elems = Array.from(document.querySelectorAll(selector));
 
-   const navigation = document.querySelector("nav");
+    const navigation = document.querySelector("nav");
 
-   function makeActive(evt) {
-     const target = evt.target;
+    function makeActive(evt) {
+        const target = evt.target;
 
-     if (!target || !target.matches(selector)) {
-       return;
-     }
+        if (!target || !target.matches(selector)) {
+            return;
+        }
 
-     elems.forEach((elem) => elem.classList.remove("active"));
+        elems.forEach((elem) => elem.classList.remove("active"));
 
-     evt.target.classList.add("active");
-   }
+        evt.target.classList.add("active");
+    }
 
-   navigation.addEventListener("mouseup", makeActive);
- });
+    navigation.addEventListener("mouseup", makeActive);
+});
 
 
 // password show hide--------------------------------------------------------------------------------------------------------------------
@@ -228,3 +236,48 @@ function myWord() {
         x.type = "password";
     }
 }
+
+var submitter = document.getElementById("formSubmit");
+
+submitter.onclick = function submitter() {
+    debugger
+    // modal.style.display = "none";
+    // e.preventDefault();
+    let formPr = this.closest("form").getAttribute("name");
+    let formBox = this.closest("form").getAttribute("id");
+    let xForms = document.forms[formPr].querySelectorAll("input[required]");
+    let validCheck;
+    xForms.forEach(function (xForm) {
+        let formName = xForm.getAttribute("name");
+        let formX = document.forms[formPr][formName].value;
+
+        if (formX == "") {
+            validCheck = false;
+            // console.log(validCheck,1)
+        } else {
+            if (validCheck == false) {
+                validCheck = false;
+            } else {
+                validCheck = true;
+            }
+        }
+    });
+    // console.log(validCheck)
+    if (validCheck == false || validCheck == undefined) {
+        Toast(2000, "warning");
+    } else {
+        Toast();
+        // modal.style.display = "none";
+        // return true;
+        let formName = document.getElementById(formBox);
+        setTimeout(() => {
+            formName.submit();
+        }, 3000);
+    }
+    //   var a = document.getElementById("snackbar");
+    //   a.className = "show";
+
+    //   setTimeout(function () {
+    //   a.className = a.className.replace("show", "");
+    // }, 3000);
+};

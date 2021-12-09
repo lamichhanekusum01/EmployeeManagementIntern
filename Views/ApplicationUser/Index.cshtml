@@ -35,7 +35,7 @@
 
 
 
-                
+
 
 
                 <article>
@@ -53,14 +53,15 @@
 
 
                         </div>
-                        <div id="snackbar"><i class="far fa-check-circle"></i> Submitted Sucessfully </div>
-                        <div class="search-container">
-                            <input class="search" type="Search" placeholder="Search User">
-                            <div class="iconSearch">
-                                <button type="submit"><i class="fas fa-search"></i></button>
-                            </div>
-
+                        @*<div id="snackbar"><i class="far fa-check-circle"></i> Submitted Sucessfully </div>*@
+                    <div class="search-container">
+                        <input id="txtVal" type="Search" placeholder="Search User">
+                        <input id="txt" type="hidden" asp-for="Employee_Id" />
+                        <div class="iconSearch">
+                            <button type="submit"><i class="fas fa-search"></i></button>
                         </div>
+
+                    </div>
 
 
                     </div>
@@ -80,22 +81,22 @@
                         @{int i = 1;}
                         @foreach (var applicationUser in Model.UserList)
                         {
-                            if (applicationUser.UserName!= "Admin" )
+                            if (applicationUser.Employee_Id != "1")
                             {
-                            <tr>
+                                <tr>
 
-                                <td>@(i++)</td>
-                                <td>@applicationUser.UserName </td>
-                                <td>@applicationUser.Email</td>
-                                <td> @applicationUser.Address</td>
-                                <td class="phone">@applicationUser.Phone</td>
-                                <td>
-                                    @*<i class="fas fa-user-edit btnUpdate " id=@applicationUser.Id></i>*@
-                                    <i class="fas fa-trash-alt btnDelete " id=@applicationUser.Id></i>
-                                    @*<button class="btn btn-primary btnDelete" id=@employee.Employee_Id>Delete </button>*@
-                                </td>
+                                    <td>@(i++)</td>
+                                    <td>@applicationUser.UserName </td>
+                                    <td>@applicationUser.Email</td>
+                                    <td> @applicationUser.Address</td>
+                                    <td class="phone">@applicationUser.Phone</td>
+                                    <td>
+                                        @*<i class="fas fa-user-edit btnUpdate " id=@applicationUser.Id></i>*@
+                                        <i class="fas fa-trash-alt btnDelete " id=@applicationUser.Id></i>
+                                        @*<button class="btn btn-primary btnDelete" id=@employee.Employee_Id>Delete </button>*@
+                                    </td>
 
-                            </tr>
+                                </tr>
                             }
                         }
 
@@ -130,11 +131,15 @@
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.0.min.js" type="text/javascript"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.9.2/jquery-ui.min.js" type="text/javascript"></script>
+<link href="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.9.2/themes/blitzer/jquery-ui.css"
+      rel="Stylesheet" type="text/css" />
 
 <script type="text/javascript">
     $(function () {
         $("#myBtn").click(function () {
-       
+
             $.ajax({
                 type: "get",
                 url: "/ApplicationUser/Create",
@@ -180,7 +185,39 @@
             });
         });
     });
-
+    $(document).ready(function () {
+        $("#txtVal").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#myModal tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+    $("#txtVal").autocomplete({
+        source: function (request, response) {
+            $.ajax({
+                url: '/ApplicationUser/AutoComplete/',
+                data: { "prefix": request.term },
+                type: "POST",
+                success: function (data) {
+                    response($.map(data, function (item) {
+                        return item;
+                    }))
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        },
+        select: function (e, i) {
+            $("#txt").val(i.item.val);
+        },
+        minLength: 1
+    });
+    
 </script>
 
 

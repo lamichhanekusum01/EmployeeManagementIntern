@@ -4,6 +4,11 @@
     Layout = null;
     var data = ViewBag.Gender;
 }
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+</head>
 <link rel="stylesheet" href="~/css/style.css">
 <div class="modal-content">
     <div class="modal-header">
@@ -14,7 +19,7 @@
 
     <div class="user-modal-body">
         <form name="user-add-form" class="form-content" asp-controller="ApplicationUser" asp-action="Create" method="post" >
-            <input asp-for="Id" hidden />
+            <input asp-for="Id" type="hidden" />
             <div class=" userForm-name-details">
                 <div class="add-name">
                     <label for="employeelist">EmployeeList</label>
@@ -23,18 +28,21 @@
                 </div>
                 <div class="add-name">
                     <label for="username">UserName</label>
-                    <input type="text" name="username" asp-for="UserName" id="username ">
+                    <input type="text" name="username" asp-for="UserName" id="username">
+                    <span asp-validation-for="UserName" class="text-danger"></span>
                 </div>
                 <div class="add-name">
                     <label for="password">Password</label>
                     <input type="Password" id="myInput" name="PasswordHash" asp-for="PasswordHash" required />
+                    <span asp-validation-for="PasswordHash" class="text-danger"></span>
                     <input type="checkbox" onclick="myPass()" /><span>Show Password</span>
                 </div>
-                @*<div class="add-name">
+                <div class="add-name">
                     <label for="password"> Confirm Password</label>
-                    <input type="password" asp-for="ConfirmPassword" />
+                    <input type="password" id="myInputs" asp-for="ConfirmPassword" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                     <input type="checkbox" id="myInputs" onclick="myWord()"><span>Show Password</span>
-                </div>*@
+                </div>
 
 
             </div>
@@ -46,8 +54,8 @@
                 <div class="submit-btn modal-footer">
 
 
-
-                    <button id="formSubmit" type="submit">Submit</button>
+                    @*<button id="formSubmit" onsubmit="submitter()" type="submit">Submit</button>*@
+                    <button  onclick="submitter()" type="submit">Submit</button>
 
 
                 </div>
@@ -61,7 +69,9 @@
 </div>
 <script src="~/js/employee.js"></script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>*@
 <script>
     $(function () {
         $(document).ready(function () {
