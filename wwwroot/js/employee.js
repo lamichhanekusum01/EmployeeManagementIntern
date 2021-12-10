@@ -1,20 +1,4 @@
 function Toast(timeInterval, toastType) {
-    debugger
-    var toastDiv = document.createElement("div");
-    toastDiv.id = "toastr";
-    toastDiv.className = "toastr";
-    var body = document.getElementsByTagName("body")[0].appendChild(toastDiv);
-
-    var fontDiv = document.createElement("i");
-    fontDiv.className = "far fa-check-circle";
-    toastDiv.appendChild(fontDiv);
-
-    var paragraphText = document.createElement("p");
-    paragraphText.className = "toastPara";
-    paragraphText.textContent = "Submitted";
-    toastDiv.appendChild(paragraphText);
-
-
     if (timeInterval == undefined) {
         //if timeinterval is not provided, add defualt timeinterval 3s.
         timeInterval = 3000;
@@ -43,7 +27,19 @@ function Toast(timeInterval, toastType) {
         a.className = a.className.replace("show", "");
     }, 3000);
 }
+var toastDiv = document.createElement("div");
+toastDiv.id = "toastr";
+toastDiv.className = "toastr";
+var body = document.getElementsByTagName("body")[0].appendChild(toastDiv);
 
+var fontDiv = document.createElement("i");
+fontDiv.className = "far fa-check-circle";
+toastDiv.appendChild(fontDiv);
+
+var paragraphText = document.createElement("p");
+paragraphText.className = "toastPara";
+paragraphText.textContent = "Submitted";
+toastDiv.appendChild(paragraphText);
 
 // var paragraph = document.createElement("p");
 // paragraph.className = "toast";
@@ -88,7 +84,7 @@ x.addEventListener("click", () => {
 window.addEventListener("click", function (e) {
     // console.log(e.target.parentElement)
     var element = document.getElementById("myForm");
-    var imgItm = document.querySelector(".imgContainer img");
+    var imgItm = document.querySelector(".fa-user-tie");
 
     if (e.target !== element && !element.contains(e.target)) {
         if (element.classList.contains("opened") && e.target !== imgItm) {
@@ -102,63 +98,19 @@ window.addEventListener("click", function (e) {
 var modal = document.getElementById("myModal");
 
 // Get the button that opens the modal
-var btn = document.getElementById("myBtn");
 var edit = document.querySelectorAll(".fa-user-edit");
 
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
-
-
-//var sub = document.getElementById("formSubmit");
-
-//sub.onclick = function () {
-//    debugger
-//    // modal.style.display = "none";
-//    // e.preventDefault();
-//    let formPr = this.closest("form").getAttribute("name");
-//    let formBox = this.closest("form").getAttribute("id");
-//    let xForms = document.forms[formPr].querySelectorAll("input[required]");
-//    let validCheck = true;
-//    xForms.forEach(function (xForm) {
-//        let formName = xForm.getAttribute("name");
-//        let formX = document.forms[formPr][formName].value;
-
-//        if (formX == "") {
-//            validCheck = false;
-//            // console.log(validCheck,1)
-//        } else {
-//            if (validCheck == false) {
-//                validCheck = false;
-//            } else {
-//                validCheck = true;
-//            }
-//        }
-//    });
-//    // console.log(validCheck)
-//    if  (validCheck == false ) {
-//        Toast(2000, "warning");
-//    } else {
-//        debugger
-//        Toast();
-//        // modal.style.display = "none";
-//        // return true;
-//        let formName = document.getElementById(formBox);
-//        setTimeout(() => {
-//            formName.submit();
-//        }, 3000);
-//    }
-//     //  var a = document.getElementById("snackbar");
-//     //  a.className = "show";
-
-//     //  setTimeout(function () {
-//     //  a.className = a.className.replace("show", "");
-//     //}, 3000);
-//};
-
+//
 // When the user clicks the button, open the modal
-btn.onclick = function () {
-    modal.style.display = "block"
-};
+var btn = document.getElementById("myBtn");
+if (btn) {
+    btn.onclick = function () {
+        modal.style.display = "block";
+    };
+
+}
 edit.forEach((each) => {
     each.addEventListener("click", () => {
         modal.style.display = "block";
@@ -166,9 +118,12 @@ edit.forEach((each) => {
 });
 
 // When the user clicks on <span> (x), close the modal
-span.onclick = function () {
-    modal.style.display = "none";
-};
+if (span) {
+    span.onclick = function () {
+        modal.style.display = "none";
+    };
+
+}
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function (event) {
@@ -176,6 +131,43 @@ window.onclick = function (event) {
         modal.style.display = "none";
     }
 };
+
+var sub = document.getElementById("formSubmit");
+sub.onclick = function () {
+
+    let formPr = this.closest("form").getAttribute("name");
+    let formBox = this.closest("form").getAttribute("id");
+    let xForms = document.forms[formPr].querySelectorAll("input[required]");
+    let validCheck;
+    xForms.forEach(function (xForm) {
+        let formName = xForm.getAttribute("name");
+        let formX = document.forms[formPr][formName].value;
+
+        if (formX == "") {
+            validCheck = false;
+
+        } else {
+            if (validCheck == false) {
+                validCheck = false;
+            } else {
+                validCheck = true;
+            }
+        }
+    });
+
+    if (validCheck == false) {
+        Toast(3000, "warning");
+    } else {
+        Toast();
+
+        let formName = document.getElementById(formBox);
+        setTimeout(() => {
+            formName.submit();
+        }, 3000);
+    }
+
+};
+
 
 // dropdown----------------------------------------------------------------------------------
 function myFunction() {
@@ -197,27 +189,26 @@ function myFunctions() {
     }
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-    const selector = ".nav__link";
-    const elems = Array.from(document.querySelectorAll(selector));
+// document.addEventListener("DOMContentLoaded", function () {
+//   const selector = ".nav__link";
+//   const elems = Array.from(document.querySelectorAll(selector));
 
-    const navigation = document.querySelector("nav");
+//   const navigation = document.querySelector("nav");
 
-    function makeActive(evt) {
-        const target = evt.target;
+//   function makeActive(evt) {
+//     const target = evt.target;
 
-        if (!target || !target.matches(selector)) {
-            return;
-        }
+//     if (!target || !target.matches(selector)) {
+//       return;
+//     }
 
-        elems.forEach((elem) => elem.classList.remove("active"));
+//     elems.forEach((elem) => elem.classList.remove("active"));
 
-        evt.target.classList.add("active");
-    }
+//     evt.target.classList.add("active");
+//   }
 
-    navigation.addEventListener("mouseup", makeActive);
-});
-
+//   navigation.addEventListener("mouseup", makeActive);
+// });
 
 // password show hide--------------------------------------------------------------------------------------------------------------------
 function myPass() {
@@ -237,47 +228,32 @@ function myWord() {
     }
 }
 
-var submitter = document.getElementById("formSubmit");
+// let activeS = document.getElementsByClassName('dropdown-container');
+// let href = document.querySelectorAll('.dropdown-container a');
+// let items = [];
 
-submitter.onclick = function submitter() {
-    debugger
-    // modal.style.display = "none";
-    // e.preventDefault();
-    let formPr = this.closest("form").getAttribute("name");
-    let formBox = this.closest("form").getAttribute("id");
-    let xForms = document.forms[formPr].querySelectorAll("input[required]");
-    let validCheck;
-    xForms.forEach(function (xForm) {
-        let formName = xForm.getAttribute("name");
-        let formX = document.forms[formPr][formName].value;
+// href.forEach((e)=>{
+//  items = [...items,e.innerHTML]
 
-        if (formX == "") {
-            validCheck = false;
-            // console.log(validCheck,1)
-        } else {
-            if (validCheck == false) {
-                validCheck = false;
-            } else {
-                validCheck = true;
-            }
-        }
-    });
-    // console.log(validCheck)
-    if (validCheck == false || validCheck == undefined) {
-        Toast(2000, "warning");
-    } else {
-        Toast();
-        // modal.style.display = "none";
-        // return true;
-        let formName = document.getElementById(formBox);
-        setTimeout(() => {
-            formName.submit();
-        }, 3000);
+// });
+// console.log(items)
+const currentLocation = location.href;
+// console.log(currentLocation)
+const menuItems = document.querySelectorAll('a');
+// console.log(menuItems)
+const menuLength = menuItems.length;
+// console.log(menuLength)
+for (let i = 0; i < menuLength; i++) {
+    if (menuItems[i].href === currentLocation) {
+        // console.log((menuItems[i].href === currentLocation))
+        menuItems[i].className = "active"
+        menuItems[i].parentElement.style.display = "";
+        console.log(menuItems[i])
+
+
+
+
     }
-    //   var a = document.getElementById("snackbar");
-    //   a.className = "show";
-
-    //   setTimeout(function () {
-    //   a.className = a.className.replace("show", "");
-    // }, 3000);
-};
+}
+// const currentPage = window.location.pathname;
+// console.log(currentPage)

@@ -1,4 +1,4 @@
-﻿@model EmployeeManagement.Models.EmployeeViewModel;
+﻿@model EmployeeManagement.Models.ApplicationUserViewModel;
 @{
 
 }
@@ -15,20 +15,20 @@
         <th style="border-bottom: 2px solid black;">Action</th>
     </tr>
     @{int i = 1;}
-    @foreach (var employee in Model.EmployeeList)
+    @foreach (var user in Model.UserList)
     {
-        if (employee.Employee_Id != 1)
+        if (user.Employee_Id != "1")
         {
             <tr>
 
                 <td>@(i++)</td>
-                <td>@employee.FirstName @employee.MiddleName @employee.LastName </td>
-                <td>@employee.Email</td>
-                <td> @employee.Address</td>
-                <td class="phone">@employee.Phone</td>
+                <td>@user.UserName</td>
+                <td>@user.Email</td>
+                <td> @user.Address</td>
+                <td class="phone">@user.Phone</td>
                 <td>
-                    <i class="fas fa-user-edit btnUpdate " id=@employee.Employee_Id></i>
-                    <i class="fas fa-trash-alt btnDelete " id=@employee.Employee_Id></i>
+                    @*<i class="fas fa-user-edit btnUpdate " id=@employee.Employee_Id></i>*@
+                    <i class="fas fa-trash-alt btnDelete " id=@user.Employee_Id></i>
 
                 </td>
 

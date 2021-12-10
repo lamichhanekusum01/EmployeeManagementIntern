@@ -113,6 +113,34 @@ namespace EmployeeManagement.Controllers
 
             return Json(users);
         }
-    }
+        public ActionResult SearchUser(string val)
+        {
+            ApplicationUserViewModel model = new ApplicationUserViewModel();
 
+            model.UserList = (from s in _context.ApplicationUsers
+                              where s.UserName.Contains(val) /*|| s.LastName.Contains(val) || s.MiddleName.Contains(val)*/ /*|| s.Address.Contains(val) || s.Email.Contains(val)*/
+                              select new ApplicationUserViewModel
+                              {
+                                  Employee_Id = s.Id,
+                                  FirstName = s.FirstName,
+                                  MiddleName = s.MiddleName,
+                                  LastName = s.LastName,
+                                  UserName= s.UserName,
+                                  Address = s.Address,
+                                  Dob = s.Dob,
+                                  Email = s.Email,
+                                  Phone = s.Phone,
+                              }).ToList();
+            return PartialView(model);
+        }
+        public IActionResult Leave()
+        {
+            return View();
+        }
+        public IActionResult Holiday()
+        {
+            return View();
+        }
+    }
+    
 }

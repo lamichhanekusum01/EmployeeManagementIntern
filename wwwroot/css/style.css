@@ -13,143 +13,136 @@ body {
 }
 /* leave request html page */
 
-
-
-
-.user-employeeleave-header {
-    padding: 8px 20px 0px 20px;
+/* .user-employeeleave-header {
+  padding: 8px 20px 0px 20px;
 }
 
-    .user-employeeleave-header div h2 {
-        padding: 15px 0;
-        font-size: 30px;
-    }
+.user-employeeleave-header div h2 {
+  padding: 15px 0;
+  font-size: 30px;
+}
 
-    .user-employeeleave-header div p {
-        margin: 16px 16px 16px 0;
-        border-bottom: 2px solid;
-        font-size: 20px;
-    }
+.user-employeeleave-header div p {
+  margin: 16px 16px 16px 0;
+  border-bottom: 2px solid;
+  font-size: 20px;
+}
 
 .leave-form p select {
-    width: 80px;
+  width: 80px;
 }
 
 #dates {
-    width: 40px;
-    height: 40px;
-    font-size: 15px;
-    text-align: center;
-    border-radius: 1px;
-    background-color: #725c5c;
-    color: black;
-    border: none;
+  width: 40px;
+  height: 40px;
+  font-size: 15px;
+  text-align: center;
+  border-radius: 1px;
+  background-color: #725c5c;
+  color: black;
+  border: none;
 }
 
-    #dates:hover {
-        background-color: white;
-        box-shadow: 0px 4px 15px 0px rgb(0 0 0 / 59%);
-        transition: 0.2s;
-        border: 1px solid #1d1919;
-    }
+#dates:hover {
+  background-color: white;
+  box-shadow: 0px 4px 15px 0px rgb(0 0 0 / 59%);
+  transition: 0.2s;
+  border: 1px solid #1d1919;
+}
 
 .leave-form label {
-    font-size: 20px;
-    margin-top: 2px;
+  font-size: 20px;
+  margin-top: 2px;
 }
 
 .date label {
-    font-size: 25px;
+  font-size: 25px;
 }
 
 #Ename:hover {
-    background-color: white;
-    box-shadow: 0px 4px 15px 0px rgb(0 0 0 / 59%);
-    transition: 0.2s;
+  background-color: white;
+  box-shadow: 0px 4px 15px 0px rgb(0 0 0 / 59%);
+  transition: 0.2s;
 }
 
 #Ename {
-    width: 290px;
-    height: 33px;
-    padding: 10px;
-    color: black;
-    font-size: 15px;
-    height: 35px;
-    width: 245px;
-    border-radius: 2px;
-    background-color: #725c5c;
-    border: none;
+  width: 290px;
+  height: 33px;
+  padding: 10px;
+  color: black;
+  font-size: 15px;
+  height: 35px;
+  width: 245px;
+  border-radius: 2px;
+  background-color: #725c5c;
+  border: none;
 }
 
-
-
-
 .leave-form-calender {
-    display: flex;
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .leave-form p {
-    width: 220px;
+  width: 220px;
 }
 
 #leavedate {
-    text-transform: uppercase;
-    color: #725c5c;
-    width: 200px;
-    font-size: 20px;
-    margin-left: 3px;
+  text-transform: uppercase;
+  color: #725c5c;
+  width: 200px;
+  font-size: 20px;
+  margin-left: 3px;
 }
 
 #returndate {
-    text-transform: uppercase;
-    color: #725c5c;
-    font-size: 20px;
+  text-transform: uppercase;
+  color: #725c5c;
+  font-size: 20px;
 }
 
 #leavedates {
-    text-transform: uppercase;
-    color: #725c5c;
-    font-size: 20px;
+  text-transform: uppercase;
+  color: #725c5c;
+  font-size: 20px;
 }
 
 .date {
-    margin: 10px auto;
+  margin: 10px auto;
 }
 
 .toggle {
-    display: none;
-    transition: all 0.3s linear;
-    transform: translateY(500%);
+  display: none;
+  transition: all 0.3s linear;
+  transform: translateY(500%);
 }
 
 .r {
-    display: none;
+  display: none;
 }
 
 .leave-submit-btn button {
-    text-align: center;
-    background-color: #c4c4c4;
-    border: 1px solid black;
-    margin: 5px;
-    border-radius: 5px;
-    padding: 10px 24px;
-    cursor: pointer;
+  text-align: center;
+  background-color: #c4c4c4;
+  border: 1px solid black;
+  margin: 5px;
+  border-radius: 5px;
+  padding: 10px 24px;
+  cursor: pointer;
 }
 
-    .leave-submit-btn button:hover {
-        box-shadow: 0 12px 16px 0 rgb(0 0 0 / 24%), 0 17px 50px 0 rgb(0 0 0 / 19%);
-        border: 1px solid gray;
-    }
+.leave-submit-btn button:hover {
+  box-shadow: 0 12px 16px 0 rgb(0 0 0 / 24%), 0 17px 50px 0 rgb(0 0 0 / 19%);
+  border: 1px solid gray;
+}
 
 .leave-submit-btn:active {
-    transform: scale(0.98);
+  transform: scale(0.98);
 }
 
 .leave-submit-btn button:focus {
-    outline: none;
-}
-
+  outline: none;
+} */
 
 /* calendar */
 
@@ -192,7 +185,7 @@ body {
 
 .date-picker.selected {
     font-weight: bold;
-    outline: 2px solid #00BCD4
+    outline: 2px solid #00bcd4;
 }
 
 td span {
@@ -203,16 +196,13 @@ td span {
     border-bottom: 2px solid currentColor;
 }
 
-
 /* sunday */
 
 .date-picker:nth-child(7) {
     color: red;
 }
 
-
 /* friday */
-
 
 /* .date-picker:nth-child(6) {
   color: green;
@@ -261,7 +251,7 @@ td span {
     .leave-submit-btn {
         position: absolute;
         bottom: 0;
-        right: 50%;
+        right: 0;
     }
 
     td span {
@@ -270,6 +260,7 @@ td span {
 
     #Ename {
         width: 100%;
+        padding: 18px;
     }
 
     .leave-calendar {
@@ -319,7 +310,7 @@ td span {
 
     .date-picker.selected {
         font-weight: bold;
-        outline: 2px solid #00BCD4;
+        outline: 2px solid #00bcd4;
     }
 
         .date-picker.selected span {
@@ -509,44 +500,36 @@ User-list style---------------------------------------------------- */
 
     .mysidenav a {
         border: none;
-        padding: 5px 2px 5px 6px;
-        font-size: 17px;
+        padding: 18px 2px 10px 6px;
+        font-size: 15px;
     }
 
     .mysidenav div img {
         border: 5px solid gray;
         border-radius: 50%;
-        width: 50%;
     }
 
 .nav {
     margin-top: 50px;
 }
 
-.form-link a {
-    padding: 12px !important;
-}
-
-.form-link {
-    padding: unset;
-}
 /* On mouse-over */
 
 .mysidenav a:hover,
 .dropdown-btn:hover {
     color: #f1f1f1;
+    background-color: rgba(200, 200, 200, 0.2);
 }
 
- .active {
-    background-color: green;
+a.active {
+    background: green;
     color: white;
-} 
+}
 /* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
 
 .dropdown-container {
     display: none;
     background-color: #262626;
-    padding-left: 8px;
     -webkit-animation: fadein 0.5s;
     animation: fadein 0.5s;
 }
@@ -563,8 +546,6 @@ User-list style---------------------------------------------------- */
 }
 
 /* Some media queries for responsiveness */
-
-
 
 .mysidenav h1 {
     padding: 18px 2px 10px 6px;
@@ -594,23 +575,18 @@ User-list style---------------------------------------------------- */
         opacity: 1;
     }
 
+/* .nav__link.activeted {
 
-
-
-.nav__link.activeted {
-    /* color:white; */
-    position: relative;
+  position: relative;
 }
-
-    .nav__link.activeted:before {
-        position: absolute;
-        content: "";
-        top: 0;
-        bottom: 0;
-        left: 0;
-        border-left: 3px solid #f0eeee;
-    }
-
+.nav__link.activeted:before {
+  position: absolute;
+  content: "";
+  top: 0;
+  bottom: 0;
+  left: 0;
+  border-left: 3px solid #f0eeee;
+} */
 .main-container {
     /* height: 653px; */
     height: 100vh;
@@ -628,9 +604,10 @@ User-list style---------------------------------------------------- */
 }
 
 .imgContainer img {
-    width: 58px;
+    width: 50px;
     border-radius: 50%;
     vertical-align: middle;
+    border: 2px solid gray;
 }
 
 .imgContainer {
@@ -653,7 +630,6 @@ User-list style---------------------------------------------------- */
     top: 62px;
     /* border: 3px solid #f1f1f1; */
     z-index: 9;
-    width: 200px;
     animation-name: slideIn;
     animation-duration: 0.4s;
 }
@@ -661,57 +637,95 @@ User-list style---------------------------------------------------- */
 /* Add styles to the form container */
 
 .form-container {
-    max-width: 300px;
-    padding: 3px 0 3px;
+    max-width: 148px;
+    padding: 3px 0 20px;
     background-color: #c4c4c4;
     border-radius: 10px;
+    /* display: flex;
+    flex-direction: row-reverse;
+    align-items: flex-start; */
 }
 
     .form-container h1 {
         padding: 7px 0;
         font-size: 17px;
         font-weight: normal;
-        margin-bottom: 10px;
     }
 
-    .form-container p {
-        padding: 7px 0;
-        font-size: 15px;
-        font-style: italic;
-        font-weight: 700;
-        margin-bottom: 10px;
-    }
+/* .form-container p {
+  padding: 7px 0;
+  font-size: 15px;
+  font-style: italic;
+  font-weight: 700;
+ 
+} */
 
-        .form-container h1:hover,
-        .form-container p:hover {
-            background-color: #629fc9ad;
-            transition: 0.1s;
-            opacity: 0.9;
-        }
-
-.forget-pw button {
-    font-size: 10px;
-    font-size: 10px;
-    background-color: brown;
-    padding: 5px;
-    border: none;
-    margin-bottom: 10px;
-    border-radius: 50px;
-    opacity: 0.8;
-}
-
-.form-container div button:hover {
-    opacity: 1;
-}
-
-.logout-btn {
-    border: none;
-    background-color: transparent;
-    font-size: 15px;
-    padding: 5px;
-    color: black;
+/* .form-container h1:hover,
+.form-container p:hover {
+  color: #FFF;
+  box-shadow: 0 4px 20px 0 rgb(0 0 0 / 14%), 0 7px 10px -5px rgb(156 39 176 / 40%);
+  background-color: #9c27b0;
+} */
+/* .text a:hover,
+.text button:hover{
+  color: #FFF;
+    box-shadow: 0 4px 20px 0 rgb(0 0 0 / 14%), 0 7px 10px -5px rgb(156 39 176 / 40%);
+    background-color: #9c27b0;
+} */
+.fa-user-tie {
+    font-size: 30px;
     opacity: 0.5;
 }
+
+    .fa-user-tie:hover {
+        opacity: 1;
+        transition: 0.5s;
+        cursor: pointer;
+    }
+
+.fa-sign-out-alt {
+    color: gray;
+    font-size: 30px;
+    /* opacity: 0.8; */
+}
+
+    .fa-sign-out-alt:hover {
+        opacity: 1;
+        color: white;
+    }
+
+.side-body-logout-section {
+    margin: 5px;
+}
+
+    .side-body-logout-section a {
+        color: black;
+    }
+
+    .side-body-logout-section button {
+        border: none;
+        background: none;
+        width: 138px;
+        text-align: left;
+    }
+
+    .side-body-logout-section h1,
+    .side-body-logout-section p,
+    .side-body-logout-section button {
+        padding: 5px;
+        font-size: 12px;
+        height: 30px;
+    }
+
+        .side-body-logout-section h1:hover,
+        .side-body-logout-section p:hover,
+        .side-body-logout-section a:hover,
+        .side-body-logout-section button:hover {
+            color: #fff;
+            box-shadow: 0 4px 20px 0 rgb(0 0 0 / 14%), 0 7px 10px -5px rgb(156 39 176 / 40%);
+            background-color: #1f1212ba;
+            cursor: pointer;
+        }
 
 /* Set a style for the submit/login button */
 
@@ -865,6 +879,11 @@ User-list style---------------------------------------------------- */
     font-weight: 700;
 }
 
+.text a {
+    color: black;
+    margin-bottom: 10px;
+}
+
 .fa-user-plus {
     height: 13px;
     width: 15px;
@@ -875,12 +894,11 @@ User-list style---------------------------------------------------- */
 .search-container {
     display: flex;
 }
-
-.active, .btn:hover {
-    /* background-color: #666; */
-    color: white;
-}
-
+/* .active,
+.btn:hover {
+  
+  color: white;
+} */
 .iconSearch button {
     width: 35px;
     height: 35px;
@@ -915,7 +933,11 @@ table {
 #customers td,
 #customers th {
     padding: 10px;
-    text-align: left;
+    text-align: center;
+}
+
+#customers td {
+    font-size: 16px;
 }
 
 #customers tr:nth-child(even) {
@@ -928,6 +950,7 @@ table {
 
 #customers tr:nth-child(1) {
     background-color: transparent;
+    font-size: 19px !important;
 }
 
     #customers tr:nth-child(1):hover {
@@ -1001,6 +1024,12 @@ table {
             background-color: rgb(146, 146, 146);
         }
 
+    .nextPage button {
+        border: none;
+        margin-left: 50px;
+        cursor: pointer;
+    }
+
 .fa-user-edit {
     cursor: pointer;
 }
@@ -1062,7 +1091,7 @@ table {
 
 .user-modal-content {
     position: fixed;
-    
+    top: 60px;
     background-color: #fefefe;
     width: 100%;
     height: 47%;
@@ -1316,27 +1345,27 @@ select,
 
 /*toastr open*/
 
-/*#snackbar {
-    visibility: hidden;
-    min-width: 150px;
-    margin-left: -125px;*/
-    /* background-color: green; */
-    /*color: #fff;
-    text-align: center;
-    border-radius: 2px;
-    padding: 16px;
-    position: fixed;
-    z-index: 1;
-    right: 2px;
-    top: 30px;
-    font-size: 17px;
-}*/
+/* #snackbar {
+  visibility: hidden;
+  min-width: 150px;
+  margin-left: -125px;
 
-  /*  #snackbar.show {
-        visibility: visible;
-        -webkit-animation: fadein 0.5s;
-        animation: fadein 0.5s;
-    }*/
+  color: #fff;
+  text-align: center;
+  border-radius: 2px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  right: 2px;
+  top: 30px;
+  font-size: 17px;
+}
+
+#snackbar.show {
+  visibility: visible;
+  -webkit-animation: fadein 0.5s;
+  animation: fadein 0.5s;
+} */
 
 @-webkit-keyframes fadein {
     from {
@@ -1365,11 +1394,15 @@ select,
 /*toastr close*/
 /* holiday.html content ---------------------------------------------------------------*/
 .holiday-container {
+    /*   
+  background: url(./image/annie-spratt-VDXtVYJVj7A-unsplash.jpg),linear-gradient(red,green);
+  background-size: cover; */
     display: grid;
     place-items: center;
     width: 500px;
     height: 400px;
     margin: 40px auto;
+    z-index: 1;
     box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -10px 0px inset;
 }
 
@@ -1379,46 +1412,71 @@ select,
     margin: 40px auto;
     position: relative;
     background-color: rgb(222 222 222);
+    border: 2px solid #81818157;
 }
+
+
 
     .holiday-content input[type="date"] {
         text-transform: uppercase;
         font-weight: bold;
-        margin-left: 4px;
+        margin: unset;
+        width: 200px;
     }
 
 .date-content {
-    width: 200px;
+    /* width: 200px; */
     margin: 15px 19px 5px;
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#holidayReq {
+    margin: 50px auto;
 }
 
 .hday-name {
-    margin: 15px 19px 5px;
+    margin: 60px 19px 5px;
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
 }
 
     .hday-name input[type="text"] {
-        padding: 7px;
-        margin-left: 4px;
-        margin-top: 5px;
+        padding: 10px;
+        /* margin-left: 4px;
+  margin-top: 5px; */
+        width: 200px;
+        background-color: #725c5c;
+        border: none;
     }
+
+        .hday-name input[type="text"]:hover {
+            background-color: white;
+            box-shadow: 0px 4px 15px 0px rgb(0 0 0 / 59%);
+            transition: 0.2s;
+            /* border: 1px solid #1d1919; */
+        }
 
 .hday-btn {
     position: absolute;
-    bottom: -15px;
-    right: 35%;
+    bottom: 5px;
+    left: 150px;
 }
 
-    .hday-btn input[type="button"] {
+    .hday-btn button {
         padding: 8px 30px;
         border: 1px solid #e4e4e4;
-        font: 15px bold;
+        background: #725c5c;
+        color: white;
+        border: 1px solid gray;
+        border-radius: 5px;
+        height: 35px;
+        font-size: 15px;
     }
 
-        .hday-btn input[type="button"]:active {
+        .hday-btn button:active {
             transform: scale(0.98);
             border: 1px solid gray;
         }
@@ -1428,6 +1486,12 @@ select,
 }
 
 @media screen and (min-width: 768px) {
+    .mysidenav div img {
+        border: 5px solid gray;
+        border-radius: 50%;
+        width: 60%;
+    }
+
     .mysidenav.showbar {
         width: 100%;
     }
@@ -1471,12 +1535,11 @@ select,
 
     .modal-content {
         width: 40%;
-        overflow: auto;
+        overflow: hidden;
         position: fixed;
         left: 34%;
-        height:92.5vh;
-       
-       
+        top: 60px;
+        height: unset;
     }
 
     .user-modal-content {
@@ -1564,7 +1627,6 @@ select,
 
 @media screen and (min-width: 1024px) {
     .modal-content {
-      
         width: 40%;
     }
 
@@ -1597,11 +1659,6 @@ select,
         padding: 11px;
     }
 
-    .text {
-        height: 33px;
-        border-radius: 99px;
-    }
-
     .search-container input[type="text"] {
         width: 260px;
         height: 33px;
@@ -1618,10 +1675,6 @@ select,
         width: 33px;
         height: 33px;
         font-size: 20px;
-    }
-
-    .text-danger{
-        color: red;
     }
     /* .text p {
     font-size: 17px;
@@ -1663,7 +1716,7 @@ select,
 
 #toastr {
     visibility: hidden;
-    min-width: 150px;
+    min-width: 300px;
     margin-left: -125px;
     background-color: green;
     color: #fff;
@@ -1672,24 +1725,55 @@ select,
     padding: 16px;
     position: fixed;
     z-index: 1;
-    right: 2px;
-    top: 30px;
-    font-size: 17px;
+    right: 25px;
+    top: 65px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row-reverse;
 }
 
     #toastr.show {
         visibility: visible;
-        -webkit-animation: fadein 0.5s;
-        animation: fadein 0.5s;
+        -webkit-animation: fadeslidein 0.5s;
+        animation: fadeslidein 0.5s;
     }
+
+.toastPara {
+    font-size: 20px;
+}
 
 .fa-check-circle {
     color: black;
 }
 
+@-webkit-keyframes fadeslidein {
+    from {
+        right: -15px;
+        opacity: 0;
+    }
+
+    to {
+        right: 25px;
+        opacity: 1;
+    }
+}
+
+@keyframes fadeslidein {
+    from {
+        right: -15px;
+        opacity: 0;
+    }
+
+    to {
+        right: 25px;
+        opacity: 1;
+    }
+}
+
 @-webkit-keyframes fadein {
     from {
-        top: 0;
+        right: 0;
         opacity: 0;
     }
 
@@ -1712,7 +1796,6 @@ select,
 }
 
 /* --------------------------------------------------------------- */
-
 
 .user-employeeleave-header {
     padding: 8px 20px 0px 20px;
@@ -1779,13 +1862,11 @@ select,
     border: none;
 }
 
-
 /* checkbox modal --------------------------------------------------------------------------------------------------------*/
 
 .checkbox {
     margin: 10px auto;
 }
-
 
 /* The container */
 
@@ -1802,7 +1883,6 @@ select,
     user-select: none;
 }
 
-
     /* Hide the browser's default checkbox */
 
     .container input {
@@ -1812,7 +1892,6 @@ select,
         height: 0;
         width: 0;
     }
-
 
 /* Create a custom checkbox */
 
@@ -1825,20 +1904,17 @@ select,
     background-color: #725c5c;
 }
 
-
 /* On mouse-over, add a grey background color */
 
 .container:hover input ~ .checkmark {
     background-color: #ccc;
 }
 
-
 /* When the checkbox is checked, add a blue background */
 
 .container input:checked ~ .checkmark {
-    background-color: #2196F3;
+    background-color: #2196f3;
 }
-
 
 /* Create the checkmark/indicator (hidden when not checked) */
 
@@ -1848,13 +1924,11 @@ select,
     display: none;
 }
 
-
 /* Show the checkmark when checked */
 
 .container input:checked ~ .checkmark:after {
     display: block;
 }
-
 
 /* Style the checkmark/indicator */
 
@@ -1870,13 +1944,16 @@ select,
     transform: rotate(45deg);
 }
 
-
 /* check modal close -------------------------------------------------------------------------------------------*/
 
-.leave-form-calender {
+/*.leave-form-calender {
     display: flex;
     flex-wrap: wrap;
-}
+}*/
+
+    .leave-form-calender form {
+        position: relative;
+    }
 
 .leave-form p {
     width: 220px;
@@ -1891,12 +1968,6 @@ select,
 }
 
 #returndate {
-    text-transform: uppercase;
-    color: #725c5c;
-    font-size: 20px;
-}
-
-#leavedates {
     text-transform: uppercase;
     color: #725c5c;
     font-size: 20px;
@@ -1917,13 +1988,14 @@ select,
 }
 
 .leave-submit-btn button {
-    text-align: center;
-    background-color: #c4c4c4;
-    border: 1px solid black;
-    margin: 5px;
+    padding: 8px 30px;
+    border: 1px solid #e4e4e4;
+    background: #725c5c;
+    color: white;
+    border: 1px solid gray;
     border-radius: 5px;
-    padding: 10px 24px;
-    cursor: pointer;
+    height: 35px;
+    font-size: 15px;
 }
 
     .leave-submit-btn button:hover {
@@ -1931,14 +2003,13 @@ select,
         border: 1px solid gray;
     }
 
-.leave-submit-btn:active {
-    transform: scale(0.98);
-}
+/* .leave-submit-btn:active {
+  transform: scale(0.98);
+} */
 
-.leave-submit-btn button:focus {
-    outline: none;
-}
-
+/* .leave-submit-btn button:focus {
+  outline: none;
+} */
 
 /* calendar */
 
@@ -1958,7 +2029,6 @@ select,
 .button-container-calendar button {
     cursor: pointer;
     display: inline-block;
-    zoom: 1;
     background: #00a2b7;
     color: #fff;
     border: 1px solid #0aa2b5;
@@ -1981,7 +2051,7 @@ select,
 
 .date-picker.selected {
     font-weight: bold;
-    outline: 2px solid #00BCD4
+    outline: 2px solid #00bcd4;
 }
 
 td span {
@@ -1992,16 +2062,13 @@ td span {
     border-bottom: 2px solid currentColor;
 }
 
-
 /* sunday */
 
 .date-picker:nth-child(7) {
     color: red;
 }
 
-
 /* friday */
-
 
 /* .date-picker:nth-child(6) {
   color: green;
@@ -2040,6 +2107,7 @@ td span {
 .leavestart,
 .leaveend {
     color: red;
+    font-weight: bolder;
 }
 
 @media screen and (min-width: 1024px) {
@@ -2108,7 +2176,7 @@ td span {
 
     .date-picker.selected {
         font-weight: bold;
-        outline: 2px solid #00BCD4;
+        outline: 2px solid #00bcd4;
     }
 
         .date-picker.selected span {

@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Podkova&family=Roboto:wght@400;700&display=swap"
+          rel="stylesheet" />
+    <link rel="stylesheet" href="~/fontawesome-free-5.15.4-web/css/all.css" />
+    <link rel="icon" type="image/x-icon" href="~/image/c2.jpg" />
+    <link rel="stylesheet" href="~/css/style.css" />
+    <!-- <link rel="stylesheet" href="../TEst/Same.css"> -->
+    <title>Employee-List</title>
+</head>
+
+
+<body>
+    <main class="main-container">
+        <article>              
+            
+            <div class="side-body">
+                <div class="user-employee-header">
+                    <h2>Holiday</h2>
+                </div>
+                <div class="holiday-container">
+                    <div class="holiday-content">
+
+                        <form id="holidayReq" name="holidayReq">
+                            <div class="date-content">
+                                <label for="date">Date:</label>
+                                <input type="date" name="holiday" id="holiday" required />
+                            </div>
+                            <div class="hday-name">
+                                <label for="holiday">Holiday Name:</label>
+                                <input type="text" name="holidayName" id="holidayName" required />
+                            </div>
+                            <div class="hday-btn">
+                                <button id="formSubmit" type="button">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </main>
+
+    <script src="~/js/employee.js"></script>
+
+</body>
+
+</html>

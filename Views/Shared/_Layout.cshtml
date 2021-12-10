@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -12,13 +14,15 @@
     <link rel="stylesheet" href="~/fontawesome-free-5.15.4-web/css/all.css">
     <link rel="icon" type="image/x-icon" href="~/image/c2.jpg">
 
-    <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" href="~/css/Layout.css">
+    <link rel="stylesheet" href="~/css/style.css" />
 
     <title>Employee-List</title>
     @using Microsoft.AspNetCore.Identity
     @using EmployeeManagement.Areas.Identity.Data
     @inject SignInManager<ApplicationUser> SignInManager
     @inject UserManager<ApplicationUser> UserManager
+
 
 </head>
 
@@ -31,7 +35,7 @@
                 <div class="mysidenav">
                     <span class="closebtn"><i class="fas fa-times"></i></span>
                     <div style="text-align: center;">
-                        <img src="../image/c2.jpg" alt="">
+                        <img src="./../image/c2.jpg" alt="">
                         <div>
                             <h1>@UserManager.GetUserAsync(User).Result.UserName</h1>
                         </div>
@@ -39,37 +43,37 @@
 
                     <nav>
                         <div class="nav">
-                            <button onclick="myFunction()" class="dropdown-btn  nav__link ">
+                            <div onclick="myFunction()" class="dropdown-btn ">
                                 <i class="fas fa-user-friends"></i>Employee
                                 <i class="fa fa-caret-down"></i>
-                            </button>
+                            </div>
                             <div id="myDIV" class="dropdown-container">
                                 <a asp-controller="Employee" asp-action="Index">Employee-List</a>
-                                <a asp-controller="Employee" asp-action="Index">Employee-List</a>
-                                <a asp-controller="Employee" asp-action="Index">Employee-List</a>
-                                <a asp-controller="Employee" asp-action="Index">Employee-List</a>
+                                <a href="#">Employee-Home</a>
+                                <a href="#">Employee-Leave</a>
+                                <a href="#">Employee-Holiday</a>
 
                             </div>
-                            <button onclick="myFunctions()" class="dropdown-btn nav__link ">
+                            <div onclick="myFunctions()" class="dropdown-btn nav__link">
                                 <i class="fas fa-user-friends"></i>User
                                 <i class="fa fa-caret-down"></i>
-                            </button>
+                            </div>
                             <div id="myDIVs" class="dropdown-container">
                                 <a asp-controller="ApplicationUser" asp-action="Index">User-List</a>
-                                <a asp-controller="ApplicationUser" asp-action="Index">User-List</a>
-                                <a asp-controller="ApplicationUser" asp-action="Index">User-List</a>
-                                <a asp-controller="ApplicationUser" asp-action="Index">User-List</a>
-
+                                <a href="#">User-Home</a>
+                                <a href="#">User-leave</a>
+                                <a href="#">User-Holiday</a>
 
                             </div>
 
-                            <button class="nav__link dropdown-btn form-link">
-                                <a href="leavereq.html">leave</a>
-                            </button>
 
-                            <button class="dropdown-btn nav__link form-link">
-                                <a href="./holidayreq.html">holiday</a>
-                            </button>
+
+                            <a asp-controller="ApplicationUser" asp-action="Leave">leave</a>
+
+
+
+                            <a asp-controller="ApplicationUser" asp-action="Holiday">holiday</a>
+
 
 
                         </div>
@@ -78,46 +82,51 @@
 
 
                 </div>
-
-
-            <div class="side-body">
                 <div class="iconImage" id="main">
                     <span style="font-size:30px;cursor:pointer">&#9776;</span>
                     <div class="imgContainer" onclick="openForm()">
-                        <img src="../image/c2.jpg" alt="">
+
+                        <!-- <img src="./image/Screenshot_4.png" width="100%"  alt="" srcset=""> -->
+                        <i class="fas fa-user-tie"></i>
                     </div>
 
                 </div>
 
+                <div class="side-body">
+                    <!-- <div class="iconImage" id="main">
+              <span style="font-size:30px;cursor:pointer">&#9776;</span>
+              <div class="imgContainer" onclick="openForm()">
+                <img src="../image/c2.jpg" alt="">
+              </div>
 
-                <div class="form-popup" id="myForm">
-                    <form class="form-container">
-                        <div style="display: flex; justify-content: space-between; padding: 2px;">
-                            <button type="button" class="btn cancel" onclick="closeForm()">
-                                <i class="far fa-times-circle"></i>
-                            </button>
-                            <div>
-                                <button asp-area="Identity" asp-page="/Account/Login" class="logout-btn"><i class="fas fa-power-off"></i></button>
+            </div> -->
+
+
+                    <div class="form-popup" id="myForm">
+                        <form class="form-container">
+                            <!-- <div style="display: flex; justify-content: flex-end; padding: 2px;">
+                        <button type="button" class="btn cancel" onclick="closeForm()"><i
+                                class="far fa-times-circle"></i></button>
+
+
+                    </div> -->
+
+                            <div class="side-body-logout-section">
+
+                                <h1>@UserManager.GetUserAsync(User).Result.UserName</h1>
+                                <p>@UserManager.GetUserAsync(User).Result.Email</p>
+                                <button>Change Password</button><br>
+                                <button asp-area="Identity" asp-page="/Account/Login">Log out</button>
+
+
                             </div>
-                        </div>
-
-                        <div style="text-align: center;">
-                            <h1>@UserManager.GetUserAsync(User).Result.UserName</h1>
-                            <p>@UserManager.GetUserAsync(User).Result.Email</p>
-                        </div>
-                        <div class="forget-pw" style="display: flex; justify-content: space-evenly;">
-                            <button>Change Password?</button>
-
-                        </div>
-
-                    </form>
+                        </form>
+                    </div>
                 </div>
-            </div>
+                @RenderBody()
             }
-        </article>
-        @RenderBody()
-          
-    </main>
+                </article>
+</main>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

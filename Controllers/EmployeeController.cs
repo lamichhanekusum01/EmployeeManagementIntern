@@ -96,12 +96,33 @@ namespace EmployeeManagement.Controllers
             _context = Context;
         }
         [Authorize]
-        public IActionResult Index()
+        public IActionResult Index(string? query)
         {
+            EmployeeViewModel model = new EmployeeViewModel();
 
-            var data = _iEmployeeProvider.GetList();
+            model = _iEmployeeProvider.GetList();
 
             //var designation = _iEmployeeProvider.GetList();
+            //if (String.IsNullOrEmpty(query))
+            //{
+            //    model = _iEmployeeProvider.GetList();
+            //}
+            //else
+            //{
+            //    model.EmployeeList = (from s in _context.Employees
+            //    where s.FirstName.Contains(query) || s.LastName.Contains(query) || s.MiddleName.Contains(query)
+            //    select new EmployeeViewModel
+            //    {
+            //        Employee_Id = s.Employee_Id,
+            //        FirstName = s.FirstName,
+            //        MiddleName = s.MiddleName,
+            //        LastName = s.LastName,
+            //        Address = s.Address,
+            //        Dob = s.Dob,
+            //        Email = s.Email,
+            //        Phone= s.Phone,
+            //    }).ToList();
+            //}
             var designation = _context.Designations.ToList();
 
             List<SelectListItem> Designation = new List<SelectListItem>();
@@ -151,7 +172,7 @@ namespace EmployeeManagement.Controllers
                 Gender.Add(items);
             }
             ViewBag.gender = Gender;
-            return View(data);
+            return View(model);
         }
         [HttpGet]
         public IActionResult Create(int? id)
@@ -265,46 +286,29 @@ namespace EmployeeManagement.Controllers
 
             return Json(users);
         }
-        public ActionResult SearchEmployee(string val)
+
+        public ActionResult SearchEmployee(string query)
         {
             EmployeeViewModel model = new EmployeeViewModel();
-
-            model.EmployeeList = (from s in _context.Employees
-                                  where s.FirstName.Contains(val) || s.LastName.Contains(val) || s.MiddleName.Contains(val) || s.Address.Contains(val) || s.Email.Contains(val)
-                                  select new EmployeeViewModel
-                                  {
-                                      Employee_Id = s.Employee_Id,
-                                      FirstName = s.FirstName,
-                                      MiddleName = s.MiddleName,
-                                      LastName = s.LastName,
-                                      Address = s.Address,
-                                      Dob = s.Dob,
-                                      Email = s.Email,
-
-                                  }).ToList();
-            return View(model);
-        }
-        public JsonResult BindDataInDropDownList()
-        {
-            var list = new List<EmployeeViewModel>();
-            var data = _context.Employees.ToList();
-            if (data.Count > 0)
-            {
-                foreach (var item in data)
+                model.EmployeeList = (from s in _context.Employees
+                where s.FirstName.Contains(query) || s.LastName.Contains(query) || s.MiddleName.Contains(query)
+                select new EmployeeViewModel
                 {
-                    EmployeeViewModel objModel = new EmployeeViewModel();
-                    objModel.Employee_Id = item.Employee_Id;
-                    objModel.FirstName = item.FirstName;
-                    objModel.MiddleName = item.MiddleName;
-                    objModel.LastName = item.LastName;
-                    objModel.Address = item.Address;
-                    //objModel.Gender = item.Gender;
-                    objModel.Dob = item.Dob;
-                    list.Add(objModel);
-                }
-            }
-            return Json(data);
+                    Employee_Id = s.Employee_Id,
+                    FirstName = s.FirstName,
+                    MiddleName = s.MiddleName,
+                    LastName = s.LastName,
+                    Address = s.Address,
+                    Dob = s.Dob,
+                    Email = s.Email,
+                    Phone= s.Phone,
+                }).ToList();
+
+            return PartialView(model);
         }
+
     }
 
-}
+} 
+
+//vaisakyo ta search lol??

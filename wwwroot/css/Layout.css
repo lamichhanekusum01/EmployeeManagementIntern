@@ -1,0 +1,374 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Roboto", sans-serif;
+    background: #f0eeee;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #1f1212;
+    border-radius: 10px;
+}
+
+.main-container {
+    /* height: 653px; */
+    height: 100vh;
+    width: 100%;
+}
+
+.mysidenav {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #1d1919;
+    overflow-x: hidden;
+    padding-top: 30px;
+    transition: all 0.5s ease;
+    transform: translateX(-100%);
+    display: flex;
+    flex-direction: column;
+}
+
+    .mysidenav a,
+    .dropdown-btn {
+        padding: 18px 2px 10px 6px;
+        text-decoration: none;
+        font-size: 15px;
+        color: #818181;
+        display: block;
+        border-top: none;
+        border-left: none;
+        /* border-bottom: 2px solid; */
+        border-right: none;
+        background: none;
+        width: 100%;
+        text-align: left;
+        cursor: pointer;
+        outline: none;
+        text-transform: capitalize;
+    }
+
+    .mysidenav a {
+        border: none;
+        padding: 18px 2px 10px 6px;
+        font-size: 15px;
+    }
+
+    .mysidenav div img {
+        border: 5px solid gray;
+        border-radius: 50%;
+        width: 50%;
+    }
+
+    .mysidenav a:hover, .dropdown-btn:hover {
+        color: #f1f1f1;
+        background-color: rgba(200, 200, 200, 0.2);
+        box-shadow: 0 4px 20px 0 rgb(0 0 0 / 14%), 0 7px 10px -5px #1f121200;
+    }
+
+    .mysidenav.showbar {
+        transform: translateX(0%);
+    }
+
+    .mysidenav h1 {
+        padding: 18px 2px 10px 6px;
+        margin: auto;
+        font-size: 20px;
+        color: #818181;
+        border-bottom: 2px solid;
+        display: block;
+        font-weight: normal;
+    }
+
+        .mysidenav h1:hover {
+            color: #f1f1f1;
+            cursor: pointer;
+        }
+
+.closebtn {
+    font-size: 35px;
+    align-self: flex-end;
+    padding-right: 10px;
+    color: white;
+    opacity: 0.1;
+    cursor: pointer;
+}
+
+    .closebtn:hover {
+        opacity: 1;
+    }
+
+.nav {
+    margin-top: 50px;
+}
+
+.dropdown-btn i {
+    margin-right: 5px;
+}
+
+a.active {
+    border-left: 2px solid;
+    color: white;
+    box-shadow: 0 4px 20px 0 rgb(0 0 0 / 14%), 0 7px 10px -5px #1f121200;
+}
+
+.fa-user-tie {
+    font-size: 30px;
+    opacity: 0.5;
+}
+
+.fa-caret-down {
+    float: right;
+    padding-right: 8px;
+}
+
+.dropdown-container {
+    display: none;
+    background-color: #262626;
+    padding: 5px;
+    -webkit-animation: fadein 0.5s;
+    animation: fadein 0.5s;
+}
+
+.form-link a {
+    padding: 12px !important;
+}
+
+.form-link {
+    padding: unset;
+}
+
+.iconImage {
+    display: flex;
+    background-color: #1d1919;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+    width: 100%;
+    color: white;
+}
+
+.imgContainer img {
+    width: 58px;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.imgContainer {
+    position: absolute;
+    right: 2%;
+}
+
+.form-popup {
+    display: none;
+    position: fixed;
+    right: 14px;
+    top: 62px;
+    /* border: 3px solid #f1f1f1; */
+    z-index: 9;
+    /* width: 200px; */
+    animation-name: slideIn;
+    animation-duration: 0.4s;
+}
+
+.form-container {
+    max-width: 148px;
+    padding: 3px 0 5px;
+    background-color: #c4c4c4;
+    border-radius: 10px;
+}
+
+    .form-container h1 {
+        padding: 7px 0;
+        font-size: 17px;
+        font-weight: normal;
+        margin-bottom: 10px;
+    }
+
+        /* .form-container p {
+    padding: 7px 0;
+    font-size: 15px;
+    font-style: italic;
+    font-weight: 700;
+    margin-bottom: 10px;
+  } */
+
+        .form-container h1:hover,
+        .form-container p:hover {
+            background-color: #629fc9ad;
+            transition: 0.1s;
+            opacity: 0.9;
+        }
+
+    .form-container div button:hover {
+        opacity: 1;
+    }
+
+    .form-container .btn {
+        background-color: transparent;
+        color: black;
+        padding: 5px;
+        border: none;
+        cursor: pointer;
+        opacity: 0.5;
+    }
+
+        .form-container .btn:hover,
+        .open-button:hover {
+            opacity: 1;
+        }
+
+.logout-btn {
+    border: none;
+    background-color: transparent;
+    font-size: 15px;
+    padding: 5px;
+    color: black;
+    opacity: 0.5;
+}
+
+.forget-pw button {
+    font-size: 10px;
+    font-size: 10px;
+    background-color: brown;
+    padding: 5px;
+    border: none;
+    margin-bottom: 10px;
+    border-radius: 50px;
+    opacity: 0.8;
+}
+
+.side-body-logout-section {
+    margin: 5px;
+}
+
+    .side-body-logout-section a {
+        color: black;
+    }
+
+    .side-body-logout-section button {
+        border: none;
+        background: none;
+        width: 138px;
+        text-align: left;
+    }
+
+    .side-body-logout-section h1 {
+        font-size: 19px !important;
+    }
+
+    .side-body-logout-section p {
+        padding-top: 9px !important;
+    }
+
+    .side-body-logout-section h1,
+    .side-body-logout-section p,
+    .side-body-logout-section button {
+        padding: 5px;
+        font-size: 12px;
+        height: 30px;
+    }
+
+        .side-body-logout-section h1:hover,
+        .side-body-logout-section p:hover,
+        .side-body-logout-section a:hover,
+        .side-body-logout-section button:hover {
+            color: #fff;
+            box-shadow: 0 4px 20px 0 rgb(0 0 0 / 14%), 0 7px 10px -5px rgb(156 39 176 / 40%);
+            background-color: #1f1212ba;
+            cursor: pointer;
+        }
+/* Add Animation */
+
+@-webkit-keyframes slideIn {
+    from {
+        top: -300px;
+        opacity: 0;
+    }
+
+    to {
+        top: 60px;
+        opacity: 1;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        top: 0px;
+        opacity: 0;
+    }
+
+    to {
+        top: 60px;
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .mysidenav.showbar {
+        width: 100%;
+    }
+
+    .mysidenav span {
+        display: none;
+    }
+
+    .mysidenav {
+        width: 18%;
+        /* padding-top: 70px; */
+        transform: translateX(0%);
+    }
+
+        .mysidenav.showbar {
+            width: 100%;
+        }
+
+        .mysidenav span {
+            display: none;
+        }
+
+    .mysidenav {
+        width: 18%;
+        border-right: 6px solid #544343;
+        transform: translateX(0%);
+    }
+
+    .side-body {
+        margin-left: 18%;
+    }
+
+    .iconImage span {
+        display: none;
+    }
+}

@@ -49,6 +49,9 @@ body {
     margin: 37px;
 }
 
+.users-content div{
+    height:100px
+}
 .users-content label {
     font-size: 20px;
     font-style: normal;
@@ -63,8 +66,8 @@ input[type=email],
 input[type=password] {
     padding: 10px;
     color: black;
-    margin-top: 6px;
-    margin-bottom: 37px;
+    /*margin-top: 6px;
+    margin-bottom: 20px;*/
     height: 46px;
     width: 242px;
     border-radius: 15px;
@@ -105,4 +108,7 @@ input[placeholder] {
 .submit-btn:hover {
     background: #8BC6EC;
     box-shadow: 0px 4px 15px 0px #000000;
+}
+.submit-btn:active{
+    transform:scale(0.98)
 }
