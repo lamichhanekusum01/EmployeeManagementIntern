@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EmployeeManagement.Migrations
 {
-    public partial class AddedValidation : Migration
+    public partial class AddedHolidayModels : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -48,6 +48,20 @@ namespace EmployeeManagement.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Holidays",
+                columns: table => new
+                {
+                    Holiday_Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    HolidayName = table.Column<int>(type: "int", nullable: false),
+                    HolidayDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Holidays", x => x.Holiday_Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -74,13 +88,13 @@ namespace EmployeeManagement.Migrations
                 {
                     Employee_Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     MiddleName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Dob = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Phone = table.Column<int>(type: "int", nullable: false),
+                    Phone = table.Column<long>(type: "bigint", nullable: false),
                     Salary = table.Column<int>(type: "int", nullable: false),
                     Gender_Id = table.Column<int>(type: "int", nullable: true),
                     GenderName = table.Column<string>(type: "nvarchar(1)", nullable: false),
@@ -88,6 +102,7 @@ namespace EmployeeManagement.Migrations
                     Time_In = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Time_out = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    AttendenceHoliday_Id = table.Column<int>(type: "int", nullable: true),
                     Designation_Id = table.Column<int>(type: "int", nullable: true),
                     DesignationName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -107,6 +122,12 @@ namespace EmployeeManagement.Migrations
                         column: x => x.Gender_Id,
                         principalTable: "Genders",
                         principalColumn: "Gender_Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Employees_Holidays_AttendenceHoliday_Id",
+                        column: x => x.AttendenceHoliday_Id,
+                        principalTable: "Holidays",
+                        principalColumn: "Holiday_Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -304,9 +325,12 @@ namespace EmployeeManagement.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Attendences_Employee_Id",
                 table: "Attendences",
-                column: "Employee_Id",
-                unique: true,
-                filter: "[Employee_Id] IS NOT NULL");
+                column: "Employee_Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Employees_AttendenceHoliday_Id",
+                table: "Employees",
+                column: "AttendenceHoliday_Id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Employees_Designation_Id",
@@ -353,6 +377,9 @@ namespace EmployeeManagement.Migrations
 
             migrationBuilder.DropTable(
                 name: "Genders");
+
+            migrationBuilder.DropTable(
+                name: "Holidays");
         }
     }
 }

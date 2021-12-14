@@ -4,14 +4,16 @@ using EmployeeManagement.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EmployeeManagement.Migrations
 {
     [DbContext(typeof(EmployeeManagementDbContext))]
-    partial class EmployeeManagementDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211214065424_AddedLeaveModel")]
+    partial class AddedLeaveModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -170,32 +172,6 @@ namespace EmployeeManagement.Migrations
                     b.HasKey("Holiday_Id");
 
                     b.ToTable("Holidays");
-                });
-
-            modelBuilder.Entity("EmployeeManagement.Models.Leave", b =>
-                {
-                    b.Property<int>("Leave_Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("EmployeeName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("Employee_Id")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("LeaveDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("LeaveDays")
-                        .HasColumnType("int");
-
-                    b.HasKey("Leave_Id");
-
-                    b.HasIndex("Employee_Id");
-
-                    b.ToTable("Leaves");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -465,15 +441,6 @@ namespace EmployeeManagement.Migrations
                     b.Navigation("Designation");
 
                     b.Navigation("Gender");
-                });
-
-            modelBuilder.Entity("EmployeeManagement.Models.Leave", b =>
-                {
-                    b.HasOne("EmployeeManagement.Models.Employee", "Employee")
-                        .WithMany()
-                        .HasForeignKey("Employee_Id");
-
-                    b.Navigation("Employee");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

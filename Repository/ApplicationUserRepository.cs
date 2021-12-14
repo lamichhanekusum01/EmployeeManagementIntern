@@ -15,11 +15,12 @@ namespace EmployeeManagement.Repository
         {
 
         }
+    }
         public interface IApplicationUserRepository : IRepository<ApplicationUser>
         {
 
         }
-    }
+    
 }
 
     

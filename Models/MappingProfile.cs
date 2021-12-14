@@ -23,8 +23,11 @@ namespace EmployeeManagement
 
             CreateMap<ApplicationUserViewModel, ApplicationUser>();
 
+            CreateMap<Holiday, HolidayViewModel>();
 
-
+            CreateMap<HolidayViewModel, Holiday>();
+            CreateMap<Leave, LeaveViewModel>();
+            CreateMap<LeaveViewModel, Leave>();
         }
     }
 }

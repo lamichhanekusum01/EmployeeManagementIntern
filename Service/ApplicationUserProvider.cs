@@ -2,6 +2,7 @@
 using EmployeeManagement.Areas.Identity.Data;
 using EmployeeManagement.Data;
 using EmployeeManagement.Models;
+using EmployeeManagement.Repository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;

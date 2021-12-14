@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace EmployeeManagement.Data
 {
     public class EmployeeManagementDbContext : IdentityDbContext<IdentityUser>
@@ -30,6 +31,8 @@ namespace EmployeeManagement.Data
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
        public DbSet<Gender> Genders { get; set; }
         public DbSet<Designation> Designations { get; set; }
+        public DbSet<Holiday> Holidays { get; set; }
+        public DbSet<Leave> Leaves { get; set; }
         public DbSet<Attendence>Attendences { get; set; }
 
 

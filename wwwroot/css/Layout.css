@@ -170,19 +170,19 @@ a.active {
     right: 2%;
 }
 
-.form-popup {
+/*.form-popup {
     display: none;
     position: fixed;
     right: 14px;
-    top: 62px;
+    top: 62px;*/
     /* border: 3px solid #f1f1f1; */
-    z-index: 9;
+    /*z-index: 9;*/
     /* width: 200px; */
-    animation-name: slideIn;
+    /*animation-name: slideIn;
     animation-duration: 0.4s;
-}
+}*/
 
-.form-container {
+/*.form-container {
     max-width: 148px;
     padding: 3px 0 5px;
     background-color: #c4c4c4;
@@ -194,7 +194,7 @@ a.active {
         font-size: 17px;
         font-weight: normal;
         margin-bottom: 10px;
-    }
+    }*/
 
         /* .form-container p {
     padding: 7px 0;
@@ -206,7 +206,7 @@ a.active {
 
         .form-container h1:hover,
         .form-container p:hover {
-            background-color: #629fc9ad;
+           
             transition: 0.1s;
             opacity: 0.9;
         }
@@ -249,7 +249,7 @@ a.active {
     opacity: 0.8;
 }
 
-.side-body-logout-section {
+/*.side-body-logout-section {
     margin: 5px;
 }
 
@@ -288,7 +288,7 @@ a.active {
             box-shadow: 0 4px 20px 0 rgb(0 0 0 / 14%), 0 7px 10px -5px rgb(156 39 176 / 40%);
             background-color: #1f1212ba;
             cursor: pointer;
-        }
+        }*/
 /* Add Animation */
 
 @-webkit-keyframes slideIn {

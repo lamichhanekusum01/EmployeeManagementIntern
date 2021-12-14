@@ -103,7 +103,7 @@
             <div class="user form-dob-gender-details">
                 <div class="name">
                     <label for="dob">Date Of Birth:</label>
-                    <input type="date" asp-for="Dob" value="@Model.Dob"  />
+                    <input data-date-format="dd-MMM-yyyy" asp-for="Dob" />
                     <span asp-validation-for="Dob" class="text-danger"></span>
                 </div>
 

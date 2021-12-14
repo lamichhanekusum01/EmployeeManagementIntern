@@ -32,10 +32,7 @@ namespace EmployeeManagement.Service
 
             Employee employee = new Employee();
             employee = _mapper.Map<Employee>(model);
-            //employee.FullName = model.FullName;
-            //employee.Address = model.Address;
-            //employee.Gender = model.Gender;
-            //employee.Dob = model.Dob;
+            
             if (employee.Employee_Id > 0)
             {
                 //employee.UpdatedBy = 1;

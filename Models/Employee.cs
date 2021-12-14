@@ -35,7 +35,7 @@ namespace EmployeeManagement.Models
         public DateTime Time_In { get; set; }
         public DateTime Time_out { get; set; }
         public DateTime Date { get; set; }
-        public virtual Attendence Attendence { get; set; }
+        public virtual Holiday Attendence { get; set; }
         public int? Designation_Id { get; set; }
 
         [ForeignKey(nameof(Designation_Id))]

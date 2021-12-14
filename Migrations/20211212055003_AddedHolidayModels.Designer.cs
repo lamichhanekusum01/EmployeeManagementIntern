@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EmployeeManagement.Migrations
 {
     [DbContext(typeof(EmployeeManagementDbContext))]
-    [Migration("20211205071313_AddedValidation")]
-    partial class AddedValidation
+    [Migration("20211212055003_AddedHolidayModels")]
+    partial class AddedHolidayModels
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -42,9 +42,7 @@ namespace EmployeeManagement.Migrations
 
                     b.HasKey("Attendence_Id");
 
-                    b.HasIndex("Employee_Id")
-                        .IsUnique()
-                        .HasFilter("[Employee_Id] IS NOT NULL");
+                    b.HasIndex("Employee_Id");
 
                     b.ToTable("Attendences");
                 });
@@ -74,6 +72,9 @@ namespace EmployeeManagement.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("AttendenceHoliday_Id")
+                        .HasColumnType("int");
+
                     b.Property<int?>("Attendence_Id")
                         .HasColumnType("int");
 
@@ -94,6 +95,7 @@ namespace EmployeeManagement.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("GenderName")
@@ -112,8 +114,8 @@ namespace EmployeeManagement.Migrations
                     b.Property<string>("MiddleName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Phone")
-                        .HasColumnType("int");
+                    b.Property<long>("Phone")
+                        .HasColumnType("bigint");
 
                     b.Property<int>("Salary")
                         .HasColumnType("int");
@@ -128,6 +130,8 @@ namespace EmployeeManagement.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Employee_Id");
+
+                    b.HasIndex("AttendenceHoliday_Id");
 
                     b.HasIndex("Designation_Id");
 
@@ -150,6 +154,24 @@ namespace EmployeeManagement.Migrations
                     b.HasKey("Gender_Id");
 
                     b.ToTable("Genders");
+                });
+
+            modelBuilder.Entity("EmployeeManagement.Models.Holiday", b =>
+                {
+                    b.Property<int?>("Holiday_Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("HolidayDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("HolidayName")
+                        .HasColumnType("int");
+
+                    b.HasKey("Holiday_Id");
+
+                    b.ToTable("Holidays");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -394,14 +416,18 @@ namespace EmployeeManagement.Migrations
             modelBuilder.Entity("EmployeeManagement.Models.Attendence", b =>
                 {
                     b.HasOne("EmployeeManagement.Models.Employee", "employee")
-                        .WithOne("Attendence")
-                        .HasForeignKey("EmployeeManagement.Models.Attendence", "Employee_Id");
+                        .WithMany()
+                        .HasForeignKey("Employee_Id");
 
                     b.Navigation("employee");
                 });
 
             modelBuilder.Entity("EmployeeManagement.Models.Employee", b =>
                 {
+                    b.HasOne("EmployeeManagement.Models.Holiday", "Attendence")
+                        .WithMany()
+                        .HasForeignKey("AttendenceHoliday_Id");
+
                     b.HasOne("EmployeeManagement.Models.Designation", "Designation")
                         .WithMany()
                         .HasForeignKey("Designation_Id");
@@ -409,6 +435,8 @@ namespace EmployeeManagement.Migrations
                     b.HasOne("EmployeeManagement.Models.Gender", "Gender")
                         .WithMany()
                         .HasForeignKey("Gender_Id");
+
+                    b.Navigation("Attendence");
 
                     b.Navigation("Designation");
 
@@ -478,8 +506,6 @@ namespace EmployeeManagement.Migrations
             modelBuilder.Entity("EmployeeManagement.Models.Employee", b =>
                 {
                     b.Navigation("ApplicationUser");
-
-                    b.Navigation("Attendence");
                 });
 #pragma warning restore 612, 618
         }

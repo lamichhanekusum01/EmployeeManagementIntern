@@ -16,7 +16,7 @@
 
     <link rel="stylesheet" href="~/css/Layout.css">
     <link rel="stylesheet" href="~/css/style.css" />
-
+    
     <title>Employee-List</title>
     @using Microsoft.AspNetCore.Identity
     @using EmployeeManagement.Areas.Identity.Data
@@ -35,7 +35,7 @@
                 <div class="mysidenav">
                     <span class="closebtn"><i class="fas fa-times"></i></span>
                     <div style="text-align: center;">
-                        <img src="./../image/c2.jpg" alt="">
+                        <img src="~/image/c2.jpg" alt="">
                         <div>
                             <h1>@UserManager.GetUserAsync(User).Result.UserName</h1>
                         </div>
@@ -68,11 +68,11 @@
 
 
 
-                            <a asp-controller="ApplicationUser" asp-action="Leave">leave</a>
+                            <a asp-controller="Leave" asp-action="Index">leave</a>
 
 
 
-                            <a asp-controller="ApplicationUser" asp-action="Holiday">holiday</a>
+                            <a asp-controller="Holiday" asp-action="Index">holiday</a>
 
 
 
@@ -105,21 +105,43 @@
                     <div class="form-popup" id="myForm">
                         <form class="form-container">
                             <!-- <div style="display: flex; justify-content: flex-end; padding: 2px;">
-                        <button type="button" class="btn cancel" onclick="closeForm()"><i
-                                class="far fa-times-circle"></i></button>
+        <button type="button" class="btn cancel" onclick="closeForm()"><i
+                class="far fa-times-circle"></i></button>
 
 
-                    </div> -->
-
+    </div> -->
                             <div class="side-body-logout-section">
 
-                                <h1>@UserManager.GetUserAsync(User).Result.UserName</h1>
-                                <p>@UserManager.GetUserAsync(User).Result.Email</p>
-                                <button>Change Password</button><br>
-                                <button asp-area="Identity" asp-page="/Account/Login">Log out</button>
+                                <span>
+                                    <i class="fas fa-user-circle"></i>
+                                    <h1>@UserManager.GetUserAsync(User).Result.UserName</h1>
+                                </span>
+                                <span>
+                                    <i class="fas fa-envelope"></i>
+                                    <p>@UserManager.GetUserAsync(User).Result.Email</p>
+                                </span>
+                                <span>
+
+                                    <button> <i class="fas fa-pen"></i>Change Password</button>
+                                </span>
+                                <span>
+
+                                    <button asp-area="Identity" asp-page="/Account/Login">  <i class="fas fa-power-off"></i>Log out</button>
+                                </span>
+
 
 
                             </div>
+
+                            @*<div class="side-body-logout-section">
+
+            <h1>@UserManager.GetUserAsync(User).Result.UserName</h1>
+            <p>@UserManager.GetUserAsync(User).Result.Email</p>
+            <button>Change Password</button><br>
+            <button asp-area="Identity" asp-page="/Account/Login">Log out</button>
+
+
+        </div>*@
                         </form>
                     </div>
                 </div>
@@ -131,3 +153,23 @@
 </body>
 </html>
 <script src="~/js/employee.js"></script>
+<script>
+    const currentLocation = location.href;
+    // console.log(currentLocation)
+    const menuItems = document.querySelectorAll('a');
+    // console.log(menuItems)
+    const menuLength = menuItems.length;
+    // console.log(menuLength)
+    for (let i = 0; i < menuLength; i++) {
+        if (menuItems[i].href === currentLocation) {
+            // console.log((menuItems[i].href === currentLocation))
+            menuItems[i].className = "active"
+            menuItems[i].parentElement.style.display = "block";
+            console.log(menuItems[i])
+
+
+
+
+        }
+    }
+</script>

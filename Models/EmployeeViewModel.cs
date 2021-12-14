@@ -44,9 +44,10 @@ namespace EmployeeManagement.Models
         {
             EmployeeList = new List<EmployeeViewModel>();
         }
-        
-       
-       
+        public int CurrentPageIndex { get; set; }
+        public int PageCount { get; set; }
+
+
 
     }
 }

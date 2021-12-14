@@ -14,7 +14,7 @@ namespace EmployeeManagement.Models
         public string LastName { get; set; }
         public string MiddleName { get; set; }
         [Required]
-        [StringLength(100, ErrorMessage = "enterusername.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "UserName Required", MinimumLength = 5)]
         public string UserName { get; set; }
         public string DegisnationName { get; set; }
         public string Address { get; set; }
@@ -22,7 +22,7 @@ namespace EmployeeManagement.Models
         public string Email { get; set; }
         public double Phone { get; set; }
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 5)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string PasswordHash { get; set; }

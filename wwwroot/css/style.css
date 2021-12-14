@@ -479,7 +479,7 @@ User-list style---------------------------------------------------- */
 
     /* Style the sidenav links and the dropdown button */
 
-    .mysidenav a,
+    /*.mysidenav a,*/
     .dropdown-btn {
         padding: 18px 2px 10px 6px;
         text-decoration: none;
@@ -498,12 +498,12 @@ User-list style---------------------------------------------------- */
         text-transform: capitalize;
     }
 
-    .mysidenav a {
+   /* .mysidenav a {
         border: none;
         padding: 18px 2px 10px 6px;
         font-size: 15px;
     }
-
+*/
     .mysidenav div img {
         border: 5px solid gray;
         border-radius: 50%;
@@ -514,17 +514,17 @@ User-list style---------------------------------------------------- */
 }
 
 /* On mouse-over */
-
-.mysidenav a:hover,
+/*
+.mysidenav a:hover, 
 .dropdown-btn:hover {
     color: #f1f1f1;
     background-color: rgba(200, 200, 200, 0.2);
-}
+}*/
 
-a.active {
+/*a.active {
     background: green;
     color: white;
-}
+}*/
 /* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
 
 .dropdown-container {
@@ -637,7 +637,7 @@ a.active {
 /* Add styles to the form container */
 
 .form-container {
-    max-width: 148px;
+    width: 100%;
     padding: 3px 0 20px;
     background-color: #c4c4c4;
     border-radius: 10px;
@@ -645,6 +645,66 @@ a.active {
     flex-direction: row-reverse;
     align-items: flex-start; */
 }
+
+
+
+
+.side-body-logout-section {
+    margin: 5px;
+}
+
+    .side-body-logout-section a {
+        color: black;
+    }
+
+    .side-body-logout-section button {
+        border: none;
+        background: none;
+        width: 138px;
+        text-align: left;
+    }
+
+    .side-body-logout-section span h1 {
+        font-size: 19px !important;
+    }
+    /* .side-body-logout-section p{
+  padding-top: 9px!important;
+} */
+    .side-body-logout-section span {
+        /* padding: 5px; */
+        font-size: 12px;
+        height: 30px;
+    }
+
+    .side-body-logout-section span {
+        display: flex;
+        align-items: center;
+        padding: 5px;
+    }
+
+        .side-body-logout-section span:hover {
+            color: #fff;
+            box-shadow: 0 4px 20px 0 rgb(0 0 0 / 14%), 0 7px 10px -5px rgb(156 39 176 / 40%);
+            background-color: #1f1212ba;
+            cursor: pointer;
+        }
+
+    .side-body-logout-section button:hover {
+        cursor: pointer;
+        color: white;
+    }
+
+    .side-body-logout-section span i {
+        font-size: 15px;
+        vertical-align: baseline;
+        padding: 5px;
+    }
+
+    .side-body-logout-section span:last-child {
+        border-top: 2px solid gray;
+        margin-top: 2px;
+    }
+
 
     .form-container h1 {
         padding: 7px 0;
@@ -694,38 +754,7 @@ a.active {
         color: white;
     }
 
-.side-body-logout-section {
-    margin: 5px;
-}
 
-    .side-body-logout-section a {
-        color: black;
-    }
-
-    .side-body-logout-section button {
-        border: none;
-        background: none;
-        width: 138px;
-        text-align: left;
-    }
-
-    .side-body-logout-section h1,
-    .side-body-logout-section p,
-    .side-body-logout-section button {
-        padding: 5px;
-        font-size: 12px;
-        height: 30px;
-    }
-
-        .side-body-logout-section h1:hover,
-        .side-body-logout-section p:hover,
-        .side-body-logout-section a:hover,
-        .side-body-logout-section button:hover {
-            color: #fff;
-            box-shadow: 0 4px 20px 0 rgb(0 0 0 / 14%), 0 7px 10px -5px rgb(156 39 176 / 40%);
-            background-color: #1f1212ba;
-            cursor: pointer;
-        }
 
 /* Set a style for the submit/login button */
 
@@ -1535,12 +1564,19 @@ select,
 
     .modal-content {
         width: 40%;
-        overflow: hidden;
+        /* overflow: hidden; */
+        /* overflow: auto; */
+        overflow-y: scroll;
         position: fixed;
+        overflow-x: hidden;
         left: 34%;
-        top: 60px;
-        height: unset;
+        height: 100vh;
     }
+
+    .user{
+        height:unset
+    }
+
 
     .user-modal-content {
         position: unset;
@@ -1628,6 +1664,8 @@ select,
 @media screen and (min-width: 1024px) {
     .modal-content {
         width: 40%;
+        overflow-x:hidden;
+        overflow-y:scroll;
     }
 
     .user-modal-content {

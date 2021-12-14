@@ -17,7 +17,7 @@
     
 </head>
 <link rel="stylesheet" href="~/css/style.css">
-<div class="modal-content">
+<div class="user modal-content">
     <div class="modal-header">
         <span class="close">&times;</span>
         <h2>New User</h2>
@@ -40,7 +40,7 @@
                 </div>
                 <div class="add-name">
                     <label for="password">Password</label>
-                    <input type="Password" id="myInput" name="PasswordHash" asp-for="PasswordHash" required />
+                    <input type="Password" id="myInput" name="PasswordHash" asp-for="PasswordHash"  />
                     <input type="checkbox" onclick="myPass()" /><span>Show Password</span>
                     <span asp-validation-for="PasswordHash" class="text-danger"></span>
 
@@ -62,9 +62,7 @@
             <div>
                 <div class="submit-btn modal-footer">
 
-
-                    @*<button id="formSubmit" onsubmit="submitter()" type="submit">Submit</button>*@
-                    <button  onclick="submitter()" type="submit">Submit</button>
+                                        <button  onclick="submitter()" type="submit">Submit</button>
 
 
                 </div>

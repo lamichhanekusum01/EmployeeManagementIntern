@@ -1,6 +1,6 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-
+﻿@model EmployeeManagement.Models.HolidayViewModel
+@{
+}
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -19,8 +19,8 @@
 
 <body>
     <main class="main-container">
-        <article>              
-            
+        <article>
+
             <div class="side-body">
                 <div class="user-employee-header">
                     <h2>Holiday</h2>
@@ -28,17 +28,17 @@
                 <div class="holiday-container">
                     <div class="holiday-content">
 
-                        <form id="holidayReq" name="holidayReq">
+                        <form id="holidayReq" asp-controller="Holiday" asp-action="Index" method="post">
                             <div class="date-content">
                                 <label for="date">Date:</label>
-                                <input type="date" name="holiday" id="holiday" required />
+                                <input type="date" asp-for="HolidayDate" id="holiday" required />
                             </div>
                             <div class="hday-name">
                                 <label for="holiday">Holiday Name:</label>
-                                <input type="text" name="holidayName" id="holidayName" required />
+                                <input type="text" id="holidayName" asp-for="HolidayName" required />
                             </div>
                             <div class="hday-btn">
-                                <button id="formSubmit" type="button">Submit</button>
+                                <button id="formSubmit" type="submit">Submit</button>
                             </div>
                         </form>
                     </div>
@@ -46,9 +46,5 @@
             </div>
         </article>
     </main>
-
-    <script src="~/js/employee.js"></script>
-
 </body>
-
-</html>
+<script src="~/js/employee.js"></script>

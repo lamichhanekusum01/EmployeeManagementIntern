@@ -14,7 +14,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using static EmployeeManagement.Repository.ApplicationUserRepository;
+
+
 
 namespace EmployeeManagement
 {
@@ -41,9 +42,13 @@ namespace EmployeeManagement
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             services.AddScoped<IEmployeeProvider, EmployeeProvider>();
             services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>();
+            
             services.AddScoped<IApplicationUserProvider,ApplicationUserProvider>();
-     
-  
+            services.AddScoped<IHolidayRepository, HolidayRepository>();
+            services.AddScoped<IHolidayProvider,HolidayProvider>();
+            services.AddScoped<ILeaveRepository, LeaveRepository>();
+            services.AddScoped<ILeaveProvider, LeaveProvider>();
+
 
         }
 

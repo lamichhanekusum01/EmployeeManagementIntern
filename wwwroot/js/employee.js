@@ -133,27 +133,30 @@ window.onclick = function (event) {
 };
 
 var sub = document.getElementById("formSubmit");
-sub.onclick = function () {
+if (sub) {
+    sub.onclick = function () {
 
-    let formPr = this.closest("form").getAttribute("name");
-    let formBox = this.closest("form").getAttribute("id");
-    let xForms = document.forms[formPr].querySelectorAll("input[required]");
-    let validCheck;
-    xForms.forEach(function (xForm) {
-        let formName = xForm.getAttribute("name");
-        let formX = document.forms[formPr][formName].value;
+        let formPr = this.closest("form").getAttribute("name");
+        let formBox = this.closest("form").getAttribute("id");
+        let xForms = document.forms[formPr].querySelectorAll("input[required]");
+        let validCheck;
+        xForms.forEach(function (xForm) {
+            let formName = xForm.getAttribute("name");
+            let formX = document.forms[formPr][formName].value;
 
-        if (formX == "") {
-            validCheck = false;
-
-        } else {
-            if (validCheck == false) {
+            if (formX == "") {
                 validCheck = false;
+
             } else {
-                validCheck = true;
+                if (validCheck == false) {
+                    validCheck = false;
+                } else {
+                    validCheck = true;
+                }
             }
-        }
-    });
+        });
+}
+
 
     if (validCheck == false) {
         Toast(3000, "warning");
@@ -247,7 +250,7 @@ for (let i = 0; i < menuLength; i++) {
     if (menuItems[i].href === currentLocation) {
         // console.log((menuItems[i].href === currentLocation))
         menuItems[i].className = "active"
-        menuItems[i].parentElement.style.display = "";
+        menuItems[i].parentElement.style.display = "block";
         console.log(menuItems[i])
 
 
