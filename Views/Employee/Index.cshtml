@@ -139,14 +139,24 @@
                                     <td>@employee.Email</td>
                                     <td> @employee.Address</td>
                                     <td class="phone">@employee.Phone</td>
-                                    <td>
-                                        <i class="fas fa-user-edit btnUpdate " id=@employee.Employee_Id></i>
-                                        <i class="fas fa-trash-alt btnDelete " id=@employee.Employee_Id></i>
+                                    @if (employee.Employee_Id == 1)
+                                    {
+                                        <td>
+                                            <i class="fas fa-user-edit btnUpdate " id=@employee.Employee_Id></i>
+                                            <i class="fas fa-trash-alt btnDelete " id=@employee.Employee_Id></i>
 
-                                    </td>
-
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                        <i   class="fas fa-user-edit btnUpdate  "style="color: grey" id=@employee.Employee_Id></i>
+                                        <i  class="fas fa-trash-alt btnDelete  "style="color: grey" id=@employee.Employee_Id></i>
+                                        </td>
+                                    }
                                 </tr>
                             }
+
                         }
                     </table>
                     <div class=" nextPage ">

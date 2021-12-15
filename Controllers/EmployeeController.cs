@@ -16,76 +16,9 @@ using System.Threading.Tasks;
 
 namespace EmployeeManagement.Controllers
 {
+    [Authorize]
     public class EmployeeController : Controller
     {
-        /*
-        private EmployeeManagementDbContext db;
-        public EmployeeController(EmployeeManagementDbContext _db)
-        {
-            db = _db;
-        }
-        
-        public ActionResult Index()
-        {
-            var employees = db.Employees.ToList();
-            return View(employees);
-        }
-        [Authorize]
-        public ActionResult Create()
-        {
-            List<SelectListItem> gender = new List<SelectListItem>
-            {
-                new SelectListItem {Value="M", Text="Male"},
-                new SelectListItem {Value="F", Text="Female"},
-                new SelectListItem {Value="O", Text="Others"},
-            };
-            ViewBag.Gender = gender; 
-                return View();
-        }
-        [HttpPost]
-        public ActionResult Create(Employee employees)
-        {
-
-            db.Employees.Add(employees);
-            db.SaveChanges();
-            return RedirectToAction(nameof(Index));
-        }
-        public ActionResult Update(int id)
-        {
-            var employee = db.Employees.Find(id);
-            List<SelectListItem> gender = new List<SelectListItem>
-            {
-                new SelectListItem {Value="M", Text="Male"},
-                new SelectListItem {Value="F", Text="Female"},
-                new SelectListItem {Value="O", Text="Others"},
-            };
-            ViewBag.Gender = gender;
-            return View(employee);
-        }
-        [HttpPost]
-        public ActionResult Update(Employee employee)
-        {
-            db.Employees.Attach(employee);
-            db.Employees.Update(employee);
-            db.SaveChanges();
-            return RedirectToAction(nameof(Index));
-        }
-        public ActionResult Delete(int id)
-        {
-            var employee = db.Employees.Find(id);
-            return View(employee);
-        }
-
-        [HttpPost]
-        public ActionResult Delete(Employee employee)
-        {
-            db.Employees.Attach(employee);
-            db.Employees.Remove(employee);
-            db.SaveChanges();
-            return RedirectToAction(nameof(Index));
-
-        }
-        */
         private readonly IEmployeeProvider _iEmployeeProvider;
         private EmployeeManagementDbContext _context;
 
@@ -95,7 +28,7 @@ namespace EmployeeManagement.Controllers
             _iEmployeeProvider = iEmployeeProvider;
             _context = Context;
         }
-        [Authorize]
+     
         public IActionResult Index(string? query)
         {
             EmployeeViewModel model = new EmployeeViewModel();
@@ -174,6 +107,7 @@ namespace EmployeeManagement.Controllers
             ViewBag.gender = Gender;
             return View(model);
         }
+        [Authorize(Roles ="Admin")]
         [HttpGet]
         public IActionResult Create(int? id)
         {
@@ -235,7 +169,7 @@ namespace EmployeeManagement.Controllers
             return PartialView(emp);
         }
 
-
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult Create(EmployeeViewModel model)
         {
@@ -267,7 +201,7 @@ namespace EmployeeManagement.Controllers
         // _iEmployeeProvider.SaveEmployee(model);
         //  // return RedirectToAction("Create");
         // }
-
+        [Authorize(Roles = "Admin")]
         public IActionResult Delete(int id)
         {
             _iEmployeeProvider.DeleteEmployee(id);

@@ -1,11 +1,13 @@
 ﻿using EmployeeManagement.Data;
 using EmployeeManagement.Models;
 using EmployeeManagement.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 namespace EmployeeManagement.Controllers
 
 {
+    [Authorize(Roles="Admin")]
     public class HolidayController : Controller
     {
         private readonly IHolidayProvider _iHolidayProvider;

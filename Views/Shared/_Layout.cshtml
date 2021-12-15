@@ -93,23 +93,8 @@
                 </div>
 
                 <div class="side-body">
-                    <!-- <div class="iconImage" id="main">
-              <span style="font-size:30px;cursor:pointer">&#9776;</span>
-              <div class="imgContainer" onclick="openForm()">
-                <img src="../image/c2.jpg" alt="">
-              </div>
-
-            </div> -->
-
-
                     <div class="form-popup" id="myForm">
                         <form class="form-container">
-                            <!-- <div style="display: flex; justify-content: flex-end; padding: 2px;">
-        <button type="button" class="btn cancel" onclick="closeForm()"><i
-                class="far fa-times-circle"></i></button>
-
-
-    </div> -->
                             <div class="side-body-logout-section">
 
                                 <span>
@@ -128,27 +113,16 @@
 
                                     <button asp-area="Identity" asp-page="/Account/Login">  <i class="fas fa-power-off"></i>Log out</button>
                                 </span>
-
-
-
                             </div>
-
-                            @*<div class="side-body-logout-section">
-
-            <h1>@UserManager.GetUserAsync(User).Result.UserName</h1>
-            <p>@UserManager.GetUserAsync(User).Result.Email</p>
-            <button>Change Password</button><br>
-            <button asp-area="Identity" asp-page="/Account/Login">Log out</button>
-
-
-        </div>*@
                         </form>
                     </div>
+
                 </div>
                 @RenderBody()
             }
-                </article>
+        </article>
 </main>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
