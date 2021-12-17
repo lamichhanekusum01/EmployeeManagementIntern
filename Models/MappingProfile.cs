@@ -16,7 +16,9 @@ namespace EmployeeManagement
             // Add as many of these lines as you need to map your objects
             CreateMap<Employee, EmployeeViewModel>();
 
-            CreateMap<EmployeeViewModel, Employee>();
+            CreateMap<EmployeeViewModel, Employee>()
+               .ForMember(dest => dest.Id, opt => opt.MapFrom(source => source.Employee_Id));
+
 
             CreateMap<ApplicationUser, ApplicationUserViewModel>()
                 .ForMember(dest => dest.Employee_Id, opt => opt.MapFrom(source => source.EId));

@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 
 namespace EmployeeManagement.Controllers
 {
+    [Authorize(Roles ="Admin")]
     public class ApplicationUserController : Controller
     { private readonly IApplicationUserProvider _iApplicationUserProvider;
         private EmployeeManagementDbContext _context;
@@ -26,7 +27,7 @@ namespace EmployeeManagement.Controllers
             _iApplicationUserProvider = iApplicationUserProvider;
             _context = Context;
         }
-        [Authorize]
+       
         public IActionResult Index()
         {
             ApplicationUserViewModel user = new ApplicationUserViewModel();

@@ -1,6 +1,4 @@
-﻿
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -16,23 +14,28 @@
 
     <link rel="stylesheet" href="~/css/Layout.css">
     <link rel="stylesheet" href="~/css/style.css" />
-    
+
     <title>Employee-List</title>
     @using Microsoft.AspNetCore.Identity
     @using EmployeeManagement.Areas.Identity.Data
     @inject SignInManager<ApplicationUser> SignInManager
     @inject UserManager<ApplicationUser> UserManager
-
+    @using Microsoft.AspNetCore.Http
+    @inject IHttpContextAccessor HttpContextAccessor
 
 </head>
 
 
 <body>
+    @{
+        string role = HttpContextAccessor.HttpContext.Session.GetString("Role");
+    }
     <main class="main-container">
         <article>
-            @if (SignInManager.IsSignedIn(User))
-            {
-                <div class="mysidenav">
+
+            <div class="mysidenav">
+                @if (SignInManager.IsSignedIn(User))
+                {
                     <span class="closebtn"><i class="fas fa-times"></i></span>
                     <div style="text-align: center;">
                         <img src="~/image/c2.jpg" alt="">
@@ -40,60 +43,60 @@
                             <h1>@UserManager.GetUserAsync(User).Result.UserName</h1>
                         </div>
                     </div>
-
-                    <nav>
-                        <div class="nav">
-                            <div onclick="myFunction()" class="dropdown-btn ">
-                                <i class="fas fa-user-friends"></i>Employee
-                                <i class="fa fa-caret-down"></i>
-                            </div>
-                            <div id="myDIV" class="dropdown-container">
-                                <a asp-controller="Employee" asp-action="Index">Employee-List</a>
-                                <a href="#">Employee-Home</a>
-                                <a href="#">Employee-Leave</a>
-                                <a href="#">Employee-Holiday</a>
-
-                            </div>
-                            <div onclick="myFunctions()" class="dropdown-btn nav__link">
-                                <i class="fas fa-user-friends"></i>User
-                                <i class="fa fa-caret-down"></i>
-                            </div>
-                            <div id="myDIVs" class="dropdown-container">
-                                <a asp-controller="ApplicationUser" asp-action="Index">User-List</a>
-                                <a href="#">User-Home</a>
-                                <a href="#">User-leave</a>
-                                <a href="#">User-Holiday</a>
-
-                            </div>
-
-
-
-                            <a asp-controller="Leave" asp-action="Index">leave</a>
-
-
-
-                            <a asp-controller="Holiday" asp-action="Index">holiday</a>
-
-
+                }
+                <nav>
+                    <div class="nav">
+                        @if (role == "Admin")
+                        {
+                        <div onclick="myFunction()" class="dropdown-btn ">
+                            <i class="fas fa-user-friends"></i>Employee
+                            <i class="fa fa-caret-down"></i>
+                        </div>
+                        <div id="myDIV" class="dropdown-container">
+                            <a asp-controller="Employee" asp-action="Index">Employee-List</a>
+                            <a href="#">Employee-Home</a>
+                            <a href="#">Employee-Leave</a>
+                            <a href="#">Employee-Holiday</a>
 
                         </div>
-                    </nav>
+                        <div onclick="myFunctions()" class="dropdown-btn nav__link">
+                            <i class="fas fa-user-friends"></i>User
+                            <i class="fa fa-caret-down"></i>
+                        </div>
+                        <div id="myDIVs" class="dropdown-container">
+                            <a asp-controller="ApplicationUser" asp-action="Index">User-List</a>
+                            <a href="#">User-Home</a>
+                            <a href="#">User-leave</a>
+                            <a href="#">User-Holiday</a>
+
+                        </div>
+                        }
 
 
+                        <a asp-controller="Leave" asp-action="Index">leave</a>
+                         <a asp-controller="Holiday" asp-action="Index">holiday</a>
 
-                </div>
-                <div class="iconImage" id="main">
-                    <span style="font-size:30px;cursor:pointer">&#9776;</span>
-                    <div class="imgContainer" onclick="openForm()">
 
-                        <!-- <img src="./image/Screenshot_4.png" width="100%"  alt="" srcset=""> -->
-                        <i class="fas fa-user-tie"></i>
                     </div>
+                </nav>
 
+
+
+            </div>
+            <div class="iconImage" id="main">
+                <span style="font-size:30px;cursor:pointer">&#9776;</span>
+                <div class="imgContainer" onclick="openForm()">
+
+                    <!-- <img src="./image/Screenshot_4.png" width="100%"  alt="" srcset=""> -->
+                    <i class="fas fa-user-tie"></i>
                 </div>
 
-                <div class="side-body">
-                    <div class="form-popup" id="myForm">
+            </div>
+
+            <div class="side-body">
+                <div class="form-popup" id="myForm">
+                    @if (SignInManager.IsSignedIn(User))
+                    {
                         <form class="form-container">
                             <div class="side-body-logout-section">
 
@@ -115,13 +118,14 @@
                                 </span>
                             </div>
                         </form>
-                    </div>
-
+                    }
                 </div>
-                @RenderBody()
-            }
+
+            </div>
+            @RenderBody()
+
         </article>
-</main>
+    </main>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

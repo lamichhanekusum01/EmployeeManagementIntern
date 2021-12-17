@@ -59,6 +59,8 @@ namespace EmployeeManagement.Service
                 var newUser = await _userManager.FindByIdAsync(applicationuser.Id);
 
                 singleEmployee.ApplicationUser.Add(newUser);
+                await _userManager.AddToRoleAsync(newUser, "Employee");
+
                 // singleEmployee.Id = applicationuser.Id;
                 _context.Employees.Attach(singleEmployee);
                 _context.SaveChanges();

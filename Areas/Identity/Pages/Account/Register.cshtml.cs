@@ -18,7 +18,7 @@ using Microsoft.Extensions.Logging;
 
 namespace EmployeeManagement.Areas.Identity.Pages.Account
 {
-    [AllowAnonymous]
+    //[AllowAnonymous]
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<ApplicationUser> _signInManager;

@@ -13,9 +13,9 @@ namespace EmployeeManagement.Repository
 
     {
         public LeaveRepository(EmployeeManagementDbContext context) : base(context)
-        {
-
-        }
+        { 
+            
+         }
     }
     public interface ILeaveRepository : IRepository<Leave>
     {
@@ -23,6 +23,89 @@ namespace EmployeeManagement.Repository
     }
 }
 
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
 

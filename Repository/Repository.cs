@@ -17,20 +17,6 @@ namespace EmployeeManagement.Repository
         {
             _context = context;
         }
-
-
-        //public IQueryable<T> GetHeirarchyData(string sql, int id)
-        //{
-        //    try
-        //    {
-        //        return _context.Set<T>().AsNoTracking().FromSql(sql, id);
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        throw new Exception(e.Message);
-        //    }
-        //}
-
         public virtual void Add(T entity)
         {
             try
@@ -315,24 +301,5 @@ namespace EmployeeManagement.Repository
                 throw new Exception(ex.Message);
             }
         }
-
-        //public virtual Tuple<int, IQueryable<T>> AllIncludingWithQuery(int skip, int take, string sortColumn, string sortColumnDirection, Expression<Func<T, bool>> search, params Expression<Func<T, object>>[] includeProperties)
-        //{
-        //    try
-        //    {
-        //        var query = _context.Set<T>().AsNoTracking().OrderBy(sortColumn).Where(search).Skip(skip).Take(take);
-        //        int totalresult = _context.Set<T>().AsNoTracking().Where(search).Count();
-        //        foreach (var includeProperty in includeProperties)
-        //        {
-        //            query = query.Include(includeProperty);
-        //        }
-        //        return new Tuple<int, IQueryable<T>>(totalresult, query.AsQueryable());
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new Exception(ex.Message);
-        //    }
-        //}
-
     }
 }

@@ -7,7 +7,7 @@ using System;
 namespace EmployeeManagement.Controllers
 
 {
-    [Authorize(Roles="Admin")]
+   
     public class HolidayController : Controller
     {
         private readonly IHolidayProvider _iHolidayProvider;

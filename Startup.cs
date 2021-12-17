@@ -37,7 +37,7 @@ namespace EmployeeManagement
             var UserManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
 
-            IdentityResult roleResult;
+            IdentityResult roleResult ,roleResults;
             //Adding Addmin Role  
             var roleCheck = await RoleManager.RoleExistsAsync("Admin");
             if (!roleCheck)
@@ -49,12 +49,30 @@ namespace EmployeeManagement
             ApplicationUser user = await UserManager.FindByEmailAsync("admin@gmail.com");
             var User = new ApplicationUser();
             await UserManager.AddToRoleAsync(user, "Admin");
+            //await UserManager.AddToRoleAsync(user, "Employee");
 
+
+            var roleCheckEmp = await RoleManager.RoleExistsAsync("Employee");
+            if (!roleCheckEmp)
+            {
+               
+                roleResults = await RoleManager.CreateAsync(new IdentityRole("Employee"));
+            }
+            //Assign Admin role to the main User here we have given our newly loregistered login id for Admin management  
+           
         }
         public void ConfigureServices(IServiceCollection services)
         {
             
             services.AddAutoMapper(typeof(MappingProfile));
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromSeconds(10);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
             services.AddSingleton(_config);
             services.AddControllersWithViews();
             services.AddRazorPages();
@@ -91,13 +109,13 @@ namespace EmployeeManagement
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
-
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Employee}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
             CreateUserRoles(services).Wait();

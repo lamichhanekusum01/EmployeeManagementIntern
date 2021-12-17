@@ -16,7 +16,8 @@ using System.Threading.Tasks;
 
 namespace EmployeeManagement.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
+
     public class EmployeeController : Controller
     {
         private readonly IEmployeeProvider _iEmployeeProvider;
@@ -34,29 +35,7 @@ namespace EmployeeManagement.Controllers
             EmployeeViewModel model = new EmployeeViewModel();
 
             model = _iEmployeeProvider.GetList();
-
-            //var designation = _iEmployeeProvider.GetList();
-            //if (String.IsNullOrEmpty(query))
-            //{
-            //    model = _iEmployeeProvider.GetList();
-            //}
-            //else
-            //{
-            //    model.EmployeeList = (from s in _context.Employees
-            //    where s.FirstName.Contains(query) || s.LastName.Contains(query) || s.MiddleName.Contains(query)
-            //    select new EmployeeViewModel
-            //    {
-            //        Employee_Id = s.Employee_Id,
-            //        FirstName = s.FirstName,
-            //        MiddleName = s.MiddleName,
-            //        LastName = s.LastName,
-            //        Address = s.Address,
-            //        Dob = s.Dob,
-            //        Email = s.Email,
-            //        Phone= s.Phone,
-            //    }).ToList();
-            //}
-            var designation = _context.Designations.ToList();
+             var designation = _context.Designations.ToList();
 
             List<SelectListItem> Designation = new List<SelectListItem>();
 
@@ -107,7 +86,7 @@ namespace EmployeeManagement.Controllers
             ViewBag.gender = Gender;
             return View(model);
         }
-        [Authorize(Roles ="Admin")]
+     
         [HttpGet]
         public IActionResult Create(int? id)
         {
