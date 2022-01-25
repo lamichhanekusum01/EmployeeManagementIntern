@@ -1,5 +1,6 @@
 using AutoMapper;
 using EmployeeManagement.Areas.Identity.Data;
+using EmployeeManagement.Controllers;
 using EmployeeManagement.Data;
 using EmployeeManagement.Models;
 using EmployeeManagement.Repository;
@@ -118,7 +119,7 @@ namespace EmployeeManagement
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
-            CreateUserRoles(services).Wait();
+            CreateUserRoles(services).Wait();  
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using EmployeeManagement.Controllers;
+﻿using EmployeeManagement.Areas.Identity.Data;
+using EmployeeManagement.Controllers;
 using EmployeeManagement.Data;
 using EmployeeManagement.Models;
 using EmployeeManagement.Repository;
@@ -6,6 +7,7 @@ using EmployeeManagement.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -16,24 +18,48 @@ using System.Threading.Tasks;
 
 namespace EmployeeManagement.Controllers
 {
-    [Authorize(Roles ="Admin")]
+
+
+    [Authorize(Roles = "Admin")]
     public class ApplicationUserController : Controller
-    { private readonly IApplicationUserProvider _iApplicationUserProvider;
+    {
+        private readonly IApplicationUserProvider _iApplicationUserProvider;
         private EmployeeManagementDbContext _context;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
-
-        public ApplicationUserController(IApplicationUserProvider iApplicationUserProvider, EmployeeManagementDbContext Context)
+        public ApplicationUserController(IApplicationUserProvider iApplicationUserProvider,
+            EmployeeManagementDbContext Context, SignInManager<ApplicationUser> signInManager)
         {
             _iApplicationUserProvider = iApplicationUserProvider;
             _context = Context;
+            _signInManager = signInManager;
         }
-       
-        public IActionResult Index()
+
+        public IActionResult Index(string searchText = "")
+
         {
+            //ApplicationUserViewModel user = new ApplicationUserViewModel();
+            //user.UserList = _iApplicationUserProvider.GetList();
+
+
+
+            //return View(user);
             ApplicationUserViewModel user = new ApplicationUserViewModel();
-            user.UserList = _iApplicationUserProvider.GetList();
+            if (searchText != "" && searchText != null)
+            {
+                user.UserList = (from s in _context.Users
+                                 where s.UserName.Contains(searchText)
+                                 select new ApplicationUserViewModel
+                                 {
+                                     Id = s.Id,
+                                     //FirstName = s.FirstName,
+                                     UserName = s.UserName,
+                                     Email = s.Email,
 
-
+                                 }).ToList();
+            }
+            else
+                user.UserList = _iApplicationUserProvider.GetList();
             return View(user);
         }
         [HttpGet]
@@ -45,7 +71,7 @@ namespace EmployeeManagement.Controllers
             List<SelectListItem> emp = new List<SelectListItem>();
             foreach (var item in Emp)
             {
-                string data1 = item.FirstName +" "+ item.MiddleName +" " + item.LastName;
+                string data1 = item.FirstName + " " + item.MiddleName + " " + item.LastName;
                 int id1 = item.Employee_Id;
                 SelectListItem items = new SelectListItem { Value = id1.ToString(), Text = data1 };
                 emp.Add(items);
@@ -60,29 +86,29 @@ namespace EmployeeManagement.Controllers
             }
             return PartialView(user);
         }
-            [HttpPost]
+        [HttpPost]
         public async Task<IActionResult> Create(ApplicationUserViewModel model)
         {
-           
-                try
-                {
-                    var user = _context.Employees.Where(x => x.Employee_Id == Convert.ToInt32(model.Employee_Id)).FirstOrDefault();
-                    model.Email = user.Email;
-                    model.Address = user.Address;
-                    model.Phone = user.Phone;
-                   
 
-                    var res = await _iApplicationUserProvider.SaveUser(model);
-                    return RedirectToAction("Index");
-                }
-                catch (Exception ex)
-                {
+            try
+            {
+                var user = _context.Employees.Where(x => x.Employee_Id == Convert.ToInt32(model.Employee_Id)).FirstOrDefault();
+                model.Email = user.Email;
+                model.Address = user.Address;
+                model.Phone = user.Phone;
+                model.FirstName = user.FirstName + " " + user.MiddleName + " " + user.LastName;
+
+                var res = await _iApplicationUserProvider.SaveUser(model);
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
 
 
-                    throw ex;
-                }
-                
-            
+                throw ex;
+            }
+
+
 
             //ModelState.AddModelError(nameof(model.ConfirmPassword),"hi");
             return View("Index");
@@ -94,10 +120,11 @@ namespace EmployeeManagement.Controllers
             return View(emp);
         }
 
-      
+
 
         public async Task<IActionResult> Delete(string Id)
-        {    await _iApplicationUserProvider.DeleteUser(Id);
+        {
+            await _iApplicationUserProvider.DeleteUser(Id);
             return RedirectToAction("Index");
         }
 
@@ -126,7 +153,7 @@ namespace EmployeeManagement.Controllers
                                   FirstName = s.FirstName,
                                   MiddleName = s.MiddleName,
                                   LastName = s.LastName,
-                                  UserName= s.UserName,
+                                  UserName = s.UserName,
                                   Address = s.Address,
                                   Dob = s.Dob,
                                   Email = s.Email,
@@ -134,14 +161,7 @@ namespace EmployeeManagement.Controllers
                               }).ToList();
             return PartialView(model);
         }
-        public IActionResult Leave()
-        {
-            return View();
-        }
-        public IActionResult Holiday()
-        {
-            return View();
-        }
+
     }
-    
+
 }

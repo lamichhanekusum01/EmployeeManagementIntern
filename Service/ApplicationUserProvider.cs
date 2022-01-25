@@ -11,12 +11,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using static EmployeeManagement.Repository.ApplicationUserRepository;
 
-namespace EmployeeManagement.Service
+namespace EmployeeManagement.Controllers
 {
     public interface IApplicationUserProvider
     {
         Task<int> SaveUser(ApplicationUserViewModel model);
-        Task<bool> DeleteUser(string Id);
+        Task<bool> DeleteUser(string id);
+  
         // EmployeeViewModel EditEmployee(EmployeeViewModel model);
         List<ApplicationUserViewModel> GetList();
         Task<ApplicationUserViewModel> GetById(string Id);
@@ -150,7 +151,10 @@ namespace EmployeeManagement.Service
             return EmpList;
         }
 
-
+        //Task<int> IApplicationUserProvider.DeleteUser(string id)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }
 

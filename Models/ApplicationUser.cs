@@ -16,7 +16,8 @@ namespace EmployeeManagement.Areas.Identity.Data
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
         public string LastName { get; set; }
-        public DateTime Dob { get; set; }
+        public string FullName { get; set; }
+        public DateTime Dob { get; set; } 
         public string Address { get; set; }
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]

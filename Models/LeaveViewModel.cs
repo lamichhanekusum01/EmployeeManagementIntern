@@ -11,10 +11,16 @@ namespace EmployeeManagement.Models
     {
         [Key]
         public int Leave_Id { get; set; }
-        public string EmployeeName { get; set; }
         public int LeaveDays { get; set; }
         public DateTime LeaveDate { get; set; }
+        [Required]
+        public string EmployeeName { get; set; }
+        public string FirstName { get; set; }
+        public string Designation_Name { get; set; }
+        public int EId { get; set; }
         public Employee Employee { get; set; }
+        public string UserId { get; set; }
+
 
     }
 }

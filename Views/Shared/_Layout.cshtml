@@ -46,7 +46,7 @@
                 }
                 <nav>
                     <div class="nav">
-                        @if (role == "Admin")
+                        @if(User.IsInRole("Admin"))
                         {
                         <div onclick="myFunction()" class="dropdown-btn ">
                             <i class="fas fa-user-friends"></i>Employee
