@@ -17,6 +17,9 @@ namespace EmployeeManagement.Service
     {
        int SaveHoliday(HolidayViewModel model);
        int  DeleteHoliday(int Id);
+     
+        HolidayViewModel GetById(int id);
+        HolidayViewModel GetList();
 
 
     }
@@ -37,6 +40,23 @@ namespace EmployeeManagement.Service
         public int DeleteHoliday(int Id)
         {
             throw new NotImplementedException();
+        }
+
+        public HolidayViewModel GetById(int id)
+        {
+            var item = _iHolidayRepository.GetSingle(x => x.Holiday_Id == id);
+            HolidayViewModel data = _mapper.Map<HolidayViewModel>(item);
+            return data;
+        }
+
+        public HolidayViewModel GetList()
+        {
+            HolidayViewModel model = new HolidayViewModel();
+            var list = new List<HolidayViewModel>();
+            List<Holiday> data = _iHolidayRepository.GetAll().ToList();
+            list = _mapper.Map<List<Holiday>, List<HolidayViewModel>>(data);
+            model.HolidayList = list;
+            return model;
         }
 
         public int SaveHoliday(HolidayViewModel model)

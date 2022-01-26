@@ -46,38 +46,45 @@
                 }
                 <nav>
                     <div class="nav">
-                        @if(User.IsInRole("Admin"))
+                        @if (User.IsInRole("Admin"))
                         {
-                        <div onclick="myFunction()" class="dropdown-btn ">
-                            <i class="fas fa-user-friends"></i>Employee
-                            <i class="fa fa-caret-down"></i>
-                        </div>
-                        <div id="myDIV" class="dropdown-container">
-                            <a asp-controller="Employee" asp-action="Index">Employee-List</a>
-                            <a href="#">Employee-Home</a>
-                            <a href="#">Employee-Leave</a>
-                            <a href="#">Employee-Holiday</a>
+                            <div onclick="myFunction()" class="dropdown-btn ">
+                                <i class="fas fa-user-friends"></i>Employee
+                                <i class="fa fa-caret-down"></i>
+                            </div>
+                            <div id="myDIV" class="dropdown-container">
+                                <a asp-controller="Employee" asp-action="Index">Employee-List</a>
+                                <a href="#">Employee-Home</a>
+                                <a href="#">Employee-Leave</a>
+                                <a href="#">Employee-Holiday</a>
 
-                        </div>
-                        <div onclick="myFunctions()" class="dropdown-btn nav__link">
-                            <i class="fas fa-user-friends"></i>User
-                            <i class="fa fa-caret-down"></i>
-                        </div>
-                        <div id="myDIVs" class="dropdown-container">
-                            <a asp-controller="ApplicationUser" asp-action="Index">User-List</a>
-                            <a href="#">User-Home</a>
-                            <a href="#">User-leave</a>
-                            <a href="#">User-Holiday</a>
+                            </div>
+                            <div onclick="myFunctions()" class="dropdown-btn nav__link">
+                                <i class="fas fa-user-friends"></i>User
+                                <i class="fa fa-caret-down"></i>
+                            </div>
+                            <div id="myDIVs" class="dropdown-container">
+                                <a asp-controller="ApplicationUser" asp-action="Index">User-List</a>
+                                <a href="#">User-Home</a>
+                                <a href="#">User-leave</a>
+                                <a href="#">User-Holiday</a>
 
-                        </div>
+                            </div>
                         }
 
-
+             
                         <a asp-controller="Leave" asp-action="Index">leave</a>
-                         <a asp-controller="Holiday" asp-action="Index">holiday</a>
+                        <a asp-controller="Attendence" asp-action="Index">Attendence</a>
+                        <div onclick="myFunc()" class="dropdown-btn nav__link">
+                            <i class="fas fa-user-friends"></i>Holiday
+                            <i class="fa fa-caret-down"></i>
+                        </div>
+                        <div id="myDiv2" class="dropdown-container">
+                            <a asp-controller="Holiday" asp-action="Index">Add Holiday</a>
+                            <a asp-controller="Holiday" asp-action="HolidayList">Holiday-List</a>
 
 
-                    </div>
+                        </div>
                 </nav>
 
 

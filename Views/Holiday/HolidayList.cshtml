@@ -1,0 +1,304 @@
+﻿@model EmployeeManagement.Models.HolidayViewModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Podkova&family=Roboto:wght@400;700&display=swap"
+          rel="stylesheet">
+    @*<link rel="stylesheet" href="css/style.css">
+        <link rel="icon" type="image/x-icon" href="~/image/c2.jpg">
+        <link rel="stylesheet" href="~/fontawesome-free-5.15.4-web/css/all.css">*@
+    <title>Employee-List</title>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.0.min.js" type="text/javascript"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.9.2/jquery-ui.min.js" type="text/javascript"></script>
+    <link href="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.9.2/themes/blitzer/jquery-ui.css"
+          rel="Stylesheet" type="text/css" />
+</head>
+<body>
+    <main class="main-container" id="mySidenav">
+        <article>
+            <div class="side-body">
+
+                <article>
+                    <div class="user-employee-header">
+                        <h2>
+                            Holiday-List
+                        </h2>
+                    </div>
+                    <!--<div class="text-icon">
+                        <div class="text">
+                            <button id="myBtn">Add Employee <i class="fas fa-user-plus"></i></button>
+
+                        </div>
+                        <div id="myModal" class="modal">
+
+                        </div>-->
+                        @*<div id="snackbar"><i class="far fa-check-circle"></i> Submitted Sucessfully </div>*@
+                        @*<form asp-controller="Employee" asp-action="Index" method="get">*@
+                        <!--<div class="search-container">
+                            <input id="txtVal" class="search" type="Search" name="query" placeholder="Search employee">-->
+                            @*<input id="txt" type="hidden" asp-for="Employee_Id" />*@
+                            <!--<div class="iconSearch">
+                                <button id="btnSearch" type="submit"><i class="fas fa-search"></i></button>
+                            </div>
+                        </div>-->
+                        @*</form>*@
+
+                    <!--</div>-->
+
+
+                </article>
+                <div id="EmployeeList">
+                    <article>
+                        <table id="customers">
+                            <tr>
+                                <th style="border-bottom: 2px solid black;" width: 10%;">S no.</th>
+                                <th style="border-bottom: 2px solid black;">Holiday Name</th>
+                                <th style="border-bottom: 2px solid black;">Holiday Date</th>
+                                                                    
+                            </tr>
+                            @{int i = 1;}
+                            @foreach (var holiday in Model.HolidayList)
+                            {
+                        <tr>
+
+                            <td>@(i++)</td>
+                            <td>@holiday.HolidayName </td>
+                            <td>@holiday.HolidayDate </td>
+
+
+
+
+
+                        </tr>
+                                }
+
+                         
+                        </table>
+                        <div class=" nextPage ">
+                            <a asp-controller="Employee" asp-action="Index">1</a>
+                            <a asp-controller="Employee" asp-action="Index">2</a>
+                            <a asp-controller="Employee" asp-action="Index">3</a>
+
+                        </div>
+
+                </div>
+
+        </article>
+    </main>
+</body>
+</html>
+<script src="~/js/employee.js"></script>
+@*<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>*@
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.0.min.js" type="text/javascript"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.9.2/jquery-ui.min.js" type="text/javascript"></script>
+<link href="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.9.2/themes/blitzer/jquery-ui.css"
+      rel="Stylesheet" type="text/css" />
+
+<script type="text/javascript">
+    $(function () {
+        $("#myBtn").click(function () {
+            debugger
+            $.ajax({
+                type: "get",
+                url: "/Employee/Create",
+                success: function (response) {
+                    $('#myModal').html(response);
+                    $('#myModal').css({ display: "block" });
+                }
+            });
+        });
+
+        $(".btnDelete").click(function () {
+            var r = confirm("Are you sure you want to delete!");
+            if (r == true) {
+                $.ajax({
+                    type: "get",
+                    url: "/Employee/delete",
+                    data: { id: this.id },
+                    success: function (response) {
+                        window.location.reload(true)
+                    }
+                });
+            } else {
+                console.log("cancel")
+            }
+        });
+
+        $(".btnUpdate").click(function () {
+            debugger
+            $.ajax({
+                type: "GET",
+                url: "/Employee/Create",
+                data: { id: this.id },
+                success: function (response) {
+                    $('#myModal').html(response);
+                    $('#myModal').css({ display: "block" });
+                },
+                failure: function (response) {
+
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        });
+        $(document).ready(function () {
+            $("#txtVal").on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $("#myModal tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+        $("#txtVal").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: '/Employee/AutoComplete/',
+                    data: { "prefix": request.term },
+                    type: "POST",
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return item;
+                        }))
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+            },
+            select: function (e, i) {
+                $("#txt").val(i.item.val);
+            },
+            minLength: 1
+        });
+        $("#btnSearch").click(function () {
+            $.ajax({
+                type: "GET",
+                url: "/Employee/SearchEmployee",
+                type: 'GET',
+                data: {
+                    query: $('#txtVal').val(),
+                },
+                success: function (response) {
+                    $('#EmployeeList').empty();
+                    $('#EmployeeList').html(response);
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        });
+    });
+
+</script>
+@*<script type="text/javascript">
+            $(function () {
+                $("#myBtn").click(function () {
+                    debugger
+                    $.ajax({
+                        type: "get",
+                        url: "/Employee/Create",
+                        success: function (response) {
+                            $('#myModal').html(response);
+                            $('#myModal').css({ display: "block" });
+                        }
+                    });
+                });
+            $(".btnDelete").click(function () {
+                var r = confirm("Are you sure you want to delete!");
+            if (r == true) {
+                $.ajax({
+                    type: "get",
+                    url: "/Employee/delete",
+                    data: { id: this.id },
+                    success: function (response) {
+                        window.location.reload(true)
+                    }
+                });
+                } else {
+                console.log("cancel")
+            }
+            });
+                $("#txtVal").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: '/Employee/AutoComplete/',
+                        data: { "prefix": request.term },
+                        type: "POST",
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                return item;
+                            }))
+                        },
+                        error: function (response) {
+                            alert(response.responseText);
+                        },
+                        failure: function (response) {
+                            alert(response.responseText);
+                        }
+                    });
+                },
+                select: function (e, i) {
+                    $("#txt").val(i.item.val);
+                },
+                minLength: 1
+            });
+                $("#btnSearch").click(function () {
+                    $.ajax({
+                        type: "GET",
+                        url: "/Employee/SearchEmployee",
+                        type: 'GET',
+                        data: {
+                            val: $('#txtVal').val(),
+                        },
+                        success: function (response) {
+                            $('#UsersList').empty();
+                            $('#UsersList').html(response);
+                        },
+                        failure: function (response) {
+                            alert(response.responseText);
+                        },
+                        error: function (response) {
+                            alert(response.responseText);
+                        }
+                    });
+                });
+            $(".btnUpdate").click(function () {
+                debugger
+            $.ajax({
+                type: "GET",
+            url: "/Employee/Create",
+            data: {id: this.id },
+            success: function (response) {
+                $('#myModal').html(response);
+            $('#myModal').css({display: "block" });
+                    },
+            failure: function (response) {
+
+                alert(response.responseText);
+                    },
+            error: function (response) {
+                alert(response.responseText);
+                    }
+                });
+            });
+            });
+
+
+    </script>*@
+

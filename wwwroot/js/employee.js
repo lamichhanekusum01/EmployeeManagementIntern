@@ -183,6 +183,8 @@ function myFunction() {
     }
 }
 
+
+
 function myFunctions() {
     var dropdown = document.getElementById("myDIVs");
     if (dropdown.style.display === "block") {
@@ -191,7 +193,16 @@ function myFunctions() {
         dropdown.style.display = "block";
     }
 }
+function myFunc() {
+    debugger;
+    var dropdown = document.getElementById("myDiv2");
 
+    if (dropdown.style.display === "block") {
+        dropdown.style.display = "none";
+    } else {
+        dropdown.style.display = "block";
+    }
+}
 // document.addEventListener("DOMContentLoaded", function () {
 //   const selector = ".nav__link";
 //   const elems = Array.from(document.querySelectorAll(selector));
