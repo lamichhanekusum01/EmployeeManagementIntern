@@ -87,6 +87,8 @@ namespace EmployeeManagement
             services.AddScoped<IHolidayProvider,HolidayProvider>();
             services.AddScoped<ILeaveRepository, LeaveRepository>();
             services.AddScoped<ILeaveProvider, LeaveProvider>();
+            services.AddScoped<IAttendenceRepository, AttendenceRepository>();
+            services.AddScoped<IAttendenceProvider, AttendenceProvider>();
 
 
         }

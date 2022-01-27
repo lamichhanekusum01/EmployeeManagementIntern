@@ -30,6 +30,8 @@ namespace EmployeeManagement
             CreateMap<HolidayViewModel, Holiday>();
             CreateMap<Leave, LeaveViewModel>();
             CreateMap<LeaveViewModel, Leave>();
+            CreateMap<Attendence, AttendenceViewModel>();
+            CreateMap<AttendenceViewModel, Attendence>();
         }
     }
 }

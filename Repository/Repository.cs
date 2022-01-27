@@ -177,8 +177,12 @@ namespace EmployeeManagement.Repository
             {
 
                 EntityEntry dbEntityEntry = _context.Entry(entity);
-                dbEntityEntry.State = EntityState.Modified;
+                _context.Set<T>().Attach(entity);
+                _context.Set<T>().Update(entity);
                 _context.SaveChanges();
+                //EntityEntry dbEntityEntry = _context.Entry(entity);
+                //dbEntityEntry.State = EntityState.Modified;
+                //_context.SaveChanges();
             }
             catch (Exception ex)
             {
