@@ -1,10 +1,13 @@
-﻿using EmployeeManagement.Data;
+﻿using EmployeeManagement.Areas.Identity.Data;
+using EmployeeManagement.Data;
 using EmployeeManagement.Models;
 using EmployeeManagement.Service;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
+using System.Security.Claims;
 
 namespace EmployeeManagement.Controllers
 
@@ -14,16 +17,21 @@ namespace EmployeeManagement.Controllers
     {
         private readonly IAttendenceProvider _iAttendenceProvider;
         private EmployeeManagementDbContext _context;
-        public AttendenceController(IAttendenceProvider iAttendenceProvider, EmployeeManagementDbContext Context)
+        private readonly SignInManager<ApplicationUser> signInManager;
+
+        public AttendenceController(IAttendenceProvider iAttendenceProvider, EmployeeManagementDbContext Context,SignInManager<ApplicationUser> signInManager)
         {
             _iAttendenceProvider = iAttendenceProvider;
             _context = Context;
+            this.signInManager = signInManager;
         }
        
         [HttpGet]
         public IActionResult Index()
         {
             AttendenceViewModel attendenceViewModel = new AttendenceViewModel();
+            string emp = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
             string currentDate = DateTime.UtcNow.ToString("yyyy-MM-dd");
             var attendenceList = _iAttendenceProvider.GetList();
             var attendence= attendenceList.AttendenceList.Where(x => x.Date == DateTime.Parse(currentDate)).FirstOrDefault();
@@ -31,6 +39,7 @@ namespace EmployeeManagement.Controllers
             if (attendence==null)
             {
                 attendenceViewModel.IsTurnIn = false;
+                attendenceViewModel.IsTurnOut = false;
 
             }
             else
