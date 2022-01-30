@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
 using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace EmployeeManagement.Controllers
 
@@ -17,24 +18,28 @@ namespace EmployeeManagement.Controllers
     {
         private readonly IAttendenceProvider _iAttendenceProvider;
         private EmployeeManagementDbContext _context;
-        private readonly SignInManager<ApplicationUser> signInManager;
+        private readonly UserManager<ApplicationUser> userManager;
+       
 
-        public AttendenceController(IAttendenceProvider iAttendenceProvider, EmployeeManagementDbContext Context,SignInManager<ApplicationUser> signInManager)
+        public AttendenceController(IAttendenceProvider iAttendenceProvider, EmployeeManagementDbContext Context,UserManager<ApplicationUser> userManager)
         {
             _iAttendenceProvider = iAttendenceProvider;
             _context = Context;
-            this.signInManager = signInManager;
+            this.userManager = userManager;
         }
        
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> IndexAsync()
         {
             AttendenceViewModel attendenceViewModel = new AttendenceViewModel();
             string emp = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var employee = await userManager.FindByIdAsync(emp);
+            int eid = employee.EId;
+                           
 
             string currentDate = DateTime.UtcNow.ToString("yyyy-MM-dd");
             var attendenceList = _iAttendenceProvider.GetList();
-            var attendence= attendenceList.AttendenceList.Where(x => x.Date == DateTime.Parse(currentDate)).FirstOrDefault();
+            var attendence= attendenceList.AttendenceList.Where(x => x.Date == DateTime.Parse(currentDate)&&x.Employee_Id==eid) .FirstOrDefault();
           
             if (attendence==null)
             {
