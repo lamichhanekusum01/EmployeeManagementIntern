@@ -1,90 +1,131 @@
-﻿@model EmployeeManagement.Models.AttendenceViewModel
-@{
-    bool IsTurnOut = false;
+﻿using AutoMapper;
+using EmployeeManagement.Areas.Identity.Data;
+using EmployeeManagement.Data;
+using EmployeeManagement.Models;
+using EmployeeManagement.Repository;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using static EmployeeManagement.Repository.AttendenceRepository;
 
-    if (!Model.IsTurnIn)
+namespace EmployeeManagement.Service
+{
+    public interface IAttendenceProvider
     {
-        IsTurnOut = true;
+
+        List<Employee>
+    GetEmployees();
+
+    int SaveAttendence(AttendenceViewModel model);
+
+
+    AttendenceViewModel GetById(int id);
+    AttendenceViewModel GetList();
+
 
     }
-}
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-<link rel="stylesheet" href="~/css/site.css">
-<link rel="stylesheet" href="~/css/Leave.css">
-@using Microsoft.AspNetCore.Identity
-@using EmployeeManagement.Areas.Identity.Data
-@inject SignInManager<ApplicationUser> SignInManager
-@inject UserManager<ApplicationUser> UserManager
-@using Microsoft.AspNetCore.Http
-@inject IHttpContextAccessor HttpContextAccessor
-@{
-    string role = HttpContextAccessor.HttpContext.Session.GetString("Role");
-}
+    public class AttendenceProvider : IAttendenceProvider
+    {
+    private readonly IAttendenceRepository _iAttendenceRepository;
+    private readonly IMapper _mapper;
+    private EmployeeManagementDbContext _context;
 
-<main class="main-container">
-    <article>
-        <div class="side-body">
-            <article>
-                <div class="user-employeeleave-header">
-                    <div>
-                        <h2>Attendence</h2>
-                    </div>
-                    @{
-                        DateTime date = DateTime.Now;
-                        string currentDate = DateTime.UtcNow.ToString("yyyy-MM-dd");
+    public AttendenceProvider(IAttendenceRepository iAttendenceRepository, EmployeeManagementDbContext context, IMapper mapper)
+    {
+    _iAttendenceRepository = iAttendenceRepository;
+    _mapper = mapper;
+    _context = context;
+
+    }
+
+    public int DeleteAttendence(int Id)
+    {
+    throw new NotImplementedException();
+    }
+
+
+    public AttendenceViewModel GetById(int id)
+    {
+    var item = _iAttendenceRepository.GetSingle(x => x.Attendence_Id == id);
+    AttendenceViewModel data = _mapper.Map<AttendenceViewModel>
+        (item);
+        return data;
+        }
+
+        public AttendenceViewModel GetList()
+        {
+        AttendenceViewModel model = new AttendenceViewModel();
+        var list = new List<AttendenceViewModel>
+            ();
+            List<Attendence>
+                data = _iAttendenceRepository.GetAll().ToList();
+                list = _mapper.Map<List<Attendence>, List<AttendenceViewModel>>(data);
+            model.AttendenceList = list;
+            return model;
+        }
+
+        public int SaveAttendence(AttendenceViewModel model)
+        {
+            //Attendence attendence = new Attendence();
+            //attendence = _mapper.Map<Attendence>(model);
+            //if(model.Type=="TurnIn")
+            //{
+
+            //    _iAttendenceRepository.Add(attendence);
+            //}
+            //else
+            //{
+            //    _iAttendenceRepository.Update(attendence);
+            //}
+            //return 200;
+
+                var today2 = DateTime.Today;
+                if (model.Type == "TurnIn")
+                {
+
+                    var attendence1 = _iAttendenceRepository.GetSingle(x => x.Turn_in > today2 && x.Employee_Id == model.Employee_Id);
+                    if (attendence1 == null)
+                    {
+                    Attendence attendence = new Attendence();
+                    attendence = _mapper.Map<Attendence>(model);
+                    attendence.Turn_in = DateTime.Now;
+                        _iAttendenceRepository.Add(attendence);
                     }
-                    <div>
-                        <p>
-                            Please fill in this form with all the information.
-                        </p>
-                    </div>
-                    <div class="leave-form-calender">
+                }
+                else
+                {
+                    var attendence = _iAttendenceRepository.GetSingle(x => x.Turn_in > today2 && x.Employee_Id == model.Employee_Id);
+                    if (attendence == null)
+                    { }
+                    else
+                    {
+                        attendence.Turn_out = DateTime.Now;
+                        _iAttendenceRepository.Update(attendence);
+                    }
 
+                }
+                return 200;
+            }
 
-                        <div class="form-group row">
-                            <label for="Employee-Name" class="col-sm-2 col-form-label">Employee-Name</label>
-                            <div>
-                                <input type="text" class="form-control" id="Employee-Name" asp-for="EmployeeName" value="@UserManager.GetUserAsync(User).Result.UserName">
-                                <input type="hidden" asp-for="Employee_Id" value="@UserManager.GetUserAsync(User).Result.EId" />
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="Attendance-Date" class="col-sm-2 col-form-label">Attendance-Date</label>
-                            <div class="col-lg-6">
-                                <input value="@currentDate" asp-for="Date" class="form-control" id="Attendance-Date">
-                            </div>
-                        </div>
-                        <form asp-controller="Attendence" asp-action="Index" method="post">
-                            <div class="form-group row">
-                                <button disabled="@Model.IsTurnIn"  name="button" value="@date" type="submit" class="btn btn-secondary btn-lg">Turn In</button>
-                                <input value="@date" asp-for="Turn_in" type="text" class="text-from" />
-                                @TempData["ButtonValue"]
-                                <input type="hidden" value="@currentDate" asp-for="Date">
-                                <input type="hidden" value="TurnIn" asp-for="Type">
-                                <input type="hidden" asp-for="EmployeeName" value="@UserManager.GetUserAsync(User).Result.UserName">
-                                <input type="hidden" asp-for="Employee_Id" value="@UserManager.GetUserAsync(User).Result.EId" />
-                            </div>
-                        </form>
-                        <form asp-controller="Attendence" asp-action="Index" method="post">
-                            <div>
-                                <button disabled="@IsTurnOut" type="submit" name="button" value="@date"  class="btn btn-secondary btn-lg">Turn Out</button>
-                                <input value="@date" asp-for="Turn_out" type="text" class="text-from" />
-                                @TempData["ButtonValue"]
-                                <input type="hidden" asp-for="Turn_in">
-                                <input type="hidden" value="@currentDate" asp-for="Date">
-                                <input type="hidden" asp-for="Attendence_Id">
-                                <input type="hidden" asp-for="EmployeeName" value="@UserManager.GetUserAsync(User).Result.UserName">
-                                <input type="hidden" asp-for="Employee_Id" value="@UserManager.GetUserAsync(User).Result.EId" />
-                            </div>
-                            
-                            @*<div class="form-group row">
-                                <div>
-                                    <button type="submit" class="btn btn-primary">Submit</button>
-                                </div>
-                            </div>*@
-                        </form>
+        public List<Employee> GetEmployees()
+        {
+            var EmpList = new List<Employee>();
+            var Emp = _context.Employees.ToList();
+            foreach (var item in Emp)
+            {
+                EmpList.Add(item);
+            }
+            return EmpList;
+        }
+    }
 
-</article>
-</main>
+        //public int DeleteHoliday( int Id)
+        //{
+        //    var item = _iHolidayRepository.GetSingle(x => x.Holiday_Id == Holiday_Id);
+        //    _iHolidayRepository.Delete(item);
+        //}
+    }
+

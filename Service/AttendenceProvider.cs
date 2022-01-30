@@ -15,13 +15,13 @@ namespace EmployeeManagement.Service
 {
     public interface IAttendenceProvider
     {
-        
+
         List<Employee> GetEmployees();
-     
+
         int SaveAttendence(AttendenceViewModel model);
-     
-     
-      AttendenceViewModel GetById(int id);
+
+
+        AttendenceViewModel GetById(int id);
         AttendenceViewModel GetList();
 
 
@@ -45,7 +45,7 @@ namespace EmployeeManagement.Service
             throw new NotImplementedException();
         }
 
-       
+
         public AttendenceViewModel GetById(int id)
         {
             var item = _iAttendenceRepository.GetSingle(x => x.Attendence_Id == id);
@@ -65,16 +65,43 @@ namespace EmployeeManagement.Service
 
         public int SaveAttendence(AttendenceViewModel model)
         {
-            Attendence attendence = new Attendence();
-            attendence = _mapper.Map<Attendence>(model);
-            if(model.Type=="TurnIn")
+            //Attendence attendence = new Attendence();
+            //attendence = _mapper.Map<Attendence>(model);
+            //if(model.Type=="TurnIn")
+            //{
+
+            //    _iAttendenceRepository.Add(attendence);
+            //}
+            //else
+            //{
+            //    _iAttendenceRepository.Update(attendence);
+            //}
+            //return 200;
+
+            var today2 = DateTime.Today;
+            if (model.Type == "TurnIn")
             {
 
-                _iAttendenceRepository.Add(attendence);
+                var attendence1 = _iAttendenceRepository.GetSingle(x => x.Turn_in > today2 && x.Employee_Id == model.Employee_Id);
+                if (attendence1 == null)
+                {
+                    Attendence attendence = new Attendence();
+                    attendence = _mapper.Map<Attendence>(model);
+                    attendence.Turn_in = DateTime.Now;
+                    _iAttendenceRepository.Add(attendence);
+                }
             }
             else
             {
-                _iAttendenceRepository.Update(attendence);
+                var attendence = _iAttendenceRepository.GetSingle(x => x.Turn_in > today2 && x.Employee_Id == model.Employee_Id);
+                if (attendence == null)
+                { }
+                else
+                {
+                    attendence.Turn_out = DateTime.Now;
+                    _iAttendenceRepository.Update(attendence);
+                }
+
             }
             return 200;
         }
@@ -91,10 +118,10 @@ namespace EmployeeManagement.Service
         }
     }
 
-        //public int DeleteHoliday( int Id)
-        //{
-        //    var item = _iHolidayRepository.GetSingle(x => x.Holiday_Id == Holiday_Id);
-        //    _iHolidayRepository.Delete(item);
-        //}
-    }
+    //public int DeleteHoliday( int Id)
+    //{
+    //    var item = _iHolidayRepository.GetSingle(x => x.Holiday_Id == Holiday_Id);
+    //    _iHolidayRepository.Delete(item);
+    //}
+}
 
