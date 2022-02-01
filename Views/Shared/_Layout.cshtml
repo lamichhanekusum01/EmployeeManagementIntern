@@ -72,12 +72,21 @@
                             </div>
                         }
 
+                        <div onclick="A()" class="dropdown-btn nav__link">
+                            <i class=""></i>Attendence
+                            <i class="fa fa-caret-down"></i>
+                        </div>
+                        <div id="B" class="dropdown-container">
+                            <a asp-controller="Attendence" asp-action="Index">Attendence</a>
+                            <a asp-controller="Attendence" asp-action="AttendenceList">Attendence List</a>
 
+
+                        </div>
                         <a asp-controller="Leave" asp-action="Index">leave</a>
-                        <a asp-controller="Attendence" asp-action="Index">Attendence</a>
+                        @*<a asp-controller="Attendence" asp-action="Index">Attendence</a>*@
 
                         <div onclick="myFunc()" class="dropdown-btn nav__link">
-                            <i class="fas fa-user-friends"></i>Holiday
+                            <i class=""></i>Holiday
                             <i class="fa fa-caret-down"></i>
                         </div>
                         <div id="myDiv2" class="dropdown-container">
@@ -86,7 +95,7 @@
 
 
                         </div>
-                </nav>
+</nav>
 
 
 

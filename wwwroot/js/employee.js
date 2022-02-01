@@ -182,7 +182,16 @@ function myFunction() {
         dropdown.style.display = "block";
     }
 }
+// dropdown----------------------------------------------------------------------------------
+function A() {
+    var dropdown = document.getElementById("B");
 
+    if (dropdown.style.display === "block") {
+        dropdown.style.display = "none";
+    } else {
+        dropdown.style.display = "block";
+    }
+}
 
 
 function myFunctions() {
@@ -203,6 +212,7 @@ function myFunc() {
         dropdown.style.display = "block";
     }
 }
+
 // document.addEventListener("DOMContentLoaded", function () {
 //   const selector = ".nav__link";
 //   const elems = Array.from(document.querySelectorAll(selector));
