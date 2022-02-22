@@ -1,4 +1,5 @@
 ﻿using EmployeeManagement.Models;
+using EmployeeManagement.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -13,20 +14,31 @@ namespace EmployeeManagement.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+   
+        
+            private readonly ILogger<HomeController> _logger;
+            private readonly ILeaveProvider _iLeaveProvider;
+            private readonly IHolidayProvider _iHolidayProvider;
 
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
+            public HomeController(ILogger<HomeController> logger, ILeaveProvider iLeaveProvider, IHolidayProvider iHolidayProvider)
+            {
+                _logger = logger;
+                _iLeaveProvider = iLeaveProvider;
+                _iHolidayProvider = iHolidayProvider;
+            }
 
-        [Authorize]
-        public IActionResult Index()
-        {
-            return View();
-        }
+            public IActionResult Index()
+            {
+                var data = _iLeaveProvider.GetList();
+                return View(data);
+            }
+            public IActionResult HolidayList()
+            {
+                var data = _iHolidayProvider.GetList();
+                return View(data);
+            }
 
-        public IActionResult Privacy()
+            public IActionResult Privacy()
         {
             return View();
         }

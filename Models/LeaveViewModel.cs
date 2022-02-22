@@ -20,7 +20,14 @@ namespace EmployeeManagement.Models
         public int EId { get; set; }
         public Employee Employee { get; set; }
         public string UserId { get; set; }
+        public string Leave_Reason { get; set; }
+        public bool LeaveStatus { get; set; }
+        public List<LeaveViewModel> LeaveList { get; set; }
+        public LeaveViewModel()
+        {
+            LeaveList = new List<LeaveViewModel>();
+        }
 
-
+       
     }
 }

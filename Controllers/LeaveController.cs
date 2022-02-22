@@ -45,8 +45,8 @@ namespace EmployeeManagement.Controllers
             }
             else
             {
-                //yo try garam bhayo bhane bujauxu
-                usr.Add(new SelectListItem { Value = User.FindFirst(ClaimTypes.NameIdentifier).Value, Text = User.FindFirst(ClaimTypes.Name).Value });//yeha signin manager user garera signin userr ko username dekhaune haina? User bhanne obj hudo raixa, tesba current signe in user ko info lina mildo raixa
+             
+                usr.Add(new SelectListItem { Value = User.FindFirst(ClaimTypes.NameIdentifier).Value, Text = User.FindFirst(ClaimTypes.Name).Value });
             }
             
             ViewBag.Emp = usr;
@@ -62,7 +62,7 @@ namespace EmployeeManagement.Controllers
                 var user = _context.Users.Where(x => x.Id == model.UserId).FirstOrDefault();
                 model.EmployeeName = user.UserName;
                 //model.Designation_Name = user.Designation;
-                //model.EId = user.EId;
+               //model.EId = user.EId;
                 _iLeaveProvider.SaveLeave(model);
                 return RedirectToAction("Index");
                

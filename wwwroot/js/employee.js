@@ -193,6 +193,37 @@ function A() {
     }
 }
 
+//function LeaveDropdown() {
+//    var dropdown = document.getElementById("leaveDropdown_Content");
+
+//    if (dropdown.style.display === "block") {
+//        dropdown.style.display = "none";
+//    } else {
+//        dropdown.style.display = "block";
+//    }
+//}
+
+//function A() {
+//    debugger
+//    var dropdown = document.getElementById("B");
+
+//    if (dropdown.style.display === "block") {
+//        dropdown.style.display = "none";
+//    } else {
+//        dropdown.style.display = "block";
+//    }
+//}
+//function LeaveDropdown() {
+//    debugger
+//    var dropdown = document.getElementById("D");
+
+//    if (dropdown.style.display === "block") {
+//        dropdown.style.display = "none";
+//    } else {
+//        dropdown.style.display = "block";
+//    }
+//}
+
 
 function myFunctions() {
     var dropdown = document.getElementById("myDIVs");

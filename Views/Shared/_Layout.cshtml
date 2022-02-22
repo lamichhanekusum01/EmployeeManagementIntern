@@ -82,7 +82,19 @@
 
 
                         </div>
-                        <a asp-controller="Leave" asp-action="Index">leave</a>
+
+                        @*<div onclick="LeaveDropdown()" class="dropdown-btn nav__link">
+                            <i class=""></i>Attendence
+                            <i class="fa fa-caret-down"></i>
+                        </div>
+                        <div id="leaveDropdown_Content" class="dropdown-container">
+                            <a asp-controller="Attendence" asp-action="Index">Attendence</a>
+                            <a asp-controller="Attendence" asp-action="AttendenceList">Attendence List</a>
+
+
+                        </div>*@
+
+                        @*<a asp-controller="Leave" asp-action="Index">leave</a>*@
                         @*<a asp-controller="Attendence" asp-action="Index">Attendence</a>*@
 
                         <div onclick="myFunc()" class="dropdown-btn nav__link">
@@ -95,7 +107,8 @@
 
 
                         </div>
-</nav>
+                        </div>
+                </nav>
 
 
 
@@ -116,7 +129,6 @@
                     {
                         <form class="form-container">
                             <div class="side-body-logout-section">
-
                                 <span>
                                     <i class="fas fa-user-circle"></i>
                                     <h1>@UserManager.GetUserAsync(User).Result.UserName</h1>
@@ -143,28 +155,27 @@
 
         </article>
     </main>
+    <script src="~/js/employee.js"></script>
+    <script>
+        let currentLocation = location.href;
+        // console.log(currentLocation)
+        const menuItems = document.querySelectorAll('a');
+        // console.log(menuItems)
+        const menuLength = menuItems.length;
+        // console.log(menuLength)
+        for (let i = 0; i < menuLength; i++) {
+            if (menuItems[i].href === currentLocation) {
+                // console.log((menuItems[i].href === currentLocation))
+                menuItems[i].className = "active"
+                menuItems[i].parentElement.style.display = "block";
+                console.log(menuItems[i])
 
+
+
+
+            }
+        }
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
-<script src="~/js/employee.js"></script>
-<script>
-    let currentLocation = location.href;
-    // console.log(currentLocation)
-    const menuItems = document.querySelectorAll('a');
-    // console.log(menuItems)
-    const menuLength = menuItems.length;
-    // console.log(menuLength)
-    for (let i = 0; i < menuLength; i++) {
-        if (menuItems[i].href === currentLocation) {
-            // console.log((menuItems[i].href === currentLocation))
-            menuItems[i].className = "active"
-            menuItems[i].parentElement.style.display = "block";
-            console.log(menuItems[i])
-
-
-
-
-        }
-    }
-</script>

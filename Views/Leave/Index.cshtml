@@ -39,10 +39,15 @@
                             <form id="leave-form" name="leave-form" asp-controller="Leave" asp-action="Index" method="post">
                                 <label for="Employee-Name">Employee-Name:</label>
                                 @*<input type="text"  id="Ename" asp-for="EmployeeName" required />*@
-                                <select asp-items="@data1"></select>
+                                <select asp-items="@data1" asp-for="UserId"></select>
+                                <input type="hidden" asp-for="UserId" />
                                 <p>
                                     Leave Request For:
-                                    <input type="number" id="dates"  asp-for="LeaveDays"/>
+                                    <input type="number" id="dates" asp-for="LeaveDays" />
+                                </p>
+                                <p>
+                                    Leave Reason :
+                                    <input type="text" asp-for="Leave_Reason" />
                                 </p>
                                 <div id="oneday" class="toggle">
                                     <label class="container checkbox">
@@ -53,15 +58,15 @@
 
                                     <div>
                                         <label for="leavedate">Leave Date:</label>
-                                        <input type="date"  id="leavedate" />
+                                        <input type="date" id="leavedate" />
                                     </div>
                                 </div>
                                 <div id="moreday" class="r">
                                     <div class="date">
                                         <label for="leavedate">Leave Date :</label>
-                                        <input type="date"asp-for="LeaveDate"  id="leavedates" />
+                                        <input type="date" asp-for="LeaveDate" id="leavedates" />
                                     </div>
-                                      </div>
+                                </div>
                                 <div class="leave-submit-btn">
                                     <button id="formSubmit" type="submit">Submit</button>
                                 </div>

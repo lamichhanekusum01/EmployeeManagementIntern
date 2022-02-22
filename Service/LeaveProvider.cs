@@ -14,8 +14,10 @@ namespace EmployeeManagement.Service
     {
         int SaveLeave(LeaveViewModel model);
         LeaveViewModel GetById(int id);
+        LeaveViewModel GetList();
         List<Employee> GetEmployees();
         List<ApplicationUser> GetUsers();
+
 
 
 
@@ -73,7 +75,15 @@ namespace EmployeeManagement.Service
             }
             return UserList;
         }
-
+        public LeaveViewModel GetList()
+        {
+            LeaveViewModel model = new LeaveViewModel();
+            var list = new List<LeaveViewModel>();
+            List<Leave> data = _iLeaveRepository.GetAll().ToList();
+            list = _mapper.Map<List<Leave>, List<LeaveViewModel>>(data);
+            model.LeaveList = list;
+            return model;
+        }
         public int SaveLeave(LeaveViewModel model)
         {
             string usrId = model.UserId;
@@ -89,12 +99,9 @@ namespace EmployeeManagement.Service
 
         }
 
+        
+        
     }
 
-    //public int DeleteHoliday( int Id)
-    //{
-    //    var item = _iHolidayRepository.GetSingle(x => x.Holiday_Id == Holiday_Id);
-    //    _iHolidayRepository.Delete(item);
-    //}
 }
 
