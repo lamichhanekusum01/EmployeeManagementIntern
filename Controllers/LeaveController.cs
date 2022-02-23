@@ -59,11 +59,11 @@ namespace EmployeeManagement.Controllers
         {
             try
             {
-                var user = _context.Users.Where(x => x.Id == model.UserId).FirstOrDefault();
+               
+                var user = _context.ApplicationUsers.Where(x => x.Id == model.UserId).FirstOrDefault();
                 model.EmployeeName = user.UserName;
-                //model.Designation_Name = user.Designation;
-               //model.EId = user.EId;
-                _iLeaveProvider.SaveLeave(model);
+                model.EId = user.EId;
+               _iLeaveProvider.SaveLeave(model);
                 return RedirectToAction("Index");
                
              
@@ -73,6 +73,35 @@ namespace EmployeeManagement.Controllers
                 throw ex;
             }
                                
+        }
+        [HttpGet]
+        public IActionResult LeaveList()
+        {
+            var data = _iLeaveProvider.GetList();
+            return View(data);
+        }
+        [HttpGet]
+        public IActionResult Approve(int? id)
+        {
+            LeaveViewModel model = new LeaveViewModel();
+            if (id.HasValue)
+            {
+                model = _iLeaveProvider.GetById(id.Value);
+            }
+            return View(model);
+        }
+        [HttpPost]
+        public IActionResult Approve(LeaveViewModel model)
+        {
+            try
+            {
+                _iLeaveProvider.EditLeave(model);
+                return RedirectToAction("LeaveList");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
     }

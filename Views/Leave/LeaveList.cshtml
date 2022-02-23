@@ -38,8 +38,11 @@
                         <table id="customers">
                             <tr>
                                 <th style="border-bottom: 2px solid black;" width: 10%;">S no.</th>
-                                <th style="border-bottom: 2px solid black;">Holiday Name</th>
-                                <th style="border-bottom: 2px solid black;">Holiday Date</th>
+                                <th style="border-bottom: 2px solid black;">Employee Name</th>
+                                <th style="border-bottom: 2px solid black;">Leave Date</th>
+                                <th style="border-bottom: 2px solid black;">Leave Days</th>
+                                <th style="border-bottom: 2px solid black;">Leave Reason</th>
+                                <th style="border-bottom: 2px solid black;">Leave Approved</th>
 
                             </tr>
                             @{int i = 1;}
@@ -87,6 +90,24 @@
 <link href="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.9.2/themes/blitzer/jquery-ui.css"
       rel="Stylesheet" type="text/css" />
 
+
+    <script type="text/javascript">
+        $(function () {
+            $(".btnSubmit").click(function () {
+                $.ajax({
+                    type: "GET",
+                    url: "/Leave/Approve",
+                    data: { id: this.id },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+            });
+    });
+</script>
 @*<script type="text/javascript">
     $(function () {
         $("#myBtn").click(function () {

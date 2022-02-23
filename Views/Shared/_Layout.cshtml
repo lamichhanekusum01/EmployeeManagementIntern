@@ -70,43 +70,49 @@
                                 <a href="#">User-Holiday</a>
 
                             </div>
+
                         }
-
-                        <div onclick="A()" class="dropdown-btn nav__link">
-                            <i class=""></i>Attendence
-                            <i class="fa fa-caret-down"></i>
-                        </div>
-                        <div id="B" class="dropdown-container">
-                            <a asp-controller="Attendence" asp-action="Index">Attendence</a>
-                            <a asp-controller="Attendence" asp-action="AttendenceList">Attendence List</a>
-
-
-                        </div>
-
-                        @*<div onclick="LeaveDropdown()" class="dropdown-btn nav__link">
-                            <i class=""></i>Attendence
-                            <i class="fa fa-caret-down"></i>
-                        </div>
-                        <div id="leaveDropdown_Content" class="dropdown-container">
-                            <a asp-controller="Attendence" asp-action="Index">Attendence</a>
-                            <a asp-controller="Attendence" asp-action="AttendenceList">Attendence List</a>
+                        <a asp-controller="Leave" asp-action="Index">leave</a>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a asp-controller="Leave" asp-action="LeaveList">LeaveList</a>
+                            <a asp-controller="Leave" asp-action="Approve">Leave Approval</a>
+                        }
+                            <div onclick="A()" class="dropdown-btn nav__link">
+                                <i class=""></i>Attendence
+                                <i class="fa fa-caret-down"></i>
+                            </div>
+                            <div id="B" class="dropdown-container">
+                                <a asp-controller="Attendence" asp-action="Index">Attendence</a>
+                                <a asp-controller="Attendence" asp-action="AttendenceList">Attendence List</a>
 
 
-                        </div>*@
+                            </div>
 
-                        @*<a asp-controller="Leave" asp-action="Index">leave</a>*@
-                        @*<a asp-controller="Attendence" asp-action="Index">Attendence</a>*@
-
-                        <div onclick="myFunc()" class="dropdown-btn nav__link">
-                            <i class=""></i>Holiday
-                            <i class="fa fa-caret-down"></i>
-                        </div>
-                        <div id="myDiv2" class="dropdown-container">
-                            <a asp-controller="Holiday" asp-action="Index">Add Holiday</a>
-                            <a asp-controller="Holiday" asp-action="HolidayList">Holiday-List</a>
+                            @*<div onclick="LeaveDropdown()" class="dropdown-btn nav__link">
+                <i class=""></i>Attendence
+                <i class="fa fa-caret-down"></i>
+            </div>
+            <div id="leaveDropdown_Content" class="dropdown-container">
+                <a asp-controller="Attendence" asp-action="Index">Attendence</a>
+                <a asp-controller="Attendence" asp-action="AttendenceList">Attendence List</a>
 
 
-                        </div>
+            </div>*@
+
+
+                            @*<a asp-controller="Attendence" asp-action="Index">Attendence</a>*@
+
+                            <div onclick="myFunc()" class="dropdown-btn nav__link">
+                                <i class=""></i>Holiday
+                                <i class="fa fa-caret-down"></i>
+                            </div>
+                            <div id="myDiv2" class="dropdown-container">
+                                <a asp-controller="Holiday" asp-action="Index">Add Holiday</a>
+                                <a asp-controller="Holiday" asp-action="HolidayList">Holiday-List</a>
+
+
+                            </div>
                         </div>
                 </nav>
 

@@ -1,0 +1,68 @@
+﻿@model EmployeeManagement.Models.LeaveViewModel
+@{ bool status = true; }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Podkova&family=Roboto:wght@400;700&display=swap"
+          rel="stylesheet">
+    @*<link rel="stylesheet" href="css/style.css">
+        <link rel="icon" type="image/x-icon" href="~/image/c2.jpg">
+        <link rel="stylesheet" href="~/fontawesome-free-5.15.4-web/css/all.css">*@
+    <title>Employee-List</title>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.0.min.js" type="text/javascript"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.9.2/jquery-ui.min.js" type="text/javascript"></script>
+    <link href="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.9.2/themes/blitzer/jquery-ui.css"
+          rel="Stylesheet" type="text/css" />
+</head>
+<body>
+    <main class="main-container" id="mySidenav">
+        <article>
+            <div class="side-body">
+
+                <article>
+                    <div class="user-employee-header">
+                        <h2>
+                            Leave-List
+                        </h2>
+                    </div>
+                </article>
+                <form asp-controller="Leave" asp-action="Approve" method="post">
+                    <input type="hidden" asp-for="Leave_Id" />
+                    <div class="employee-name">
+                        <label>Employee Name:&nbsp;&nbsp;</label>
+                        <input asp-for="EmployeeName" type="text">
+                    </div>
+                    
+                    <div class="employee-designation">
+                        <label for="">LeaveReason:</label>
+                        <input asp-for="Leave_Reason" type="text">
+                    </div>
+                    <div class="leave-number">
+                        <label for="">Total Number of days requested:</label>
+                        <input asp-for="LeaveDays" type="number" class="leaveday">
+                    </div>
+                    <div class="multiple-day-section">
+                        <div class="multiple-day-leave-section">
+                            <div class="leave-start-date">
+                                <label for="">Leave Start Date:</label>
+                                <input asp-for="LeaveDate" type="date">
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" asp-for="UserId" />
+                    <input type="hidden" asp-for="EId" />
+                    <input type="hidden" asp-for="Employee" />
+                    <input type="hidden" value="true" asp-for="LeaveStatus" />
+                    <input value="Approve" type="submit" class="leaverequestsubmitbtn">
+                </form>
+            </div>
+
+        </article>
+    </main>
+</body>
+</html>

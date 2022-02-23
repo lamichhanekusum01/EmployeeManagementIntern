@@ -17,7 +17,8 @@ namespace EmployeeManagement.Service
         LeaveViewModel GetList();
         List<Employee> GetEmployees();
         List<ApplicationUser> GetUsers();
-
+        LeaveViewModel GetApprovedLeave();
+        int EditLeave(LeaveViewModel model);
 
 
 
@@ -98,9 +99,31 @@ namespace EmployeeManagement.Service
 
 
         }
+        public LeaveViewModel GetApprovedLeave()
+        {
+            LeaveViewModel model = new LeaveViewModel();
+            var list = new List<LeaveViewModel>();
+            List<Leave> data = _iLeaveRepository.GetAll().ToList();
+            foreach (var item in data)
+            {
+                if (item.LeaveStatus == true)
+                {
+                    list = _mapper.Map<List<Leave>, List<LeaveViewModel>>(data);
+                    model.LeaveList = list;
+                }
+            }
+            return model;
 
-        
-        
+
+
+        }
+        public int EditLeave(LeaveViewModel model)
+        {
+            Leave leave = new Leave();
+            leave = _mapper.Map<Leave>(model);
+            _iLeaveRepository.Update(leave);
+            return 200;
+        }
     }
 
 }
