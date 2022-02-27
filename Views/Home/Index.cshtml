@@ -277,52 +277,101 @@ let leavestn = document.querySelector("#leaveList");
         var selectedMonth = document.getElementsByClassName('picker-m')[0].selectedIndex;
         var yearSelect = document.getElementsByClassName('picker-y')[0];
         var selectedYear = yearSelect.options[yearSelect.selectedIndex].value;
-
         $.ajax({
             type: "Get",
             url: "/Home/HolidayCalender",
             data: { year: selectedYear, month: selectedMonth },
             dataType: "json",
             success: function (response) {
-                debugger
-                response.forEach(function (e) {
-                    day = e.day;
-                    status = e.status;
-                    type = e.type;
-                    noOfDays = e.noOfDays;
+                
+                response.forEach(function (item) {
+                    day = item.day;
+                    status = item.status;
+                    type = item.type;
+                    noOfDays = item.noOfDays;
                     var rows = document.getElementsByTagName("table")[0].rows;
-                    let flag = false;
-
+                    let exitflag = false;
+                    
                     for (var i = 2; i < rows.length; i++) {
-                        if (flag) {
+                        debugger
+                        if (exitflag) {
                             break;
                         }
+
                         var cellLength = rows[i].cells.length;
                         var lastCell = rows[i].cells[cellLength - 1];
+
                         if (parseInt(lastCell.innerHTML) >= parseInt(day)) {
                             for (var j = 0; j < cellLength; j++) {
-
+                                debugger
                                 if (rows[i].cells[j].innerHTML == day) {
+
                                     rows[i].cells[j].classList.add('leaveDayColor');
+
                                     noOfDays--;
                                     day++;
+
                                     if (noOfDays == 0) {
-                                        flag = true;
+                                        exitflag = true;
                                     }
                                     debugger
                                 }
-                                if (flag) {
+                                if (exitflag) {
                                     break;
-
                                 }
                             }
-
                         }
 
 
                     }
 
                 });
+
+        //$.ajax({
+        //    type: "Get",
+        //    url: "/Home/HolidayCalender",
+        //    data: { year: selectedYear, month: selectedMonth },
+        //    dataType: "json",
+        //    success: function (response) {
+        //        debugger
+        //        response.forEach(function (e) {
+        //            day = e.day;
+        //            status = e.status;
+        //            type = e.type;
+        //            noOfDays = e.noOfDays;
+        //            var rows = document.getElementsByTagName("table")[0].rows;
+        //            let flag = false;
+
+        //            for (var i = 2; i < rows.length; i++) {
+        //                if (flag) {
+        //                    break;
+        //                }
+        //                var cellLength = rows[i].cells.length;
+        //                var lastCell = rows[i].cells[cellLength - 1];
+        //                if (parseInt(lastCell.innerHTML) >= parseInt(day)) {
+        //                    for (var j = 0; j < cellLength; j++) {
+
+        //                        if (rows[i].cells[j].innerHTML == day) {
+        //                            rows[i].cells[j].classList.add('leaveDayColor');
+        //                            noOfDays--;
+
+        //                            if (noOfDays == 0) {
+        //                                flag = true;
+        //                            }
+        //                            debugger
+        //                        }
+        //                        if (flag) {
+        //                            break;
+
+        //                        }
+        //                    }
+
+        //                }
+
+
+        //            }
+
+        //        });
 
                 /*for (i = 0; i < response.)*/
 
