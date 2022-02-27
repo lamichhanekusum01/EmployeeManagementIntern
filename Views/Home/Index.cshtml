@@ -1,8 +1,11 @@
 ﻿@model EmployeeManagement.Models.LeaveViewModel
-@{
-}
-<!DOCTYPE html>
-<html lang="en">
+@using Microsoft.AspNetCore.Identity
+@using EmployeeManagement.Areas.Identity.Data
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@using System.Globalization
 
 <head>
     <meta charset="UTF-8" />
@@ -19,96 +22,112 @@
     <link rel="stylesheet" href="~/css/employeecalendar.css" />
 
     <title>Employee-List</title>
-    @using Microsoft.AspNetCore.Identity
-    @using EmployeeManagement.Areas.Identity.Data
-    @inject SignInManager<ApplicationUser> SignInManager
-    @inject UserManager<ApplicationUser> UserManager
-    @using Microsoft.AspNetCore.Http
-    @inject IHttpContextAccessor HttpContextAccessor
-    @using System.Globalization
+    <style>
+        .leaveDayColor{
+            color: red;
+        }
+    </style>
+
 </head>
 
-<body>
-    <main class="main-container">
-        <article>
 
-            <div class="side-body">
+<main class="main-container">
+    <article>
 
-                <div class="employee-full-container">
+        <div class="side-body">
+
+            <div class="employee-full-container">
 
 
-                    <div class="calender-event-container">
-                        <div style="
+                <div class="calender-event-container">
+                    <div style="
                               display: flex;
                             flex-direction: column;
                               justify-content: space-evenly;
                                margin-top: 16px;
                                   ">
-                            <div class="date-events">
-                                <div class="date">
-                                    <h3 class="two"></h3>
-                                </div>
-                                <div class="events"></div>
+                        <div class="date-events">
+                            <div class="date">
+                                <h3 class="two"></h3>
                             </div>
-                            <div>
-                            </div>
-                            <div class="lebal-container">
-                                <ul class="lebal">
-                                    <li> <span><i class="fas fa-circle overtime"></i></span>overtime</li>
-                                    <li><span><i class="fas fa-circle today"></i></span>Today</li>
-                                    <li><span><i class="fas fa-circle late"></i></span>late</li>
-
-
-                                </ul>
-                                <ul class="lebal">
-
-
-                                    <li><span><i class="fas fa-circle pday"></i></span>public holiday</li>
-                                    <li><span><i class="fas fa-circle hday"></i></span>Weekends</li>
-                                    <li><span><i class="fas fa-circle sick"></i></span>Sick</li>
-
-
-                                </ul>
-                            </div>
+                            <div class="events"></div>
                         </div>
-
-                        <!-- calendar -->
-                        <div class="calender">
-
-
-                            <section class="new">
-                                <section>
-                                    <!-- (B) THE HTML
-                                    (B1) INLINE DATE PICKER -->
-                                    <input type="hidden" id="input-inline" placeholder="Inline" />
-                                    <div id="pick-inline"></div>
-
-                                    <!-- (B2) POPUP DATE PICKER -->
-                                    <input type="hidden" id="input-pop" placeholder="Popup" ` />
-                                </section>
+                        <div>
+                        </div>
+                        <div class="lebal-container">
+                            <ul class="lebal">
+                                <li> <span><i class="fas fa-circle overtime"></i></span>overtime</li>
+                                <li><span><i class="fas fa-circle today"></i></span>Today</li>
+                                <li><span><i class="fas fa-circle late"></i></span>late</li>
 
 
-                            </section>
+                            </ul>
+                            <ul class="lebal">
+
+
+                                <li><span><i class="fas fa-circle pday"></i></span>public holiday</li>
+                                <li><span><i class="fas fa-circle hday"></i></span>Weekends</li>
+                                <li><span><i class="fas fa-circle sick"></i></span>Sick</li>
+
+
+                            </ul>
                         </div>
                     </div>
-                    <div class="button-content-container">
-                        <div class="employee-approve-leave-button">
-                            <div class="requestedbtn">
-                                <button asp-controller="Home" asp-action="Index">Requested Leave</button>
-                            </div>
 
-                            <div class="btnsectiono">
-                                <button>Approved Leave</button>
-                            </div>
+                    <!-- calendar -->
+                    <div class="calender">
+
+
+                        <section class="new">
+                            <section>
+                                <!-- (B) THE HTML
+                                (B1) INLINE DATE PICKER -->
+                                <input type="hidden" id="input-inline" placeholder="Inline" />
+                                <div id="pick-inline"></div>
+
+                                <!-- (B2) POPUP DATE PICKER -->
+                                <input type="hidden" id="input-pop" placeholder="Popup" ` />
+                            </section>
+
+
+                        </section>
+                    </div>
+                </div>
+                <div class="button-content-container">
+                    <div class="employee-approve-leave-button">
+                        <div class="requestedbtn">
+                            <button asp-controller="Home" asp-action="Index">Requested Leave</button>
                         </div>
-                        <div class="date-events">
-                            <div id="leaveList" class="leave-list">
-                                <div>
-                                    <p>Requested Leave</p>
-                                </div>
-                                @if (User.IsInRole("Admin"))
+
+                        <div class="btnsectiono">
+                            <button>Approved Leave</button>
+                        </div>
+                    </div>
+                    <div class="date-events">
+                        <div id="leaveList" class="leave-list">
+                            <div>
+                                <p>Requested Leave</p>
+                            </div>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                @foreach (var leave in Model.LeaveList)
                                 {
-                                    @foreach (var leave in Model.LeaveList)
+                                    <div class="date-reason">
+                                        <div class="date-requested">
+                                            <div>
+                                                <p>@leave.LeaveDate.Day</p>
+                                                <span>@leave.LeaveDate.ToString("MMM")@*.ToString("MMM", CultureInfo.InvariantCulture)*@</span>
+                                            </div>
+                                        </div>
+                                        <div class="reason-details">@leave.Leave_Reason</div>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                @foreach (var leave in Model.LeaveList)
+                                {
+                                    if (leave.EId == UserManager.GetUserAsync(User).Result.EId)
                                     {
                                         <div class="date-reason">
                                             <div class="date-requested">
@@ -121,89 +140,73 @@
                                         </div>
                                     }
                                 }
-                                else
-                                {
-                                    @foreach (var leave in Model.LeaveList)
-                                    {
-                                        if (leave.EId == UserManager.GetUserAsync(User).Result.EId)
-                                        {
-                                            <div class="date-reason">
-                                                <div class="date-requested">
-                                                    <div>
-                                                        <p>@leave.LeaveDate.Day</p>
-                                                        <span>@leave.LeaveDate.ToString("MMM")@*.ToString("MMM", CultureInfo.InvariantCulture)*@</span>
-                                                    </div>
-                                                </div>
-                                                <div class="reason-details">@leave.Leave_Reason</div>
-                                            </div>
-                                        }
-                                    }
-                                }
+                            }
+                        </div>
+                        <div id="approveList" class="approved-list">
+                            <div>
+                                <p>Approved Leave</p>
                             </div>
-                            <div id="approveList" class="approved-list">
-                                <div>
-                                    <p>Approved Leave</p>
-                                </div>
-                                @if (User.IsInRole("Admin"))
+                            @if (User.IsInRole("Admin"))
+                            {
+                                @foreach (var leave in Model.LeaveList)
                                 {
-                                    @foreach (var leave in Model.LeaveList)
+                                    if (leave.LeaveStatus == true)
                                     {
-                                        if (leave.LeaveStatus == true)
-                                        {
-                                            <div class="date-reason">
-                                                <div class="date-requested">
-                                                    <div>
-                                                        <p>@leave.LeaveDate.Day</p>
-                                                        <span>@leave.LeaveDate.Month</span>
-                                                        <span>@leave.LeaveDate.ToString("MMM")</span>
-                                                    </div>
+                                        <div class="date-reason">
+                                            <div class="date-requested">
+                                                <div>
+                                                    <p>@leave.LeaveDate.Day</p>
+                                                    <span>@leave.LeaveDate.Month</span>
+                                                    <span>@leave.LeaveDate.ToString("MMM")</span>
                                                 </div>
-                                                <div class="reason-details">@leave.Leave_Reason</div>
                                             </div>
-                                        }
+                                            <div class="reason-details">@leave.Leave_Reason</div>
+                                        </div>
                                     }
                                 }
-                                else
+                            }
+                            else
+                            {
+                                @foreach (var leave in Model.LeaveList)
                                 {
-                                    @foreach (var leave in Model.LeaveList)
+                                    if (leave.EId == UserManager.GetUserAsync(User).Result.EId)
                                     {
-                                        if (leave.EId == UserManager.GetUserAsync(User).Result.EId)
-                                        {
-                                            <div class="date-reason">
-                                                <div class="date-requested">
-                                                    <div>
-                                                        <p>@leave.LeaveDate.Day</p>
-                                                        <span>@leave.LeaveDate.Month</span>
-                                                        @if (leave.LeaveStatus == true)
-                                                        {
-                                                            <div class="date-reason">
-                                                                <div class="date-requested">
-                                                                    <div>
-                                                                        <p>@leave.LeaveDate.Day</p>
-                                                                        <span>@leave.LeaveDate.ToString("MMM")</span>
-                                                                    </div>
+                                        <div class="date-reason">
+                                            <div class="date-requested">
+                                                <div>
+                                                    <p>@leave.LeaveDate.Day</p>
+                                                    <span>@leave.LeaveDate.Month</span>
+                                                    @if (leave.LeaveStatus == true)
+                                                    {
+                                                        <div class="date-reason">
+                                                            <div class="date-requested">
+                                                                <div>
+                                                                    <p>@leave.LeaveDate.Day</p>
+                                                                    <span>@leave.LeaveDate.ToString("MMM")</span>
                                                                 </div>
-                                                                <div class="reason-details">@leave.Leave_Reason</div>
                                                             </div>
-                                                        }
-                                                    </div>
+                                                            <div class="reason-details">@leave.Leave_Reason</div>
+                                                        </div>
+                                                    }
                                                 </div>
                                             </div>
-                                        }
+                                        </div>
                                     }
                                 }
+                            }
 
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </article>
+        </div>
+    </article>
 
-    </main>
+</main>
 
-    <script src="~/js/file.js"></script>
-    <script src="~/js/Index.js"></script>
+<script src="~/js/file.js"></script>
+<script src="~/js/Index.js"></script>
+@*<script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script>
 
         let leavestn = document.querySelector("#leaveList");
@@ -224,10 +227,140 @@
             leavestn.style.display = "block";
             approvestn.style.display = "none";
         });
-    </script>
-</body>
+
+        debugger
+        var year = $('.picker-y').val();
+        var month = $('.picker-m').val();
+        var day = $('.picker-d').val();
+    /*    var val = $('.td.picker-d-d').val();*/
+
+        $.ajax({
+            type: "Get",
+            url: "/Home/HolidayCalender",
+            data: { year: year, month: month, day: day },
+            dataType: "json",
+            success: function (response) {
+            alert(response.responseText);
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
+        });
+    </script>*@
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+<script>
+
+let leavestn = document.querySelector("#leaveList");
+    console.log(leavestn);
+    let approvestn = document.querySelector("#approveList");
+    console.log(approvestn);
+    let btnsectionfordiv = document.querySelector(".btnsectiono");
+    console.log(btnsectionfordiv);
+    let requestbtn = document.querySelector(".requestedbtn");
+    console.log(requestbtn);
+    btnsectionfordiv.addEventListener("click", () => {
+        leavestn.style.display = "none";
+        approvestn.style.display = "block";
+    });
+    requestbtn.addEventListener("click", () => {
+        leavestn.style.display = "block";
+        approvestn.style.display = "none";
+    });
+
+    $(window).on('load', function () {
+        debugger
+
+        var selectedMonth = document.getElementsByClassName('picker-m')[0].selectedIndex;
+        var yearSelect = document.getElementsByClassName('picker-y')[0];
+        var selectedYear = yearSelect.options[yearSelect.selectedIndex].value;
+
+        $.ajax({
+            type: "Get",
+            url: "/Home/HolidayCalender",
+            data: { year: selectedYear, month: selectedMonth },
+            dataType: "json",
+            success: function (response) {
+                debugger
+                response.forEach(function (e) {
+                    day = e.day;
+                    status = e.status;
+                    type = e.type;
+                    noOfDays = e.noOfDays;
+                    var rows = document.getElementsByTagName("table")[0].rows;
+                    let flag = false;
+
+                    for (var i = 2; i < rows.length; i++) {
+                        if (flag) {
+                            break;
+                        }
+                        var cellLength = rows[i].cells.length;
+                        var lastCell = rows[i].cells[cellLength - 1];
+                        if (parseInt(lastCell.innerHTML) >= parseInt(day)) {
+                            for (var j = 0; j < cellLength; j++) {
+
+                                if (rows[i].cells[j].innerHTML == day) {
+                                    rows[i].cells[j].classList.add('leaveDayColor');
+                                    noOfDays--;
+                                    day++;
+                                    if (noOfDays == 0) {
+                                        flag = true;
+                                    }
+                                    debugger
+                                }
+                                if (flag) {
+                                    break;
+
+                                }
+                            }
+
+                        }
+
+
+                    }
+
+                });
+
+                /*for (i = 0; i < response.)*/
+
+                //yeha loop lagaoo vanyoo, aayena response ma loop lagauna
+                //response ma k aauxa??
+                //  for (let x in response)
+                //  {
+                //      day = x.day;
+                //      status = x.status;
+                //      type = x.type;
+                //for (let i in rows) {
+                //let row = rows.row[i];
+                //for (let j in row.cells) {
+                //let col = row.cells[j]
+                //var lastcell = last.cells[6];
+                // if (cells=day) {
+
+                //              }
+                //else if (cells>day) {
+
+                //              }
+                //          }
+
+                //      }
+                //  }
+                /*      row[].cells[]*/
+                //var value = cell.innerHTML;
+                alert(response.responseText);
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
+        });
+    });
 
 
 
-
-</html>
+</script>

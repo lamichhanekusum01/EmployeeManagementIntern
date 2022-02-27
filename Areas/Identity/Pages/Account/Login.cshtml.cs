@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using EmployeeManagement.Areas.Identity.Data;
 using System.Text;
+using Microsoft.AspNetCore.Http;
 
 namespace EmployeeManagement.Areas.Identity.Pages.Account
 {
@@ -106,6 +107,7 @@ namespace EmployeeManagement.Areas.Identity.Pages.Account
                         isAdmin = true;
                     }
                     HttpContext.Session.Set("Role", Encoding.ASCII.GetBytes(userRole));
+                    HttpContext.Session.SetInt32("EId", user.EId);
                     //HttpContext.Session.Set("Role", Encoding.ASCII.GetBytes(role.FirstOrDefault()));
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);

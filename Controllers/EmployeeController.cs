@@ -219,9 +219,8 @@ namespace EmployeeManagement.Controllers
 
             return PartialView(model);
         }
+ 
 
     }
 
 } 
-
-//vaisakyo ta search lol??

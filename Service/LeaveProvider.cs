@@ -19,6 +19,7 @@ namespace EmployeeManagement.Service
         List<ApplicationUser> GetUsers();
         LeaveViewModel GetApprovedLeave();
         int EditLeave(LeaveViewModel model);
+        List<CalenderViewModel> GetCalendarDataByYearAndMonth(string eid, string year, string month);
 
 
 
@@ -31,10 +32,15 @@ namespace EmployeeManagement.Service
         private readonly IMapper _mapper;
         private EmployeeManagementDbContext _context;
 
-        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager; 
 
-        public LeaveProvider(UserManager<ApplicationUser> userManager, ILeaveRepository iLeaveRepository, IMapper mapper, EmployeeManagementDbContext context)
+        private readonly IHolidayRepository _iHolidayRepository;
+        private readonly IAttendenceRepository _iAttendenceRepository;
+
+        public LeaveProvider(IAttendenceRepository iAttendenceRepository, IHolidayRepository iHolidayRepository, UserManager<ApplicationUser> userManager, ILeaveRepository iLeaveRepository, IMapper mapper, EmployeeManagementDbContext context)
         {
+            _iAttendenceRepository = iAttendenceRepository;
+            _iHolidayRepository = iHolidayRepository;
             _userManager = userManager;
             _iLeaveRepository = iLeaveRepository;
             _mapper = mapper;
@@ -124,7 +130,100 @@ namespace EmployeeManagement.Service
             _iLeaveRepository.Update(leave);
             return 200;
         }
+
+        public List<CalenderViewModel> GetCalendarDataByYearAndMonth(string eid, string year, string month)
+        {
+
+            //var users = _context.Users.Find();
+            
+            //int EmpId = Convert.ToInt32(eid);
+           int EmpId =3;
+            int monthInt = 0; 
+            if (month == "0")
+                monthInt = 1;
+            else if (month == "1")
+                monthInt = 2;
+           
+            DateTime firstDate = Convert.ToDateTime(monthInt + "/01/" + year);
+            DateTime lastDate = Convert.ToDateTime(monthInt + "/28/" + year);
+            List<CalenderViewModel> calenderViewLists = new();
+            List<Attendence> attendance = _iAttendenceRepository
+                .GetAll(x => x.Employee_Id == EmpId)
+                .Where(x => x.Date <= lastDate && x.Date >= firstDate).ToList();
+            //List<Leave> leave = _iLeaveRepository.GetAll(x => x.EId == EmpId).Where(x => x.LeaveDate <= lastDate && x.LeaveDate >= firstDate).ToList();
+            List<Holiday> holiday = _iHolidayRepository.GetAll().Where(x => x.HolidayDate <= lastDate && x.HolidayDate >= firstDate).ToList();
+            List<Leave> leave = _iLeaveRepository.GetAll(x => x.EId == EmpId).Where(x => x.LeaveDate <= lastDate && x.LeaveDate >= firstDate).ToList();
+
+            if (holiday != null)
+            {
+                foreach (var item in holiday)
+                {
+                    CalenderViewModel model = new();
+                    model.Day = item.HolidayDate.Day.ToString();
+                    model.Status = item.HolidayName;
+                    model.Type = "Holiday";
+                    calenderViewLists.Add(model);
+                }
+            }
+
+            if (leave != null)
+            {
+                foreach (var item in leave)
+                {
+                    CalenderViewModel model = new();
+                    model.Day = item.LeaveDate.Day.ToString();
+                    model.Status = item.Leave_Reason;
+                    model.Type = "Leave";
+                    model.NoOfDays = item.LeaveDays;
+                    calenderViewLists.Add(model);
+
+                }
+            }
+
+            if (attendance != null)
+            {
+                foreach (var item in attendance)
+                {
+                    CalenderViewModel model = new();
+
+                    model.Day = item.Date.Day.ToString();
+                    model.Type = "Attendence";
+
+                    if (item.Turn_in.Hour > 10)
+                    {
+                        model.Status = "Late";
+                    }
+
+                    if (item.Turn_out.ToString() == "0001-01-01 00:00:00.0000000")
+                    {
+                        model.Status = "Not Checked Out";
+                    }
+
+                    if (item.Turn_out.Hour < 5)
+                    {
+                        model.Status = "Half Day";
+                    }
+
+                    if (item.Turn_out.Hour >= 7)
+                    {
+                        model.Status = "Over Time";
+                    }
+
+                    if (item.Turn_in.Hour <= 10 && item.Turn_out.Hour > 5)
+                    {
+                        model.Status = "Valid Attendance";
+                    }
+
+                    calenderViewLists.Add(model);
+
+                }
+            }
+
+            return calenderViewLists;
+        }
+    }
+           
     }
 
-}
+ 
 

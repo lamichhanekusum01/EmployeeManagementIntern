@@ -1,6 +1,9 @@
-﻿using EmployeeManagement.Models;
+﻿
+using EmployeeManagement.Data;
+using EmployeeManagement.Models;
 using EmployeeManagement.Service;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -14,31 +17,44 @@ namespace EmployeeManagement.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-   
-        
-            private readonly ILogger<HomeController> _logger;
-            private readonly ILeaveProvider _iLeaveProvider;
-            private readonly IHolidayProvider _iHolidayProvider;
 
-            public HomeController(ILogger<HomeController> logger, ILeaveProvider iLeaveProvider, IHolidayProvider iHolidayProvider)
-            {
-                _logger = logger;
-                _iLeaveProvider = iLeaveProvider;
-                _iHolidayProvider = iHolidayProvider;
-            }
 
-            public IActionResult Index()
-            {
-                var data = _iLeaveProvider.GetList();
-                return View(data);
-            }
-            public IActionResult HolidayList()
-            {
-                var data = _iHolidayProvider.GetList();
-                return View(data);
-            }
+        private readonly ILogger<HomeController> _logger;
+        private readonly ILeaveProvider _iLeaveProvider;
+        private readonly IHolidayProvider _iHolidayProvider;
+        private readonly EmployeeManagementDbContext _context;
 
-            public IActionResult Privacy()
+        public HomeController(ILogger<HomeController> logger, ILeaveProvider iLeaveProvider, IHolidayProvider iHolidayProvider, EmployeeManagementDbContext context)
+        {
+            _logger = logger;
+            _iLeaveProvider = iLeaveProvider;
+            _iHolidayProvider = iHolidayProvider;
+            _context = context;
+        }
+
+        public IActionResult Index()
+        {
+            var data = _iLeaveProvider.GetList();
+            return View(data);
+        }
+        public IActionResult HolidayList()
+        {
+            var data = _iHolidayProvider.GetList();
+            return View(data);
+        }
+        [HttpGet]
+        public JsonResult HolidayCalender(string year, string month)
+        {
+            string EId = HttpContext.Session.GetInt32("EId").ToString();
+            var data = _iLeaveProvider.GetCalendarDataByYearAndMonth(EId, year, month);
+
+
+            var leavedata = _iLeaveProvider.GetCalendarDataByYearAndMonth(EId, year, month);
+
+            return Json(data);
+        }
+
+        public IActionResult Privacy()
         {
             return View();
         }

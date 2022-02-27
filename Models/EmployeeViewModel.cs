@@ -38,7 +38,7 @@ namespace EmployeeManagement.Models
         [Required(ErrorMessage = "Please Enter Date of Birth")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         [DataType(DataType.Date)]
-        public DateTime? Dob { get; set; }
+        public DateTime Dob { get; set; }
         public List<EmployeeViewModel> EmployeeList { get; set; }
         public EmployeeViewModel()
         {
